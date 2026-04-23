@@ -1,0 +1,12 @@
+{
+  "name": "cx-nexus",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CX NEXUS landing preview (password-protected via StatiCrypt).",
+  "scripts": {
+    "encrypt": "bash scripts/encrypt.sh"
+  },
+  "devDependencies": {
+    "staticrypt": "^3.5.1"
+  }
+}
