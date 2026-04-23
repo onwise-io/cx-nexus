@@ -123,9 +123,9 @@
     }
     .btn-pink {
       background: #FF5BAE; color: #fff;
-      box-shadow: 0 10px 30px -10px rgba(255,91,174,0.55);
+      box-shadow: none;
     }
-    .btn-pink:hover { background: #ff3d9f; transform: translateY(-2px); box-shadow: 0 16px 40px -10px rgba(255,91,174,0.65);}
+    .btn-pink:hover { background: #ff3d9f; transform: translateY(-2px); box-shadow: none; }
     .btn-outline-white {
       color: #fff; border: 1.5px solid rgba(255,255,255,0.6);
     }
@@ -591,9 +591,9 @@
      NAVIGATION
 ============================================================ -->
 <header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
-  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 flex items-center justify-between">
-    <a href="#top" class="flex items-center gap-3 text-white" aria-label="CX NEXUS — home">
-      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[22px] md:h-[24px] w-auto" />
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 relative flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 text-white shrink-0" aria-label="CX NEXUS — home">
+      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[16px] md:h-[24px] w-auto" />
     </a>
     <nav class="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90">
       <a href="#program" class="hover:text-cx-pink transition">Courses</a>
@@ -602,11 +602,34 @@
       <a href="#faq" class="hover:text-cx-pink transition">FAQ</a>
       <a href="#contact" class="hover:text-cx-pink transition">Contact</a>
     </nav>
-    <div class="flex items-center gap-3">
+    <!-- Hamburger (mobile only, absolute-centered in header) -->
+    <button id="hamburger-btn" type="button"
+      class="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center text-white leading-none"
+      aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg class="hb-icon hb-bars block" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="hb-icon hb-close hidden" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M6 18L18 6"/>
+      </svg>
+    </button>
+    <div class="flex items-center gap-3 shrink-0">
       <a href="#contact" class="hidden sm:inline-flex text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90 hover:text-cx-pink transition">Sign&nbsp;In</a>
       <a href="#pricing" class="btn btn-pink !py-2.5 !px-5 !text-[13px]">Sign Up</a>
     </div>
   </div>
+  <!-- Mobile dropdown menu -->
+  <nav id="mobile-menu"
+    class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out bg-cx-black/95 backdrop-blur border-t border-white/10">
+    <div class="px-6 py-2 flex flex-col text-[14px] font-semibold tracking-[0.18em] uppercase text-white/90 divide-y divide-white/10">
+      <a href="#program" class="py-3 hover:text-cx-pink transition">Courses</a>
+      <a href="#keren" class="py-3 hover:text-cx-pink transition">About</a>
+      <a href="#pricing" class="py-3 hover:text-cx-pink transition">Pricing</a>
+      <a href="#faq" class="py-3 hover:text-cx-pink transition">FAQ</a>
+      <a href="#contact" class="py-3 hover:text-cx-pink transition">Contact</a>
+      <a href="#contact" class="py-3 hover:text-cx-pink transition">Sign&nbsp;In</a>
+    </div>
+  </nav>
 </header>
 
 <main id="top">
@@ -2341,6 +2364,41 @@
     }, { threshold: 0.35 });
 
     nodes.forEach(function(n){ io.observe(n); });
+  })();
+</script>
+
+<!-- Mobile hamburger menu toggle -->
+<script>
+  (function(){
+    var btn = document.getElementById('hamburger-btn');
+    var menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    var bars = btn.querySelector('.hb-bars');
+    var close = btn.querySelector('.hb-close');
+    function setOpen(open){
+      if (open) {
+        menu.style.maxHeight = menu.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close menu');
+        bars.classList.add('hidden');
+        close.classList.remove('hidden');
+      } else {
+        menu.style.maxHeight = '0px';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+        bars.classList.remove('hidden');
+        close.classList.add('hidden');
+      }
+    }
+    btn.addEventListener('click', function(){
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setOpen(false); });
+    });
+    window.addEventListener('resize', function(){
+      if (window.innerWidth >= 768) setOpen(false);
+    });
   })();
 </script>
 

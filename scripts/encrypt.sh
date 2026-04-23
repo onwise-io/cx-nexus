@@ -6,7 +6,7 @@
 #   or
 #   ./scripts/encrypt.sh    (you will be prompted for the password)
 #
-# Output: encrypted index.html and cx-nexus-landing-v2.html at repo root.
+# Output: encrypted index.html and v2.html at repo root.
 # Source files in src/ are left untouched.
 
 set -euo pipefail
@@ -42,7 +42,7 @@ run_staticrypt() {
 }
 
 run_staticrypt "src/index.html" "index.html"
-run_staticrypt "src/cx-nexus-landing-v2.html" "cx-nexus-landing-v2.html"
+run_staticrypt "src/v2.html" "v2.html"
 
 # Copy assets/ to repo root (served unchanged by Pages)
 mkdir -p assets
