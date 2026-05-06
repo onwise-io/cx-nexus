@@ -1,0 +1,2372 @@
+<html lang="en"><head><style>body {transition: opacity ease-in 0.2s; } 
+body[unresolved] {opacity: 0; display: block; overflow: hidden; position: relative; } 
+</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CX NEXUS — The Digital CX Academy. Transform intent into execution. Where strategy, people, data, and tech connect.">
+  <title>CX NEXUS — The Digital CX Academy</title>
+  <link rel="icon" type="image/svg+xml" href="assets/cx-nexus-logo.svg">
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Bebas Neue (display) + Heebo (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Heebo:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cx-blue':     '#0000FF',
+            'cx-blue-2':   '#0A0AE0',
+            'cx-black':    '#000000',
+            'cx-ink':      '#0B0B10',
+            'cx-pink':     '#FF5BAE',
+            'cx-pink-2':   '#FF3D9F',
+            'cx-yellow':   '#FFE500',
+            'cx-magenta':  '#FF00FF',
+            'cx-lightblue':'#C4DAE5',
+            'cx-mint':     '#8DF4BA',
+            'cx-purple':   '#BD00FF',
+            'cx-gray-50':  '#F5F5F5',
+            'cx-gray-100': '#E9E9EE',
+            'cx-gray-600': '#5E5E6A',
+            'cx-gray-900': '#14141A',
+            'cx-surface':  '#1A1A1F',
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', '"Heebo"', 'system-ui', 'sans-serif'],
+            sans:    ['"Heebo"', 'system-ui', 'sans-serif'],
+            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          letterSpacing: {
+            'editorial': '-0.035em',
+          },
+          boxShadow: {
+            'card': '0 20px 60px -20px rgba(0,0,0,0.35)',
+            'pop':  '0 24px 70px -20px rgba(255,91,174,0.35)',
+            'glow': '0 0 80px rgba(255,0,255,0.25)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --cx-grid: rgba(255,255,255,0.08);
+      --cx-grid-strong: rgba(255,255,255,0.14);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      font-family: 'Heebo', system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: clip;
+    }
+
+    /* Signature thin grid overlay — used on blue & black sections */
+    .cx-grid {
+      position: relative;
+    }
+    .cx-grid::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, var(--cx-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--cx-grid) 1px, transparent 1px);
+      background-size: 16.6666% 88px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cx-grid-strong::before { background-image:
+      linear-gradient(to right, var(--cx-grid-strong) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--cx-grid-strong) 1px, transparent 1px);
+    }
+    .cx-grid > * { position: relative; z-index: 2; }
+
+    /* Editorial display headline helpers */
+    .h-display {
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 0.92;
+      text-wrap: balance;
+    }
+
+    /* Massive statistic numerals */
+    .num-stat {
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 0.85;
+      letter-spacing: 0;
+    }
+
+    /* Button base */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.6rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      border-radius: 9999px;
+      transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease;
+      will-change: transform;
+    }
+    .btn-pink {
+      background: #FF5BAE; color: #fff;
+      box-shadow: none;
+    }
+    .btn-pink:hover { background: #ff3d9f; transform: translateY(-2px); box-shadow: none; }
+    .btn-outline-white {
+      color: #fff; border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline-white:hover { background: #fff; color: #000; }
+    .btn-black { background: #000; color: #fff; }
+    .btn-black:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+    /* Pill label */
+    .pill {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+    }
+
+    /* Glass card on blue background */
+    .glass {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Three pillars pyramid (CSS-only) */
+    .pillar-pyramid {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1 / 1;
+      margin-inline: auto;
+    }
+    .pillar-slab {
+      position: absolute;
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      letter-spacing: 0.02em;
+      color: #fff;
+      font-size: clamp(22px, 2.4vw, 34px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.12);
+      opacity: var(--p, 0);
+      will-change: transform, opacity;
+    }
+    .pillar-design  { top: 0; left: 0; height: 62%; width: 42%;
+      background: linear-gradient(135deg,#0A0A1A,#111);
+      transform: translate(calc((var(--p, 0) - 1) * 90px), 0) skewY(25deg); transform-origin: top left;}
+    .pillar-defend  { top: 0; right: 0; height: 62%; width: 42%;
+      background: linear-gradient(135deg,#0A0A1A,#111);
+      transform: translate(calc((1 - var(--p, 0)) * 90px), 0) skewY(-25deg); transform-origin: top right;}
+    .pillar-deliver { bottom: 0; left: 50%; height: 36%; width: 78%;
+      background: linear-gradient(180deg,#0A0A1A,#000);
+      transform: translate(-50%, calc((1 - var(--p, 0)) * 70px)); }
+    .pillar-slab span { transform: none; }
+    .pillar-design span { transform: skewY(-25deg); }
+    .pillar-defend span { transform: skewY(25deg); }
+    .pillar-pyramid { will-change: transform; transition: transform 120ms linear; }
+    @media (prefers-reduced-motion: reduce) {
+      .pillar-slab { --p: 1; }
+    }
+
+    /* Convergence abstract (Why is this so hard) */
+    .converge {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 520px;
+      margin-inline: auto;
+      filter: drop-shadow(0 0 60px rgba(189,0,255,0.35));
+    }
+    .converge svg {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 120ms linear;
+    }
+    /* Paths start "undrawn" — pathLength=1 normalizes dash math to 0–1 */
+    .converge .conv-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    /* Glow + center dot start collapsed; JS drives them as scroll passes */
+    .converge .conv-glow,
+    .converge .conv-center { opacity: 0; }
+
+    /* Reduced motion — skip scroll animation, show the finished state */
+    @media (prefers-reduced-motion: reduce) {
+      .converge .conv-path { stroke-dashoffset: 0; }
+      .converge .conv-glow,
+      .converge .conv-center { opacity: 1; }
+      .converge svg { transition: none; }
+    }
+
+    /* Radiate abstract (Join us today) — hub radiating 5 spokes outward */
+    .radiate {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 540px;
+      margin-inline: auto;
+      filter: drop-shadow(0 0 70px rgba(255,46,120,0.32));
+    }
+    .radiate svg {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 120ms linear;
+    }
+    .radiate .rad-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    .radiate .rad-node,
+    .radiate .rad-glow,
+    .radiate .rad-center,
+    .radiate .rad-ring { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .radiate .rad-path { stroke-dashoffset: 0; }
+      .radiate .rad-node,
+      .radiate .rad-glow,
+      .radiate .rad-center,
+      .radiate .rad-ring { opacity: 1; }
+      .radiate svg { transition: none; }
+    }
+
+    /* Device frame for value proposition section */
+    .device {
+      border-radius: 22px;
+      background: #0f0f12;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+    }
+    .device-screen {
+      background: #fff; color: #111;
+      border-radius: 12px;
+      padding: 28px 26px;
+    }
+
+    /* Portrait tile */
+    .portrait-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      aspect-ratio: 3 / 4;
+      background: #111;
+    }
+    .portrait-tile img {
+      width:100%; height:100%; object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+    .portrait-tile::after {
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,255,0) 55%, rgba(0,0,255,0.25) 100%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+
+    /* Tick list */
+    .tick-list li {
+      position: relative;
+      padding-left: 1.3rem;
+      font-size: 0.95rem;
+    }
+    .tick-list li::before {
+      content:"";
+      position: absolute;
+      left: 0; top: 0.55rem;
+      width: 0.55rem; height: 0.55rem; border-radius: 2px;
+      background: #000;
+    }
+
+    /* Testimonial border accent variants */
+    .tcard { border-left-width: 4px; border-left-style: solid; }
+    .t-pink    { border-left-color: #FF5BAE; }
+    .t-yellow  { border-left-color: #FFE500; }
+    .t-magenta { border-left-color: #FF00FF; }
+    .t-blue    { border-left-color: #0000FF; }
+
+    /* Form field on blue bg */
+    .field {
+      background: #0000fe;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      color: #fff;
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+    .field::placeholder { color: rgba(255,255,255,0.75); }
+    .field:focus { outline: none; border-color: #fff; background: #0000fe; }
+
+    /* Hashtag strip */
+    .hashtag { color: rgba(255,255,255,0.75); font-weight: 500; letter-spacing: 0.04em; }
+
+    /* Decorative accent line */
+    .accent-line {
+      height: 6px; border-radius: 6px; background: linear-gradient(90deg,#FF5BAE,#FF00FF,#FFE500);
+    }
+
+    /* Subtle dotted divider */
+    .divider-dots {
+      height: 1px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 50%, transparent 50%);
+      background-size: 8px 1px;
+    }
+
+    /* Sticky nav scrolled state */
+    .nav-scrolled {
+      background: rgba(0,0,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Animations */
+    @keyframes floaty { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-6px);} }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    @keyframes pulseglow { 0%,100%{ opacity:.6; } 50%{ opacity:1;} }
+    .pulseglow { animation: pulseglow 4s ease-in-out infinite; }
+
+    /* Scroll-in fade */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Utility: strikethrough block */
+    .strikeblock { position: relative; display: inline-block; }
+    .strikeblock::after {
+      content:""; position:absolute; left:-2px; right:-2px; top:50%;
+      height: 2px; background: currentColor; transform: translateY(-50%);
+      opacity: .6;
+    }
+
+    /* Pricing card emphasized */
+    .price-card { background: #fff; border: 1px solid #E9E9EE; border-radius: 6px; }
+    .price-card.pop {
+      box-shadow: 0 40px 90px -30px rgba(0,0,0,0.25);
+      transform: translateY(-8px);
+    }
+
+    /* ============================================================
+       FAQ ACCORDION — black section with expanding questions
+    ============================================================ */
+    .faq-item { border-top: 1px solid rgba(255,255,255,0.12); position: relative; }
+    .faq-item:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .faq-summary { list-style: none; cursor: pointer; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::marker { content: ""; }
+
+    /* Number + arrow — white by default, pink when open */
+    .faq-num { color: #fff; transition: color .3s ease; }
+    .faq-toggle {
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+      transition: transform .35s ease, color .3s ease, border-color .3s ease, background .3s ease;
+    }
+    .faq-item[open] .faq-num    { color: #FF2E78; }
+    .faq-item[open] .faq-toggle {
+      transform: rotate(180deg);
+      color: #FF2E78;
+      border-color: #FF2E78;
+      background: transparent;
+    }
+
+    .faq-item[open] > .faq-answer { animation: faqFade .45s ease both; }
+    @keyframes faqFade {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .faq-item .faq-q-text { transition: color .25s ease; }
+    .faq-item:hover .faq-q-text,
+    .faq-item[open] .faq-q-text { color: #fff; }
+
+    /* Left accent bar — pink, reveals on open */
+    .faq-item::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: #FF2E78;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform .35s ease;
+      opacity: 0;
+    }
+    .faq-item[open]::before { transform: scaleY(1); opacity: 1; }
+
+    /* ============================================================
+       HERO CANVAS — asymmetric 4×4 grid with morphing photo slots
+    ============================================================ */
+    .hero-canvas {
+      position: relative;
+      display: grid;
+      /* Slightly varied column + row sizes (not a regular 25/25/25/25) */
+      grid-template-columns: 0.8fr 1.25fr 1.3fr 0.65fr;
+      grid-template-rows:    0.9fr 1.05fr 1.05fr 1fr;
+      min-height: calc(100vh - 0px);
+      padding-top: 80px; /* clear fixed nav */
+      background: #0000FF;
+      overflow: hidden;
+    }
+    /* Visible white grid overlay — draws 3 verticals + 3 horizontals at
+       the asymmetric column/row boundaries. z-index BELOW photos so that
+       when a photo spans multiple cells the internal dividing line is
+       covered by the image. */
+    .hero-canvas::after {
+      content: "";
+      position: absolute;
+      inset: 80px 0 0 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35));
+      background-repeat: no-repeat;
+      background-size:
+        1px 100%, 1px 100%, 1px 100%,
+        100% 1px, 100% 1px, 100% 1px;
+      /* V lines at col boundaries 20% / 51.25% / 83.75% and
+         H lines at row boundaries 22.5% / 48.75% / 75% */
+      background-position:
+        20% 0, 51.25% 0, 83.75% 0,
+        0 22.5%, 0 48.75%, 0 75%;
+    }
+    .hero-canvas > * { position: relative; z-index: 2; }
+
+    .hc-headline {
+      grid-column: 1 / span 2;
+      grid-row: 1 / span 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(1.25rem, 2.2vw, 2.5rem);
+      z-index: 3;
+    }
+    .hc-headline h1 {
+      font-size: clamp(44px, 5.4vw, 84px);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+    .hc-cta {
+      grid-column: 1 / span 3;
+      grid-row: 4;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(1rem, 1.8vw, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
+      z-index: 3;
+    }
+    .hc-logo {
+      grid-column: 4;
+      grid-row: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem;
+      z-index: 3;
+    }
+    .hc-logo img {
+      width: 72%; max-width: 200px;
+      opacity: 0.95;
+    }
+
+    /* Photo slot — position set dynamically by JS via inline
+       grid-column / grid-row. Transition is applied inline per-animation
+       (FLIP transform for movers, opacity keyframes for entering/leaving). */
+    .hc-photo {
+      position: relative;
+      overflow: hidden;
+      background: #0000FF;
+      z-index: 2;
+      will-change: transform, opacity;
+    }
+    .hc-photo.hc-slot-entering {
+      animation: hcSlotEnter 0.3s ease forwards;
+    }
+    .hc-photo.hc-slot-leaving {
+      animation: hcSlotLeave 0.3s ease forwards;
+    }
+    @keyframes hcSlotEnter {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes hcSlotLeave {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+    .hc-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s ease, transform 6s ease;
+      transform: scale(1.04);
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .hc-img.active { opacity: 1; transform: scale(1); }
+
+    /* Subtle photo tint to keep brand cohesion */
+    .hc-photo::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,255,0.08) 0%, rgba(0,0,255,0.18) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Hero credentials strip below the canvas */
+    .hero-credentials {
+      background: #0000FF;
+      padding: 14px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.22);
+    }
+
+    /* Responsive — mobile collapses the canvas into a vertical stack */
+    @media (max-width: 900px) {
+      .hero-canvas {
+        display: block;
+        padding: 104px 20px 20px;
+        min-height: auto;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      .hero-canvas::after { display: none; }
+      .hc-headline, .hc-cta, .hc-logo { padding: 0; }
+      .hc-headline { margin-bottom: 1.5rem; }
+      .hc-headline h1 { font-size: clamp(36px, 8vw, 60px); }
+      .hc-logo { justify-content: flex-start; margin-bottom: 1.25rem; }
+      .hc-logo img { width: 140px; }
+
+      /* Mobile: reset any JS-applied grid positions so stack order uses DOM */
+      .hc-photo { grid-column: auto !important; grid-row: auto !important; }
+
+      /* Show only the last photo slot on mobile, after the CTA */
+      .hc-photo[data-slot="1"],
+      .hc-photo[data-slot="2"],
+      .hc-photo[data-slot="3"] { display: none !important; }
+
+      .hc-photo[data-slot="4"] {
+        display: block !important;
+        height: clamp(220px, 52vw, 360px);
+        margin-top: 2.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid rgba(255,255,255,0.28);
+        opacity: 1 !important;
+      }
+    }
+
+    /* Media for small screens (legacy helper) */
+    @media (max-width: 768px) {
+      .cx-grid::before { background-size: 25% 88px; }
+    }
+  </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:"Heebo", system-ui, sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:"JetBrains Mono", ui-monospace, monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.-inset-3{inset:-0.75rem}.-inset-6{inset:-1.5rem}.inset-0{inset:0px}.-bottom-2{bottom:-0.5rem}.-left-20{left:-5rem}.-right-24{right:-6rem}.-top-20{top:-5rem}.-top-24{top:-6rem}.bottom-0{bottom:0px}.left-0{left:0px}.left-1\/2{left:50%}.right-0{right:0px}.top-0{top:0px}.top-1\/2{top:50%}.z-10{z-index:10}.z-50{z-index:50}.order-1{order:1}.order-2{order:2}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:0.25rem}.mb-10{margin-bottom:2.5rem}.mb-2{margin-bottom:0.5rem}.mb-3{margin-bottom:0.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:0.25rem}.mt-10{margin-top:2.5rem}.mt-12{margin-top:3rem}.mt-16{margin-top:4rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.aspect-\[3\/4\]{aspect-ratio:3/4}.h-1\.5{height:0.375rem}.h-11{height:2.75rem}.h-12{height:3rem}.h-14{height:3.5rem}.h-8{height:2rem}.h-\[16px\]{height:16px}.h-\[22px\]{height:22px}.h-\[380px\]{height:380px}.h-\[420px\]{height:420px}.h-\[480px\]{height:480px}.h-\[6px\]{height:6px}.h-full{height:100%}.h-px{height:1px}.max-h-0{max-height:0px}.w-1\.5{width:0.375rem}.w-11{width:2.75rem}.w-12{width:3rem}.w-8{width:2rem}.w-\[2\.4ch\]{width:2.4ch}.w-\[380px\]{width:380px}.w-\[420px\]{width:420px}.w-\[480px\]{width:480px}.w-auto{width:auto}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-3xl{max-width:48rem}.max-w-5xl{max-width:64rem}.max-w-\[1200px\]{max-width:1200px}.max-w-\[1440px\]{max-width:1440px}.max-w-\[420px\]{max-width:420px}.max-w-\[560px\]{max-width:560px}.max-w-\[580px\]{max-width:580px}.max-w-\[62ch\]{max-width:62ch}.max-w-\[680px\]{max-width:680px}.max-w-md{max-width:28rem}.max-w-sm{max-width:24rem}.max-w-xl{max-width:36rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.place-items-center{place-items:center}.items-start{align-items:flex-start}.items-center{align-items:center}.items-baseline{align-items:baseline}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-2{gap:0.5rem}.gap-3{gap:0.75rem}.gap-4{gap:1rem}.gap-5{gap:1.25rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.gap-x-10{column-gap:2.5rem}.gap-x-8{column-gap:2rem}.gap-y-2{row-gap:0.5rem}.gap-y-3{row-gap:0.75rem}.gap-y-6{row-gap:1.5rem}.space-y-1 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.25rem * var(--tw-space-y-reverse))}.space-y-10 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2.5rem * var(--tw-space-y-reverse))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-7 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.75rem * var(--tw-space-y-reverse))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.divide-y > :not([hidden]) ~ :not([hidden]){--tw-divide-y-reverse:0;border-top-width:calc(1px * calc(1 - var(--tw-divide-y-reverse)));border-bottom-width:calc(1px * var(--tw-divide-y-reverse))}.divide-white\/10 > :not([hidden]) ~ :not([hidden]){border-color:rgb(255 255 255 / 0.1)}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded-full{border-radius:9999px}.rounded-md{border-radius:0.375rem}.rounded-sm{border-radius:0.125rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-l-2{border-left-width:2px}.border-l-4{border-left-width:4px}.border-t{border-top-width:1px}.border-\[\#FF5BAE\]{--tw-border-opacity:1;border-color:rgb(255 91 174 / var(--tw-border-opacity, 1))}.border-cx-blue{--tw-border-opacity:1;border-color:rgb(0 0 255 / var(--tw-border-opacity, 1))}.border-cx-blue\/40{border-color:rgb(0 0 255 / 0.4)}.border-cx-gray-100{--tw-border-opacity:1;border-color:rgb(233 233 238 / var(--tw-border-opacity, 1))}.border-cx-magenta{--tw-border-opacity:1;border-color:rgb(255 0 255 / var(--tw-border-opacity, 1))}.border-cx-pink{--tw-border-opacity:1;border-color:rgb(255 91 174 / var(--tw-border-opacity, 1))}.border-cx-yellow{--tw-border-opacity:1;border-color:rgb(255 229 0 / var(--tw-border-opacity, 1))}.border-white\/10{border-color:rgb(255 255 255 / 0.1)}.border-white\/15{border-color:rgb(255 255 255 / 0.15)}.border-white\/30{border-color:rgb(255 255 255 / 0.3)}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-cx-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-cx-black\/95{background-color:rgb(0 0 0 / 0.95)}.bg-cx-blue{--tw-bg-opacity:1;background-color:rgb(0 0 255 / var(--tw-bg-opacity, 1))}.bg-cx-blue\/30{background-color:rgb(0 0 255 / 0.3)}.bg-cx-gray-100{--tw-bg-opacity:1;background-color:rgb(233 233 238 / var(--tw-bg-opacity, 1))}.bg-cx-gray-50{--tw-bg-opacity:1;background-color:rgb(245 245 245 / var(--tw-bg-opacity, 1))}.bg-cx-magenta{--tw-bg-opacity:1;background-color:rgb(255 0 255 / var(--tw-bg-opacity, 1))}.bg-cx-magenta\/15{background-color:rgb(255 0 255 / 0.15)}.bg-cx-pink{--tw-bg-opacity:1;background-color:rgb(255 91 174 / var(--tw-bg-opacity, 1))}.bg-cx-pink\/20{background-color:rgb(255 91 174 / 0.2)}.bg-cx-surface{--tw-bg-opacity:1;background-color:rgb(26 26 31 / var(--tw-bg-opacity, 1))}.bg-cx-yellow\/20{background-color:rgb(255 229 0 / 0.2)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.bg-gradient-to-b{background-image:linear-gradient(to bottom, var(--tw-gradient-stops))}.from-\[\#0B0B14\]{--tw-gradient-from:#0B0B14 var(--tw-gradient-from-position);--tw-gradient-to:rgb(11 11 20 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.from-cx-blue\/10{--tw-gradient-from:rgb(0 0 255 / 0.1) var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 0 255 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.via-transparent{--tw-gradient-to:rgb(0 0 0 / 0)  var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), transparent var(--tw-gradient-via-position), var(--tw-gradient-to)}.to-\[\#000\]{--tw-gradient-to:#000 var(--tw-gradient-to-position)}.to-cx-blue\/20{--tw-gradient-to:rgb(0 0 255 / 0.2) var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.p-4{padding:1rem}.p-5{padding:1.25rem}.p-6{padding:1.5rem}.p-7{padding:1.75rem}.p-8{padding:2rem}.\!px-5{padding-left:1.25rem !important;padding-right:1.25rem !important}.\!py-2\.5{padding-top:0.625rem !important;padding-bottom:0.625rem !important}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-10{padding-top:2.5rem;padding-bottom:2.5rem}.py-14{padding-top:3.5rem;padding-bottom:3.5rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pb-6{padding-bottom:1.5rem}.pl-5{padding-left:1.25rem}.pl-6{padding-left:1.5rem}.pr-4{padding-right:1rem}.pt-10{padding-top:2.5rem}.text-center{text-align:center}.text-right{text-align:right}.font-display{font-family:"Bebas Neue", "Heebo", system-ui, sans-serif}.font-mono{font-family:"JetBrains Mono", ui-monospace, monospace}.font-sans{font-family:"Heebo", system-ui, sans-serif}.\!text-\[13px\]{font-size:13px !important}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[0\.5em\]{font-size:0.5em}.text-\[11px\]{font-size:11px}.text-\[13px\]{font-size:13px}.text-\[14px\]{font-size:14px}.text-\[15px\]{font-size:15px}.text-\[17px\]{font-size:17px}.text-\[clamp\(18px\2c 1\.8vw\2c 26px\)\]{font-size:clamp(18px,1.8vw,26px)}.text-\[clamp\(22px\2c 2\.4vw\2c 34px\)\]{font-size:clamp(22px,2.4vw,34px)}.text-\[clamp\(28px\2c 3\.5vw\2c 40px\)\]{font-size:clamp(28px,3.5vw,40px)}.text-\[clamp\(28px\2c 3\.5vw\2c 44px\)\]{font-size:clamp(28px,3.5vw,44px)}.text-\[clamp\(30px\2c 4\.5vw\2c 56px\)\]{font-size:clamp(30px,4.5vw,56px)}.text-\[clamp\(30px\2c 4vw\2c 56px\)\]{font-size:clamp(30px,4vw,56px)}.text-\[clamp\(32px\2c 4vw\2c 44px\)\]{font-size:clamp(32px,4vw,44px)}.text-\[clamp\(34px\2c 5vw\2c 68px\)\]{font-size:clamp(34px,5vw,68px)}.text-\[clamp\(36px\2c 5\.5vw\2c 76px\)\]{font-size:clamp(36px,5.5vw,76px)}.text-\[clamp\(40px\2c 5vw\2c 56px\)\]{font-size:clamp(40px,5vw,56px)}.text-\[clamp\(56px\2c 7vw\2c 88px\)\]{font-size:clamp(56px,7vw,88px)}.text-\[clamp\(64px\2c 8vw\2c 100px\)\]{font-size:clamp(64px,8vw,100px)}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.normal-case{text-transform:none}.italic{font-style:italic}.leading-\[0\.92\]{line-height:0.92}.leading-\[0\.95\]{line-height:0.95}.leading-\[0\.9\]{line-height:0.9}.leading-\[1\.15\]{line-height:1.15}.leading-none{line-height:1}.leading-relaxed{line-height:1.625}.leading-snug{line-height:1.375}.leading-tight{line-height:1.25}.tracking-\[0\.18em\]{letter-spacing:0.18em}.tracking-\[0\.22em\]{letter-spacing:0.22em}.tracking-\[0\.25em\]{letter-spacing:0.25em}.tracking-\[0\.2em\]{letter-spacing:0.2em}.tracking-\[0\.35em\]{letter-spacing:0.35em}.tracking-\[0\.3em\]{letter-spacing:0.3em}.tracking-normal{letter-spacing:0em}.tracking-wide{letter-spacing:0.025em}.text-cx-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-cx-blue{--tw-text-opacity:1;color:rgb(0 0 255 / var(--tw-text-opacity, 1))}.text-cx-gray-600{--tw-text-opacity:1;color:rgb(94 94 106 / var(--tw-text-opacity, 1))}.text-cx-gray-600\/80{color:rgb(94 94 106 / 0.8)}.text-cx-gray-900{--tw-text-opacity:1;color:rgb(20 20 26 / var(--tw-text-opacity, 1))}.text-cx-magenta{--tw-text-opacity:1;color:rgb(255 0 255 / var(--tw-text-opacity, 1))}.text-cx-pink{--tw-text-opacity:1;color:rgb(255 91 174 / var(--tw-text-opacity, 1))}.text-cx-yellow{--tw-text-opacity:1;color:rgb(255 229 0 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-white\/40{color:rgb(255 255 255 / 0.4)}.text-white\/50{color:rgb(255 255 255 / 0.5)}.text-white\/55{color:rgb(255 255 255 / 0.55)}.text-white\/60{color:rgb(255 255 255 / 0.6)}.text-white\/70{color:rgb(255 255 255 / 0.7)}.text-white\/75{color:rgb(255 255 255 / 0.75)}.text-white\/80{color:rgb(255 255 255 / 0.8)}.text-white\/85{color:rgb(255 255 255 / 0.85)}.text-white\/90{color:rgb(255 255 255 / 0.9)}.underline{-webkit-text-decoration-line:underline;text-decoration-line:underline}.decoration-cx-blue{-webkit-text-decoration-color:#0000FF;text-decoration-color:#0000FF}.decoration-cx-pink-2{-webkit-text-decoration-color:#FF3D9F;text-decoration-color:#FF3D9F}.decoration-cx-yellow{-webkit-text-decoration-color:#FFE500;text-decoration-color:#FFE500}.decoration-\[3px\]{text-decoration-thickness:3px}.decoration-\[4px\]{text-decoration-thickness:4px}.underline-offset-\[6px\]{text-underline-offset:6px}.underline-offset-\[8px\]{text-underline-offset:8px}.opacity-60{opacity:0.6}.opacity-90{opacity:0.9}.mix-blend-overlay{mix-blend-mode:overlay}.shadow-card{--tw-shadow:0 20px 60px -20px rgba(0,0,0,0.35);--tw-shadow-colored:0 20px 60px -20px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.blur-\[120px\]{--tw-blur:blur(120px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.blur-\[140px\]{--tw-blur:blur(140px);filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur{--tw-backdrop-blur:blur(8px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-\[max-height\]{transition-property:max-height;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.ease-in-out{transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1)}.hover\:bg-white:hover{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.hover\:text-cx-blue:hover{--tw-text-opacity:1;color:rgb(0 0 255 / var(--tw-text-opacity, 1))}.hover\:text-cx-pink:hover{--tw-text-opacity:1;color:rgb(255 91 174 / var(--tw-text-opacity, 1))}.hover\:text-cx-yellow:hover{--tw-text-opacity:1;color:rgb(255 229 0 / var(--tw-text-opacity, 1))}.hover\:text-white:hover{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}@media (min-width: 640px){.sm\:block{display:block}.sm\:inline-flex{display:inline-flex}}@media (min-width: 768px){.md\:mb-20{margin-bottom:5rem}.md\:mt-10{margin-top:2.5rem}.md\:mt-20{margin-top:5rem}.md\:flex{display:flex}.md\:hidden{display:none}.md\:h-16{height:4rem}.md\:h-\[24px\]{height:24px}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:gap-10{gap:2.5rem}.md\:gap-8{gap:2rem}.md\:border-b-0{border-bottom-width:0px}.md\:border-r{border-right-width:1px}.md\:p-10{padding:2.5rem}.md\:p-8{padding:2rem}.md\:px-10{padding-left:2.5rem;padding-right:2.5rem}.md\:py-12{padding-top:3rem;padding-bottom:3rem}.md\:py-16{padding-top:4rem;padding-bottom:4rem}.md\:py-20{padding-top:5rem;padding-bottom:5rem}.md\:py-8{padding-top:2rem;padding-bottom:2rem}.md\:pb-8{padding-bottom:2rem}.md\:pl-10{padding-left:2.5rem}.md\:pl-\[calc\(2\.4ch\+1\.25rem\)\]{padding-left:calc(2.4ch + 1.25rem)}.md\:pr-10{padding-right:2.5rem}.md\:text-3xl{font-size:1.875rem;line-height:2.25rem}.md\:text-\[17px\]{font-size:17px}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}.md\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width: 1024px){.lg\:sticky{position:sticky}.lg\:top-\[96px\]{top:96px}.lg\:order-1{order:1}.lg\:order-2{order:2}.lg\:col-span-5{grid-column:span 5 / span 5}.lg\:col-span-6{grid-column:span 6 / span 6}.lg\:col-span-7{grid-column:span 7 / span 7}.lg\:grid-cols-12{grid-template-columns:repeat(12, minmax(0, 1fr))}.lg\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.lg\:items-stretch{align-items:stretch}}</style><style type="text/css"></style><style type="text/css">.pixelParallel-panel[data-v-dedc8274]{position:fixed;right:10px;bottom:10px;z-index:2147483647;width:375px;height:265px;transform:translate(0);background:#fff;transition:width .2s ease-out,height .2s ease-out;will-change:top,left,width,height,transform;opacity:0}.pixelParallel-panel-inner[data-v-dedc8274]{position:relative;overflow:hidden;height:100%;border:1px solid #dddedf;box-shadow:0 2px 10px rgba(0,0,0,.1);box-sizing:border-box}.pixelParallel-panel-handle[data-v-dedc8274]{position:absolute;top:-10px;right:-10px;z-index:3;width:20px;height:20px;background:red;transform:rotate(45deg);background:linear-gradient(0deg,transparent,transparent 50%,#ccc 0,#ccc);background-size:100% 2px;cursor:move}.pixelParallel-panel-isolator[data-v-dedc8274]{border:0;width:100%;height:100%;overflow:hidden;position:relative}.pixelParallel-panel-dragging .pixelParallel-panel-inner[data-v-dedc8274]{pointer-events:none}.pixelParallel-panel-minimized[data-v-dedc8274]{width:112px;height:50px;transition:width .2s ease-out .15s,height .2s ease-out .15s}@media (max-width:395px){.pixelParallel-panel[data-v-dedc8274]{right:0;bottom:0;width:320px}.pixelParallel-panel-minimized[data-v-dedc8274]{width:112px}}</style><style type="text/css">.pixelParallel-overlay{position:absolute;left:0;top:0;width:100%;text-align:center;white-space:nowrap;display:none}.pixelParallel-overlay-enabled{display:block}</style><style type="text/css">.pixelParallel-image-outer{visibility:hidden;position:absolute;top:0;left:0;width:100%;overflow:hidden;max-width:100vw;min-height:100vh}.pixelParallel-image-inner{position:absolute;z-index:2147483646;left:50%;top:0;cursor:move;transform:translateX(-50%);transition:opacity .15s}.pixelParallel-image-inner img{width:auto;height:auto;max-width:none;max-height:none;vertical-align:top;margin:0;padding:0;position:relative;transform-origin:50% 0;top:-1px;border:1px dashed #333}.pixelParallel-image-inner img:not([src]),.pixelParallel-image-inner img[src=""]{visibility:hidden}.pixelParallel-image-enabled{visibility:visible}.pixelParallel-image-difference{mix-blend-mode:difference}.pixelParallel-image-difference img{opacity:1!important}.pixelParallel-image-locked,.pixelParallel-image-no-image{pointer-events:none}.pixelParallel-image-locked .pixelParallel-image-inner img{top:0;border:0 none}</style><style type="text/css">.pixelParallel-grids{position:relative;z-index:2147483646;pointer-events:none}.pixelParallel-grid-horizontal,.pixelParallel-grid-vertical{position:fixed;z-index:1;pointer-events:none;visibility:hidden}.pixelParallel-grid-horizontal{top:50%;left:50%;display:table;width:100vw;height:200vh;opacity:.5;table-layout:fixed;border-spacing:30px;transform:translate(-50%,-50%)}.pixelParallel-grid-horizontal span{display:table-cell;background:red;height:200vh}.pixelParallel-grid-vertical{top:0;left:0;width:100%;height:100%;background:linear-gradient(180deg,transparent,transparent 90%,blue 0,blue);background-size:100% 10px;opacity:.5}.pixelParallel-grid-horizontal-enabled,.pixelParallel-grid-vertical-enabled{visibility:visible}</style><style type="text/css">.pixelParallel-rulers{position:relative;z-index:2147483646}.pixelParallel-ruler-x,.pixelParallel-ruler-y{display:none;position:fixed;top:0;left:0;z-index:2;background:cyan}.pixelParallel-ruler-x:after,.pixelParallel-ruler-y:after{content:"";position:absolute;top:-8px;left:-8px;right:0;bottom:0;padding:10px}.pixelParallel-ruler-x{right:0;height:1px;cursor:row-resize}.pixelParallel-ruler-y{bottom:0;width:1px;cursor:col-resize}.pixelParallel-rulers-enabled .pixelParallel-ruler-x,.pixelParallel-rulers-enabled .pixelParallel-ruler-y{display:block}</style></head>
+
+<body class="bg-cx-black text-white">
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 nav-scrolled">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 relative flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 text-white shrink-0" aria-label="CX NEXUS — home">
+      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[16px] md:h-[24px] w-auto">
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90">
+      <a href="#framework" class="hover:text-cx-pink transition">Courses</a>
+      <a href="#keren" class="hover:text-cx-pink transition">About</a>
+      <a href="#pricing" class="hover:text-cx-pink transition">Pricing</a>
+      <a href="#faq" class="hover:text-cx-pink transition">FAQ</a>
+      <a href="#contact" class="hover:text-cx-pink transition">Contact</a>
+    </nav>
+    <!-- Hamburger (mobile only, absolute-centered in header) -->
+    <button id="hamburger-btn" type="button" class="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center text-white leading-none" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg class="hb-icon hb-bars block" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"></path>
+      </svg>
+      <svg class="hb-icon hb-close hidden" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M6 18L18 6"></path>
+      </svg>
+    </button>
+    <div class="flex items-center gap-3 shrink-0">
+      <a href="#contact" class="hidden sm:inline-flex text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90 hover:text-cx-pink transition">Sign&nbsp;In</a>
+      <a href="#pricing" class="btn btn-pink !py-2.5 !px-5 !text-[13px]">Sign Up</a>
+    </div>
+  </div>
+  <!-- Mobile dropdown menu -->
+  <nav id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out bg-cx-black/95 backdrop-blur border-t border-white/10" style="max-height: 0px;">
+    <div class="px-6 py-2 flex flex-col text-[14px] font-semibold tracking-[0.18em] uppercase text-white/90 divide-y divide-white/10">
+      <a href="#framework" class="py-3 hover:text-cx-pink transition">Courses</a>
+      <a href="#keren" class="py-3 hover:text-cx-pink transition">About</a>
+      <a href="#pricing" class="py-3 hover:text-cx-pink transition">Pricing</a>
+      <a href="#faq" class="py-3 hover:text-cx-pink transition">FAQ</a>
+      <a href="#contact" class="py-3 hover:text-cx-pink transition">Contact</a>
+      <a href="#contact" class="py-3 hover:text-cx-pink transition">Sign&nbsp;In</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============================================================
+     SECTION 1 — EDITORIAL HERO  (4×4 grid canvas with cycling portraits)
+============================================================ -->
+<section id="home" class="relative bg-cx-blue text-white overflow-hidden">
+  <div class="hero-canvas">
+
+    <!-- Headline block — spans 2 cols × 2 rows (top-left quadrant) -->
+    <div class="hc-headline">
+      <h1 class="h-display uppercase text-white" style="font-size: clamp(36px, 4.5vw, 64px); line-height: 0.95;">
+        nex·us
+      </h1>
+      <p class="mt-3 text-white/80 text-sm italic reveal in">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+      <div class="mt-5 space-y-1 text-white/90 text-[15px] leading-relaxed max-w-[560px]">
+        <p class="reveal in">Between strategy and execution.</p>
+        <p class="reveal in">Between measurement and management.</p>
+        <p class="reveal in">Between what Finance demands and what customers feel.</p>
+        <p class="reveal in">Between people, processes, and technology.</p>
+        <p class="reveal in">Between the short-term pressure to deliver and the long-term need to build something that lasts.</p>
+      </div>
+    </div>
+
+    <!-- NEXUS wordmark — default upper-right cell -->
+    <div class="hc-logo">
+      <img src="assets/cx-nexus-logo-white.svg" alt="">
+    </div>
+
+    <!-- Photo slot 1 -->
+    <div class="hc-photo" data-slot="1" aria-hidden="true" style="opacity: 1; grid-area: 2 / 4 / span 2 / span 1;"><img class="hc-img active" alt="" decoding="async" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"><img class="hc-img" alt="" decoding="async" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"></div>
+
+    <!-- Photo slot 2 -->
+    <div class="hc-photo" data-slot="2" aria-hidden="true" style="opacity: 1; grid-area: 3 / 2 / span 1 / span 1;"><img class="hc-img active" alt="" decoding="async" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"><img class="hc-img" alt="" decoding="async" src="https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"></div>
+
+    <!-- Photo slot 3 -->
+    <div class="hc-photo" data-slot="3" aria-hidden="true" style="opacity: 1; grid-area: 1 / 3 / span 1 / span 1;"><img class="hc-img active" alt="" decoding="async" src="https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"><img class="hc-img" alt="" decoding="async" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"></div>
+
+    <!-- Tagline + CTAs — bottom row, spans 3 cols -->
+    <div class="hc-cta">
+      <p class="text-white/90 text-base md:text-lg leading-relaxed max-w-[680px] reveal in">
+        This is where CX leaders live. And nobody taught you how to operate there.<br>
+        <span class="font-bold">CX NEXUS is the program that does.</span>
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-5 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-5 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Photo slot 4 (the only slot visible on mobile, after CTA) -->
+    <div class="hc-photo" data-slot="4" aria-hidden="true" style="opacity: 1; grid-area: 4 / 4 / span 1 / span 1;"><img class="hc-img" alt="" decoding="async" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"><img class="hc-img active" alt="" decoding="async" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&amp;fit=crop&amp;w=1100&amp;q=80"></div>
+
+  </div>
+
+  <!-- Credentials strip below the canvas -->
+  <div class="hero-credentials">
+    <div class="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[11px] tracking-[0.22em] uppercase text-white/85 font-semibold">
+      <span>CCXP Certified</span>
+      <span class="text-white/40">·</span>
+      <span>CXPA Recognized Training Provider</span>
+      <span class="text-white/40">·</span>
+      <span>Since 2016</span>
+      <span class="text-white/40">·</span>
+      <span>+500 Graduates</span>
+      <span class="text-white/40">·</span>
+      <span class="text-cx-yellow">Now in a new online edition</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — THE THREE ROLES  (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] text-cx-black leading-[0.95] reveal in">
+        The role nobody<br>prepared you for
+      </h2>
+      <p class="mt-3 text-base md:text-lg text-cx-gray-600 reveal in">A CX leader is three professionals in one body.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <!-- Architect -->
+      <article class="bg-cx-black text-white p-6 md:p-8 rounded-sm relative overflow-hidden reveal in">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center">
+          <!-- triangle -->
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><polygon points="28,6 52,50 4,50" stroke="#fff" stroke-width="2"></polygon></svg>
+        </div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-pink font-semibold mb-2">An Architect</div>
+        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4">Designs the intended experience</h3>
+        <p class="text-white/75 text-[15px] leading-relaxed reveal in">
+          Designing the intended experience, experimenting to find what works, building a system that connects journeys, values, and business priorities into something operations can execute.
+        </p>
+      </article>
+
+      <!-- Accountant -->
+      <article class="bg-cx-black text-white p-6 md:p-8 rounded-sm relative overflow-hidden reveal in">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center">
+          <!-- circle -->
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><circle cx="28" cy="28" r="24" stroke="#fff" stroke-width="2"></circle></svg>
+        </div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-2">An Accountant</div>
+        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4">Proves the value</h3>
+        <p class="text-white/75 text-[15px] leading-relaxed reveal in">
+          Proving the value, building the business case, translating customer problems into revenue, cost, and risk in a language Finance respects.
+        </p>
+      </article>
+
+      <!-- Diplomat -->
+      <article class="bg-cx-black text-white p-6 md:p-8 rounded-sm relative overflow-hidden reveal in">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center">
+          <!-- hexagon -->
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none"><polygon points="28,4 50,16 50,40 28,52 6,40 6,16" stroke="#fff" stroke-width="2"></polygon></svg>
+        </div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-magenta font-semibold mb-2">A Diplomat</div>
+        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4">Leads without authority</h3>
+        <p class="text-white/75 text-[15px] leading-relaxed reveal in">
+          Navigating politics, building coalitions across functions, leading change without authority, and making things stick when the meeting ends and people go back to their real priorities.
+        </p>
+      </article>
+    </div>
+
+    <div class="text-center mt-12 max-w-3xl mx-auto">
+      <p class="text-lg md:text-xl text-cx-gray-900 leading-relaxed reveal in">
+        No course teaches all three.<br class="hidden sm:block">
+        Most don't even acknowledge the last two exist.
+      </p>
+      <p class="mt-4 h-display uppercase text-[clamp(28px,3.5vw,44px)] leading-[0.95] text-cx-black reveal in">
+        <span class="relative inline-block">
+          CX&nbsp;NEXUS does.
+          <span class="absolute left-0 -bottom-2 h-[6px] w-full bg-cx-pink" aria-hidden="true"></span>
+        </span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — THE ODDS (white, editorial compact)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-14 md:py-16">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+    <div class="flex items-baseline justify-between mb-8 flex-wrap gap-4">
+      <h2 class="h-display uppercase text-[clamp(30px,4.5vw,56px)] text-cx-black reveal in">The odds are stacked against you.</h2>
+      <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-mono shrink-0">CX INDEX · 2024–2025</div>
+    </div>
+
+    <!-- Lead stat pair -->
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
+      <div class="flex items-baseline gap-4 p-5 bg-cx-gray-50 border-l-4 border-cx-pink">
+        <span class="num-stat text-cx-black text-[clamp(40px,5vw,56px)] leading-none shrink-0" data-count-to="39" data-count-suffix="%" data-count-done="1">39<span class="text-[0.5em]">%</span></span>
+        <p class="text-cx-gray-600 text-[14px] leading-snug reveal in">of brands declined in CX quality in 2024 — the third consecutive year at an all‑time low.</p>
+      </div>
+      <div class="flex items-baseline gap-4 p-5 bg-cx-gray-50 border-l-4 border-cx-pink">
+        <span class="num-stat text-cx-black text-[clamp(40px,5vw,56px)] leading-none shrink-0" data-count-to="7" data-count-suffix="%" data-count-done="1">7<span class="text-[0.5em]">%</span></span>
+        <p class="text-cx-gray-600 text-[14px] leading-snug reveal in">improved in 2025. Everyone else is still stuck.</p>
+      </div>
+    </div>
+
+    <!-- Secondary stats — compact 3-col -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="54" data-count-suffix="%" data-count-done="1">54<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug reveal in">of CX professionals say their teams cannot prove the ROI of their projects.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(28px,3.5vw,40px)] leading-none whitespace-nowrap">1&nbsp;in&nbsp;5</span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug reveal in">CX programs will disappear entirely. Others will be split up and absorbed into other functions.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="64" data-count-suffix="%" data-count-done="1">64<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug reveal in">CCO appointments grew 64% in 2024. The role is expanding faster than ever. The support system isn't.</p>
+      </div>
+    </div>
+
+    <!-- Tertiary stats — compact 3-col -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="55" data-count-suffix="%" data-count-done="1">55<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug reveal in">of CCOs strongly agree they are responsible for the end-to-end customer journey. The rest? Working with an undefined mandate.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="20" data-count-suffix="%" data-count-done="1">20<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug reveal in">of CCOs receive invitations to attend or speak at board meetings very frequently. The rest are leading transformation without a seat at the table.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="50" data-count-suffix="%" data-count-done="1">50<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug reveal in">say cultural resistance is one of the greatest challenges they face.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — WHY IS THIS SO HARD? (black + convergence)
+============================================================ -->
+<section class="cx-grid relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-6">
+      <h2 class="h-display uppercase text-[clamp(36px,5.5vw,76px)] reveal in">
+        Why is this<br>so <span class="text-cx-magenta">hard?</span>
+      </h2>
+      <p class="mt-8 max-w-[560px] text-white text-lg font-semibold reveal in">
+        Because the CX role demands everything.
+      </p>
+      <p class="mt-2 max-w-[560px] text-white/85 text-[15px] leading-relaxed reveal in">
+        Strategy. Measurement. Finance. Technology. Change leadership. Stakeholder management. All at once.
+      </p>
+      <p class="mt-4 max-w-[560px] text-white/75 text-[15px] leading-relaxed reveal in">
+        Most CX leaders came from one domain: VoC, service, customer success, marketing, operations. Each brings deep expertise in one area. But the role requires all of them. And no single background prepares you for that.
+      </p>
+      <p class="mt-4 max-w-[560px] text-white/75 text-[15px] leading-relaxed reveal in">
+        You need to design like an architect, prove value like a CFO, and lead change like a diplomat. You need to connect insight to action across functions you don't control, with data that is never perfect, inside organizations that weren't built to prioritize the customer.
+      </p>
+      <p class="mt-6 max-w-[560px] italic text-white font-medium reveal in">
+        That is a lot to figure out alone. And most CX leaders don't have years to learn it through trial and error.
+      </p>
+      <div class="mt-10">
+        <a href="#pricing" class="btn btn-pink">
+          Apply for the Next Cohort
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Convergence SVG -->
+    <div class="lg:col-span-6">
+      <div class="converge">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: translate3d(0px, 0.4px, 0px);">
+          <defs>
+            <linearGradient id="g-blue" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#0000FF"></stop><stop offset="100%" stop-color="#BD00FF"></stop>
+            </linearGradient>
+            <linearGradient id="g-pink" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#FF5BAE"></stop><stop offset="100%" stop-color="#FF00FF"></stop>
+            </linearGradient>
+            <linearGradient id="g-yellow" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#FFE500"></stop><stop offset="100%" stop-color="#FF5BAE"></stop>
+            </linearGradient>
+            <radialGradient id="g-glow" cx="60%" cy="50%" r="30%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.95"></stop>
+              <stop offset="60%" stop-color="#FF00FF" stop-opacity="0.4"></stop>
+              <stop offset="100%" stop-color="#FF00FF" stop-opacity="0"></stop>
+            </radialGradient>
+          </defs>
+
+          <g stroke-width="4" stroke-linecap="round" fill="none">
+            <path class="conv-path" pathLength="1" d="M40,90 C 200,140 240,260 370,300 C 470,330 520,310 560,280" stroke="url(#g-blue)" style="stroke-dashoffset: 0;"></path>
+            <path class="conv-path" pathLength="1" d="M40,300 C 200,320 260,310 380,300 C 470,295 520,300 560,300" stroke="url(#g-pink)" style="stroke-dashoffset: 0;"></path>
+            <path class="conv-path" pathLength="1" d="M40,510 C 200,460 240,340 370,300 C 470,270 520,290 560,320" stroke="url(#g-yellow)" style="stroke-dashoffset: 0.1095;"></path>
+          </g>
+
+          <!-- convergence glow -->
+          <circle class="conv-glow" cx="380" cy="300" r="123.66677648801051" fill="url(#g-glow)" style="opacity: 0.937;"></circle>
+          <circle class="conv-center" cx="380" cy="300" r="5.51" fill="#fff" style="opacity: 0.612;"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — YOU HAVE TWO OPTIONS (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-10">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] text-cx-black reveal in">You have two options</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+      <!-- Option 1 -->
+      <article class="p-6 md:p-8 border border-cx-gray-100 bg-cx-gray-50 rounded-sm reveal in">
+        <div class="num-stat text-cx-gray-600/80 text-[clamp(64px,8vw,100px)] mb-4">01</div>
+        <p class="text-cx-gray-600 text-lg leading-relaxed max-w-sm reveal in">
+          Keep building this discipline one budget cycle, one failed governance experiment, one stakeholder conversation at a time.
+          Some get there eventually.
+        </p>
+      </article>
+
+      <!-- Option 2 -->
+      <article class="relative p-6 md:p-8 bg-white border-2 border-cx-magenta rounded-sm shadow-card reveal in">
+        <span class="pill bg-cx-magenta text-white mb-4">Recommended</span>
+        <div class="num-stat text-cx-magenta text-[clamp(64px,8vw,100px)] mb-4">02</div>
+        <p class="text-cx-black text-lg leading-relaxed max-w-md reveal in">
+          Or join CX NEXUS and build it in weeks. With a proven system. With a mentor who has done this across industries and continents.
+          <span class="font-bold">Tailored to your organization</span>, because every company is different: different maturity, different politics, different data, different appetite for change.
+        </p>
+        <p class="mt-4 text-cx-gray-600 text-[15px] max-w-md reveal in">
+          There is no formula. There is a discipline, and CX NEXUS teaches you how to apply it to your reality.
+        </p>
+        <p class="mt-4 text-cx-gray-600 text-[15px] max-w-md reveal in">
+          You leave with the full picture: strategy, measurement, business case, governance, and change management. Not generic. Built for the organization you are actually trying to change.
+        </p>
+        <div class="mt-8">
+          <a href="#pricing" class="btn btn-pink">
+            Apply for the Next Cohort
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — THE THREE PILLARS FRAMEWORK (dark / gradient)
+============================================================ -->
+<section id="framework" class="relative bg-gradient-to-b from-[#0B0B14] to-[#000] text-white py-16 md:py-20">
+  <div class="absolute inset-0 cx-grid pointer-events-none opacity-60"></div>
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10 grid lg:grid-cols-12 gap-12 lg:items-stretch">
+
+    <div class="lg:col-span-7 space-y-10">
+      <div>
+        <h2 class="h-display uppercase text-[clamp(30px,4vw,56px)] reveal">
+          Design. Defend. Deliver.
+        </h2>
+        <p class="mt-4 text-white/70 text-lg max-w-xl reveal">Three disciplines. One operating system. The foundation of every CX NEXUS cohort.</p>
+        <p class="mt-2 text-white/60 text-[15px] max-w-xl reveal">Each maps to the role you actually play: the Architect, the Accountant, the Diplomat.</p>
+      </div>
+
+      <div class="space-y-8">
+        <div class="border-l-4 border-white/10 pl-6">
+          <h3 class="font-display text-2xl md:text-3xl uppercase">
+            <span class="underline decoration-cx-blue decoration-[3px] underline-offset-[6px]">Design</span> the Strategy
+            <span class="block text-white/60 text-base font-sans normal-case tracking-normal mt-1">The Architect</span>
+          </h3>
+          <p class="mt-3 text-white/75 text-[15px] leading-relaxed max-w-xl reveal">
+            Intended experience design. CX values model: emotional and functional. Customer journeys that expose root causes and drive prioritization, not decorate walls.
+          </p>
+          <p class="mt-2 text-white/60 text-[14px] italic max-w-xl reveal">
+            You leave with: a CX strategy tied to business priorities, not aspirational statements.
+          </p>
+        </div>
+        <div class="border-l-4 border-white/10 pl-6">
+          <h3 class="font-display text-2xl md:text-3xl uppercase">
+            <span class="underline decoration-cx-pink-2 decoration-[3px] underline-offset-[6px]">Defend</span> the Value
+            <span class="block text-white/60 text-base font-sans normal-case tracking-normal mt-1">The Accountant</span>
+          </h3>
+          <p class="mt-3 text-white/75 text-[15px] leading-relaxed max-w-xl reveal">
+            Measurement architecture that connects CX to business outcomes. CFO-ready business case. Value logic that survives scrutiny with imperfect data. AI-powered CFO Simulator to pressure-test before you present to the real thing.
+          </p>
+          <p class="mt-2 text-white/60 text-[14px] italic max-w-xl reveal">
+            You leave with: a value story your leadership team can challenge and still respect.
+          </p>
+        </div>
+        <div class="border-l-4 border-white/10 pl-6">
+          <h3 class="font-display text-2xl md:text-3xl uppercase">
+            <span class="underline decoration-cx-yellow decoration-[3px] underline-offset-[6px]">Deliver</span> the Change
+            <span class="block text-white/60 text-base font-sans normal-case tracking-normal mt-1">The Diplomat</span>
+          </h3>
+          <p class="mt-3 text-white/75 text-[15px] leading-relaxed max-w-xl reveal">
+            Governance model that produces decisions, owners, and deadlines. CX roadmap. Change management. How to lead execution across functions you don't control, and make it stick.
+          </p>
+          <p class="mt-2 text-white/60 text-[14px] italic max-w-xl reveal">
+            You leave with: an organization that acts on CX, not one that talks about it.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pyramid -->
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-[96px]">
+        <div class="pillar-pyramid" style="transform: translate3d(0px, 20px, 0px);">
+          <div class="pillar-slab pillar-design" style="--p: 0.0000;"><span class="underline decoration-cx-blue decoration-[4px] underline-offset-[8px]">DESIGN</span></div>
+          <div class="pillar-slab pillar-defend" style="--p: 0.0000;"><span class="underline decoration-cx-pink-2 decoration-[4px] underline-offset-[8px]">DEFEND</span></div>
+          <div class="pillar-slab pillar-deliver" style="--p: 0.0000;"><span class="underline decoration-cx-yellow decoration-[4px] underline-offset-[8px]">DELIVER</span></div>
+        </div>
+        <div class="text-right mt-6 text-[11px] tracking-[0.3em] uppercase text-white/50 font-mono">
+          CX Nexus
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8 — ABOUT KEREN (black + grid)
+============================================================ -->
+<section id="keren" class="cx-grid relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 items-center">
+    <!-- Portrait -->
+    <div class="lg:col-span-5">
+      <div class="relative max-w-[420px] mx-auto">
+        <div class="absolute -inset-3 border border-cx-blue pointer-events-none"></div>
+        <div class="absolute -inset-6 border border-cx-blue/40 pointer-events-none"></div>
+        <div class="relative aspect-[3/4] overflow-hidden">
+          <img alt="Portrait of Keren — CX NEXUS founder" src="assets/Keren.jpg" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-b from-cx-blue/10 via-transparent to-cx-blue/20 mix-blend-overlay"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="lg:col-span-7">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] leading-[0.95] reveal">About Keren</h2>
+      <div class="mt-6 space-y-2 text-[11px] tracking-[0.35em] uppercase text-cx-magenta font-semibold">
+        <div>CCXP‑certified CX strategist</div>
+        <div>CXPA recognized training provider</div>
+      </div>
+      <p class="mt-6 text-white/75 text-[15px] leading-relaxed max-w-2xl reveal">
+        Built and led a Deloitte consulting practice. Led global BI, CRM, and XM programs across four continents. Worked with leaders of iconic global brands and fast‑scaling startups. B2B and B2C. Technology and manufacturing. Financial services, healthcare, and public sector.
+      </p>
+      <p class="mt-4 text-white/70 text-[15px] leading-relaxed max-w-2xl reveal">
+        Started as an accountant, where numbers are clean and decisions are binary. Moved into a world where the currency is emotions, influence, and politics. Failed the first time she led CX change inside an organization. Learned what actually works. Built the system. Has been teaching it since 2016.
+      </p>
+      <div class="mt-8 flex items-center gap-6 flex-wrap">
+        <a href="#" class="inline-flex items-center gap-2 text-cx-pink font-semibold">
+          Read the full story
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+        <div class="flex items-center gap-5 text-[11px] tracking-[0.3em] uppercase text-white/55">
+          <span>Deloitte</span><span>·</span><span>CCXP</span><span>·</span><span>CXPA</span>
+        </div>
+      </div>
+      <div class="mt-8 inline-flex items-center bg-white rounded-md px-4 py-3 shadow-sm">
+        <img src="assets/credentials-logos.png" alt="CCXP Certified Customer Experience Professional · CXPA Recognized Training Provider" class="h-14 md:h-16 w-auto block">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9 — WHO THIS IS FOR (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-10">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] text-cx-black reveal">Who this is for</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+      <article class="p-8 md:p-10 bg-cx-gray-50 border-l-4 border-cx-blue rounded-sm reveal">
+        <h3 class="font-display text-2xl md:text-3xl uppercase leading-tight mb-5">
+          You lead CX, VoC,<br>or Service Design
+        </h3>
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed reveal">
+          And your insight produces reports, not decisions. You need governance, a value logic your CFO respects, and an execution rhythm that doesn't depend on your personal persuasion.
+        </p>
+      </article>
+
+      <article class="p-8 md:p-10 bg-cx-gray-50 border-l-4 border-cx-pink rounded-sm reveal">
+        <h3 class="font-display text-2xl md:text-3xl uppercase leading-tight mb-5">
+          You lead Support, Success,<br>Ops, or Product
+        </h3>
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed reveal">
+          And CX accountability landed in your job description. You need an operating model for cross‑functional execution, not a CX vocabulary lesson.
+        </p>
+      </article>
+    </div>
+
+    <article class="mt-6 md:mt-10 max-w-5xl mx-auto p-8 md:p-10 bg-cx-gray-50 border-l-4 border-cx-yellow rounded-sm reveal">
+      <div class="flex items-start gap-5">
+        <div class="shrink-0 w-12 h-12 rounded-full bg-cx-yellow/20 flex items-center justify-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="8" cy="12" r="4"></circle>
+            <circle cx="16" cy="12" r="4"></circle>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
+            What both have in common
+          </h3>
+          <p class="text-cx-gray-600 text-[15px] leading-relaxed reveal">
+            A live business challenge, a cross-functional mandate, and the intent to build during the program, not just learn.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="mt-12 max-w-5xl mx-auto">
+      <div class="flex items-center gap-4 mb-5">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black text-white text-[11px] tracking-[0.3em] uppercase font-semibold">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M6 18L18 6"></path>
+          </svg>
+          Not for you if
+        </span>
+        <span class="flex-1 h-px bg-cx-gray-100"></span>
+      </div>
+      <p class="text-cx-gray-600 text-base md:text-lg leading-relaxed reveal">
+        Early career. Looking for platform certification. Buying frontline training. Collecting badges instead of building systems.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 10 — UNIQUE VALUE PROPS GRID (blue + 6 cards)
+============================================================ -->
+<section class="cx-grid cx-grid-strong relative bg-cx-blue text-white py-16 md:py-20 overflow-hidden">
+  <div class="absolute -top-20 right-0 w-[480px] h-[480px] rounded-full bg-cx-magenta/15 blur-[140px] pointer-events-none"></div>
+
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+    <div class="mb-10 max-w-3xl">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] reveal">
+        What you won't find<br>anywhere else
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <article class="glass p-7 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-3">01</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3">Execution, not just education</h3>
+        <p class="text-white/80 text-[14px] leading-relaxed reveal">Most CX programs teach frameworks and terminology. CX NEXUS teaches how to make them work inside organizations with real politics, imperfect data, and competing priorities. You learn the frameworks too, but from a practitioner's angle: what to use, when to adapt, and what to do when the textbook breaks.</p>
+      </article>
+      <article class="glass p-7 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-3">02</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3">All three disciplines in one program</h3>
+        <p class="text-white/80 text-[14px] leading-relaxed reveal">Strategy. Business value. Change leadership. Other programs cover one. CX NEXUS integrates all three because that is what the role actually demands.</p>
+      </article>
+      <article class="glass p-7 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-3">03</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3">Built by someone who operates in both worlds</h3>
+        <p class="text-white/80 text-[14px] leading-relaxed reveal">Finance, technology, and CX. Not many CX trainers have led global BI, CRM, XM, and ERP programs. That means the measurement and value logic you learn here connects to the systems your organization actually runs on.</p>
+      </article>
+      <article class="glass p-7 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-3">04</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3">AI‑powered practice tools</h3>
+        <p class="text-white/80 text-[14px] leading-relaxed reveal">A CFO Simulator to stress‑test your business case. Stakeholder conversation prompts. Tools you keep and use long after the program ends. No other CX program offers this.</p>
+      </article>
+      <article class="glass p-7 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-3">05</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3">Organizational assets, not personal development</h3>
+        <p class="text-white/80 text-[14px] leading-relaxed reveal">Every module produces something your organization uses: governance models, business cases, prioritization frameworks, measurement architectures. Your company doesn't get a "trained employee." It gets a working CX operating system.</p>
+      </article>
+      <article class="glass p-7 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-3">06</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3">A proven track record</h3>
+        <p class="text-white/80 text-[14px] leading-relaxed reveal">Hundreds of graduates since 2016. Alumni who now lecture in the program. A curriculum tested across B2B, B2C, public sector, and enterprise organizations on four continents. CCXP certified. CXPA recognized.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11 — GRADUATE TESTIMONIALS (black)
+============================================================ -->
+<section class="relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-10">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] reveal">What graduates say</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-5">
+      <article class="tcard t-yellow p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "This program gave me something I didn't find anywhere else: a system that connects strategy, measurement, and execution into one discipline. Before CX NEXUS, I had the passion and the vision, but I was constantly fighting for credibility. The business case module alone changed how my leadership team sees CX. I walked into a board meeting with a value logic that survived every question the CFO threw at me. That had never happened before. The governance model we built during the program is now the operating rhythm for our entire CX function. It's not theory. It's the thing we actually use every week to make decisions, assign owners, and track progress. If you're serious about making CX work inside a real organization, this is the program."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-yellow">Oded Frenkel</div>
+          <div class="text-white/55 text-sm">VP Customer Experience</div>
+        </div>
+      </article>
+
+      <article class="tcard t-pink p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "The most practical course out there. You leave knowing exactly how to implement what you've learned."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-pink">Shirley Campbell</div>
+          <div class="text-white/55 text-sm">CX Manager, Nayax</div>
+        </div>
+      </article>
+
+      <article class="tcard t-yellow p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "We actually implemented things within our organization during the course. We also won a large new client."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-yellow">Chemi Cohen</div>
+          <div class="text-white/55 text-sm">Director of Quality and Safety, Tower Semiconductor</div>
+        </div>
+      </article>
+
+      <article class="tcard t-magenta p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "As a graduate of one of the first cohorts, I took the methodologies and applied them. Today, I lecture in the course."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-magenta">Meni Dahan</div>
+          <div class="text-white/55 text-sm">Chief Customer Experience and Digital Officer, H.Y. Group</div>
+        </div>
+      </article>
+
+      <article class="tcard t-blue p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "The connection between Employee Experience and Customer Experience, linking journeys to organizational values, business results, and measurable outcomes."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-blue">Moran Keinan</div>
+          <div class="text-white/55 text-sm">Head of Employee Experience, Bank Hapoalim</div>
+        </div>
+      </article>
+
+      <article class="tcard t-magenta p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "CX NEXUS changed the way I think about my role. I came in as someone who managed customer feedback. I left as someone who leads a cross-functional operating system. The difference is everything."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-magenta">Ornit Goldberg</div>
+          <div class="text-white/55 text-sm">Director of Customer Experience</div>
+        </div>
+      </article>
+
+      <article class="tcard t-pink p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "I originally came from marketing. The course helped me tremendously. I am now heading toward brainstorming initiatives within our organization using what we learned here."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-pink">Maya Berkovich</div>
+          <div class="text-white/55 text-sm">Champion Motors</div>
+        </div>
+      </article>
+
+      <article class="tcard t-yellow p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "I gained tools at Intel that allow me to drive CX processes. Even during the course, we started forming a group to deeply explore improving customer experience."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-yellow">Ady Marad</div>
+          <div class="text-white/55 text-sm">Operations and Employee Experience, Intel</div>
+        </div>
+      </article>
+
+      <article class="tcard t-magenta p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "One of the best professional decisions I've made in my life."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-magenta">Doron Hornfeld</div>
+          <div class="text-white/55 text-sm">CEO &amp; Owner, Premium Insurance</div>
+        </div>
+      </article>
+
+      <article class="tcard t-blue p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "CEOs and CX leaders who will undoubtedly remain lifelong friends."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-blue">Moran Weiss</div>
+          <div class="text-white/55 text-sm">Director of Service and Customer Experience, Tzabar Medicine</div>
+        </div>
+      </article>
+
+      <article class="tcard t-pink p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "Our cohort is still actively communicating, sharing successes, and scheduling meetups months later."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-pink">Iris Krichely</div>
+          <div class="text-white/55 text-sm">Training &amp; Implementation Manager, Ministry of Labor</div>
+        </div>
+      </article>
+
+      <article class="tcard t-yellow p-7 md:p-8 bg-cx-surface rounded-sm reveal">
+        <p class="italic text-white/90 text-[15px] leading-relaxed reveal">
+          "Already during the course we began holding weekly discussions about customer experience. This course gave me tools to turn good experience into excellent experience."
+        </p>
+        <div class="mt-6">
+          <div class="font-bold text-cx-yellow">Inbar Aloni</div>
+          <div class="text-white/55 text-sm">Service Manager and Customer Experience, Bank Massad</div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11.5 — WHAT YOUR ORGANIZATION GETS (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="mb-10 max-w-3xl">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] leading-[0.9] text-cx-black reveal">
+        What your <span class="text-cx-magenta">organization</span> gets
+      </h2>
+      <p class="mt-8 text-cx-gray-600 text-lg max-w-2xl reveal">
+        CX NEXUS doesn't just develop the leader. It equips your organization.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+      <article class="bg-cx-gray-50 border border-cx-gray-100 p-6 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-pink font-semibold mb-4">For the CX leader</div>
+        <p class="text-cx-black text-lg leading-relaxed reveal">
+          A proven system to move from insight to execution. Governance, measurement, business case, and change management skills that make you <strong>indispensable, not fragile</strong>.
+        </p>
+      </article>
+
+      <article class="bg-cx-gray-50 border border-cx-gray-100 p-6 md:p-8 rounded-sm reveal">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-4">For the organization investing in this</div>
+        <p class="text-cx-black text-lg leading-relaxed reveal">
+          A CX operating model your team builds and owns. Not a consultant's report that collects dust. Not a certificate that changes nothing. A working system for cross‑functional decision‑making, prioritization, and accountability that scales across the business and survives leadership changes.
+        </p>
+      </article>
+    </div>
+
+    <p class="mt-12 text-cx-gray-600 text-lg max-w-3xl leading-relaxed reveal">
+      Every module produces an organizational asset: a governance structure, a business case, a prioritization framework, a measurement model. Your leader returns with a <span class="font-semibold text-cx-black">system ready to implement</span>, not a notebook full of theory.
+    </p>
+
+    <div class="mt-10">
+      <a href="#pricing" class="btn btn-black">
+        Apply for the Next Cohort
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11.75 — JOIN US TODAY (black + radiate animation)
+============================================================ -->
+<section class="cx-grid relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:items-stretch">
+
+    <!-- Left column: radiate SVG animation (scroll-driven, sticky on desktop) -->
+    <div class="lg:col-span-6 order-2 lg:order-1">
+      <div class="lg:sticky lg:top-[96px]">
+        <div class="radiate">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="transform: translate3d(0px, 24px, 0px);">
+          <defs>
+            <linearGradient id="rad-g1" x1="0.5" y1="0.5" x2="0.5" y2="0">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"></stop>
+              <stop offset="100%" stop-color="#0000FF"></stop>
+            </linearGradient>
+            <linearGradient id="rad-g2" x1="0.5" y1="0.5" x2="1" y2="0.4">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"></stop>
+              <stop offset="100%" stop-color="#FF2E78"></stop>
+            </linearGradient>
+            <linearGradient id="rad-g3" x1="0.5" y1="0.5" x2="0.8" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"></stop>
+              <stop offset="100%" stop-color="#FFD400"></stop>
+            </linearGradient>
+            <linearGradient id="rad-g4" x1="0.5" y1="0.5" x2="0.2" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"></stop>
+              <stop offset="100%" stop-color="#FF00FF"></stop>
+            </linearGradient>
+            <linearGradient id="rad-g5" x1="0.5" y1="0.5" x2="0" y2="0.4">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"></stop>
+              <stop offset="100%" stop-color="#FF5BAE"></stop>
+            </linearGradient>
+            <radialGradient id="rad-glow-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"></stop>
+              <stop offset="55%" stop-color="#FF2E78" stop-opacity="0.45"></stop>
+              <stop offset="100%" stop-color="#FF2E78" stop-opacity="0"></stop>
+            </radialGradient>
+          </defs>
+
+          <!-- Outer faint rings -->
+          <circle class="rad-ring" cx="300" cy="300" r="230" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none" style="opacity: 0;"></circle>
+          <circle class="rad-ring" cx="300" cy="300" r="150" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none" style="opacity: 0;"></circle>
+
+          <!-- 5 radiating paths from center -->
+          <g stroke-width="4" stroke-linecap="round" fill="none">
+            <path class="rad-path" pathLength="1" d="M300,300 Q 310,180 300,80" stroke="url(#rad-g1)" style="stroke-dashoffset: 1;"></path>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 415,245 509,232" stroke="url(#rad-g2)" style="stroke-dashoffset: 1;"></path>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 380,405 429,478" stroke="url(#rad-g3)" style="stroke-dashoffset: 1;"></path>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 220,405 171,478" stroke="url(#rad-g4)" style="stroke-dashoffset: 1;"></path>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 185,245 91,232" stroke="url(#rad-g5)" style="stroke-dashoffset: 1;"></path>
+          </g>
+
+          <!-- Endpoint nodes -->
+          <circle class="rad-node" cx="300" cy="80" r="0.00" fill="#0000FF" style="opacity: 0;"></circle>
+          <circle class="rad-node" cx="509" cy="232" r="0.00" fill="#FF2E78" style="opacity: 0;"></circle>
+          <circle class="rad-node" cx="429" cy="478" r="0.00" fill="#FFD400" style="opacity: 0;"></circle>
+          <circle class="rad-node" cx="171" cy="478" r="0.00" fill="#FF00FF" style="opacity: 0;"></circle>
+          <circle class="rad-node" cx="91" cy="232" r="0.00" fill="#FF5BAE" style="opacity: 0;"></circle>
+
+          <!-- Central glow + dot -->
+          <circle class="rad-glow" cx="300" cy="300" r="30" fill="url(#rad-glow-grad)" style="opacity: 0;"></circle>
+          <circle class="rad-center" cx="300" cy="300" r="0.00" fill="#fff" style="opacity: 0;"></circle>
+        </svg>
+        </div>
+        <div class="text-right mt-6 text-[11px] tracking-[0.3em] uppercase text-white/50 font-mono">
+          CX Nexus
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: copy + 5 pillar blocks + CTA -->
+    <div class="lg:col-span-6 order-1 lg:order-2">
+      <h2 class="h-display uppercase text-[clamp(36px,5.5vw,76px)] leading-[0.92] reveal">
+        Join us<br><span class="text-cx-yellow">today</span>
+      </h2>
+
+      <ul class="mt-10 space-y-7 max-w-[580px]">
+        <li class="border-l-2 border-cx-blue pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">Self‑paced modules</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed reveal">
+            Short lessons across the 3D framework. Frameworks, methodologies, and terminology taught from a practical angle: what to use, when, and what to do when the textbook answer doesn't survive your organization. Templates and tools you apply immediately.
+          </p>
+        </li>
+        <li class="border-l-2 border-cx-pink pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">Live sessions with Keren</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed reveal">
+            Regular office hours: teaching, Q&amp;A, and working through the real challenges you are facing at work. Direct access to someone who has led this work at global scale across XM, CRM, BI, and enterprise technology.
+          </p>
+        </li>
+        <li class="border-l-2 border-cx-yellow pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">AI‑powered tools</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed reveal">
+            CFO Simulator for pressure‑testing your business case. Stakeholder conversation practice. Prompts you keep and use after the program ends.
+          </p>
+        </li>
+        <li class="border-l-2 border-cx-magenta pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">Practical deliverables</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed reveal">
+            Every module produces something you use at work: a CX values model, a governance structure, a business case, a prioritization framework. Not assignments. Assets.
+          </p>
+        </li>
+        <li class="border-l-2 border-[#FF5BAE] pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">A peer network that lasts</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed reveal">
+            Past cohorts still meet years later. Some graduates now teach in the program. That says something about what this community creates.
+          </p>
+        </li>
+      </ul>
+
+      <p class="mt-10 italic text-white font-medium max-w-[580px] reveal">
+        Proven curriculum since 2016. Hundreds of graduates. First time available in this online format, globally.
+      </p>
+      <div class="mt-8">
+        <a href="#pricing" class="btn btn-pink">
+          Apply for the Next Cohort
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12 — PRICING (white)
+============================================================ -->
+<section id="pricing" class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+    <div class="mb-10 max-w-3xl">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] text-cx-black leading-[0.95] reveal">Pricing</h2>
+      <p class="mt-4 text-[11px] tracking-[0.3em] uppercase text-cx-pink font-semibold reveal">First Online Cohort — Launch Pricing</p>
+      <p class="mt-4 text-cx-gray-600 text-lg max-w-2xl reveal">
+        This is the first time CX NEXUS is available in this format, globally. Launch pricing reflects that you are joining early.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 border-t border-cx-gray-100">
+      <!-- Inner Circle -->
+      <article class="py-10 md:py-12 md:pr-10 md:border-r border-cx-gray-100 border-b md:border-b-0 flex flex-col reveal">
+        <div class="flex items-center justify-between mb-6">
+          <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold">Inner Circle</div>
+          <div class="text-[11px] tracking-[0.25em] uppercase font-semibold text-cx-pink">5 Spots</div>
+        </div>
+        <div class="num-stat text-cx-black text-[clamp(56px,7vw,88px)] leading-none">$700</div>
+        <p class="mt-5 text-cx-gray-600 text-[15px] leading-relaxed reveal">
+          The first five. Same full program, plus a 1‑on‑1 session with Keren tailored to your specific CX challenge. Your feedback directly influences the curriculum, and you are credited as part of the founding cohort in future materials. Lowest price this program will ever offer.
+        </p>
+      </article>
+
+      <!-- Launch Price -->
+      <article class="py-10 md:py-12 md:px-10 md:border-r border-cx-gray-100 border-b md:border-b-0 flex flex-col reveal">
+        <div class="flex items-center justify-between mb-6">
+          <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold">Launch Price</div>
+        </div>
+        <div class="num-stat text-cx-black text-[clamp(56px,7vw,88px)] leading-none">$1,000</div>
+        <p class="mt-5 text-cx-gray-600 text-[15px] leading-relaxed reveal">
+          Available after the first five spots are taken. Still significantly below full price.
+        </p>
+      </article>
+
+      <!-- Full Price -->
+      <article class="py-10 md:py-12 md:pl-10 flex flex-col reveal">
+        <div class="flex items-center justify-between mb-6">
+          <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold">Full Price</div>
+        </div>
+        <div class="num-stat text-cx-black text-[clamp(56px,7vw,88px)] leading-none">$1,400</div>
+        <p class="mt-5 text-cx-gray-600 text-[15px] leading-relaxed reveal">
+          Standard pricing for future cohorts.
+        </p>
+      </article>
+    </div>
+
+    <div class="border-t border-cx-gray-100 pt-10 mt-2">
+      <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold mb-6">All tiers include</div>
+      <ul class="grid md:grid-cols-2 gap-x-10 gap-y-3 text-cx-black text-[15px]">
+        <li class="flex items-start gap-3">
+          <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-pink"></span>
+          Self‑paced modules across the full 3D framework
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-pink"></span>
+          Live sessions with Keren
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-pink"></span>
+          AI‑powered practice tools
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-pink"></span>
+          Templates, frameworks, and deliverables you build during the program
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-pink"></span>
+          Alumni network access
+        </li>
+      </ul>
+    </div>
+
+    <p class="mt-12 text-cx-black text-base md:text-lg font-semibold reveal">
+      No upsells. No "premium tier" with the good stuff. Everyone gets the full program.
+    </p>
+
+    <div class="mt-10">
+      <a href="#contact" class="btn btn-black">Secure My Spot</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12.5 — FAQ (black)
+============================================================ -->
+<section id="faq" class="cx-grid relative bg-black text-white py-16 md:py-20 overflow-hidden">
+  <!-- Decorative accent blob -->
+  <div aria-hidden="true" class="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-cx-pink/20 blur-[120px] pointer-events-none"></div>
+  <div aria-hidden="true" class="absolute bottom-0 -left-20 w-[380px] h-[380px] rounded-full bg-cx-blue/30 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="mb-10 md:mb-20 max-w-5xl">
+      <h2 class="h-display uppercase text-[clamp(34px,5vw,68px)] leading-[0.9] reveal">
+        Frequently asked <span class="text-cx-yellow">questions</span>
+      </h2>
+    </div>
+
+    <div class="max-w-5xl mx-auto">
+      <details class="faq-item" open="">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">01</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">How much time does this take per week?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            CX NEXUS is self‑paced, designed for working professionals with full calendars. Most participants spend 3–4 hours per week: short lessons you can fit between meetings, plus live sessions with Keren. The program is built to run alongside your job, not compete with it. In fact, the deliverables you create during the program are meant to be used in your current role immediately.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">02</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">Is this relevant for B2B? For my industry?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Yes. The 3D framework was built and tested across B2B, B2C, public sector, healthcare, financial services, manufacturing, and technology. The curriculum does not assume a B2C‑only world. In B2B, CX is often about value realization, partnership, adoption, and expansion, not just satisfaction scores. The frameworks and tools adapt to your context, and the live sessions are where we work through your specific organizational reality.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">03</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">How is this different from other CX training programs?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Most CX programs focus on one thing: either frameworks and terminology, or certification prep, or a single discipline like VoC or journey mapping. CX NEXUS covers strategy, business value, AND change leadership in one integrated program. More importantly, you don't just learn concepts. You build organizational assets: a governance model, a business case, a measurement architecture, a CX roadmap. You also get live access to a practitioner who has led this work globally, not recorded lectures from an academic. If all you need is a badge or a vocabulary refresher, there are cheaper options. If you need to actually run CX inside a real organization, this is the program.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">04</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">What if I'm the only CX person in my organization?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            That is exactly who this program is designed for. Most CX leaders operate without a large team. The 3D framework gives you a system to lead cross‑functionally without depending on headcount. The governance and stakeholder management modules are specifically built for leaders who need to drive change through influence, not authority.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">05</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">Do I get a certificate?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Yes, you receive a certificate of completion. CX NEXUS is delivered by a CCXP‑certified trainer and CXPA recognized training provider. The program covers content relevant to CCXP preparation, but it is not a certification prep course. It is a practitioner program focused on execution.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">06</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">Can my organization pay for this?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Yes. Many participants have their organization cover the investment. Payment is available by credit card or bank transfer. The "What Your Organization Gets" section above outlines the value case for budget holders. Every module produces an organizational asset, not just personal development. A two‑week satisfaction window applies if the program is not the right fit.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">07</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">What if I realize it's not for me?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"></path></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            If within the first two weeks you feel this is not the right fit, reach out and we will find a solution. I would rather have the right people in the room than keep someone who is not getting value.
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="mt-16 md:mt-20 text-center">
+      <a href="#contact" class="btn btn-pink">
+        Ask a different question
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 13 — CONTACT + FOOTER (blue + black)
+============================================================ -->
+<section id="contact" class="cx-grid cx-grid-strong relative bg-cx-blue text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="h-display uppercase text-[clamp(36px,5.5vw,76px)] leading-[0.92] reveal">
+        Ready to build the system your organization is missing?
+      </h2>
+      <p class="mt-6 text-white/85 text-lg max-w-xl mx-auto reveal">
+        CX NEXUS accepts practitioners with a live CX challenge and the intent to implement.
+      </p>
+      <div class="mt-10">
+        <a href="#pricing" class="btn btn-pink">
+          Apply for the Next Cohort
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"></path></svg>
+        </a>
+      </div>
+      <p class="mt-6 text-white/70 text-sm max-w-md mx-auto reveal">
+        Applications reviewed within 48 hours. If it's not the right fit, I'll tell you directly.
+      </p>
+      <p class="mt-3 text-white/60 text-sm max-w-md mx-auto reveal">
+        Inner circle spots at $700 — then $1,000 until full price kicks in.
+      </p>
+    </div>
+
+    <!-- Contact info -->
+    <div class="mt-16 pt-10 border-t border-white/15 flex flex-wrap justify-center gap-x-10 gap-y-6 text-sm text-white/70">
+      <div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-white/50 font-semibold mb-1">Email</div>
+        <a href="mailto:keren.shaked@b-pro.pro" class="hover:text-cx-yellow transition">keren.shaked@b-pro.pro</a>
+      </div>
+      <div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-white/50 font-semibold mb-1">Phone</div>
+        <a href="tel:+15589554885" class="hover:text-cx-yellow transition">+1 5589 55488 55</a>
+      </div>
+      <div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-white/50 font-semibold mb-1">Follow</div>
+        <div class="flex gap-3">
+          <a href="#" class="w-8 h-8 rounded-full border border-white/30 grid place-items-center hover:bg-white hover:text-cx-blue transition" aria-label="Facebook">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full border border-white/30 grid place-items-center hover:bg-white hover:text-cx-blue transition" aria-label="YouTube">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"></path></svg>
+          </a>
+          <a href="#" class="w-8 h-8 rounded-full border border-white/30 grid place-items-center hover:bg-white hover:text-cx-blue transition" aria-label="LinkedIn">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.25 8h4.5V24H.25V8zM8 8h4.31v2.18h.06c.6-1.13 2.06-2.32 4.24-2.32 4.54 0 5.39 2.99 5.39 6.88V24h-4.5v-7.04c0-1.68-.03-3.84-2.34-3.84-2.34 0-2.7 1.83-2.7 3.72V24H8V8z"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer strip -->
+<footer class="bg-cx-black text-white/70 py-10">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-wrap items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[22px] w-auto opacity-90">
+    </div>
+    <nav class="flex items-center gap-6 text-sm">
+      <a href="#" class="hover:text-white transition">Blog</a>
+      <a href="#" class="hover:text-white transition">Terms</a>
+      <a href="#" class="hover:text-white transition">Cookies</a>
+      <a href="#" class="hover:text-white transition">Privacy</a>
+    </nav>
+    <div class="text-xs tracking-[0.2em] uppercase text-white/50">© 2026 CX NEXUS</div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+  // Sticky nav state
+  (function(){
+    var nav = document.getElementById('nav');
+    var onScroll = function(){
+      if (window.scrollY > 60) nav.classList.add('nav-scrolled');
+      else nav.classList.remove('nav-scrolled');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Reveal-on-scroll
+  (function(){
+    var items = document.querySelectorAll('section h2, section article, section p, section form');
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function(el){
+      el.classList.add('reveal');
+      io.observe(el);
+    });
+  })();
+
+  // ============================================================
+  // Hero canvas — morphing photo layouts over an asymmetric grid
+  // Slots periodically merge into 2x / 3x / 2x2 blocks that show a
+  // single image across the merged region, then break apart again.
+  // ============================================================
+  (function(){
+    var pool = [
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1100&q=80'
+    ];
+
+    // Each layout: an array of 4 slot specs (one per .hc-photo).
+    // Spec: {c:col, r:row, cs:colSpan=1, rs:rowSpan=1} OR null (hidden).
+    // Fixed items (headline cols1-2 rows1-2, logo col4 row1, cta cols1-3 row4)
+    // are avoided to prevent stacking conflicts.
+    var layouts = [
+      // A — four scattered singles (editorial rhythm)
+      [{c:3,r:1},{c:3,r:2},{c:2,r:3},{c:4,r:4}],
+      // B — vertical DOUBLE on the right + 2 singles
+      [{c:4,r:2,rs:2},{c:2,r:3},{c:3,r:1},{c:4,r:4}],
+      // C — vertical TRIPLE filling col 3 (rows 1-3) + one single
+      [{c:3,r:1,rs:3},{c:2,r:3},null,{c:4,r:4}],
+      // D — horizontal DOUBLE across cols 2-3 row 3 + 2 singles
+      [{c:2,r:3,cs:2},{c:3,r:1},{c:4,r:2},{c:4,r:4}],
+      // E — BIG 2x2 block across cols 3-4 rows 2-3 + side single
+      [{c:3,r:2,cs:2,rs:2},{c:3,r:1},{c:2,r:3},null],
+      // F — horizontal TRIPLE panorama across cols 1-3 row 3 + singles
+      [{c:1,r:3,cs:3},{c:3,r:1},{c:4,r:2},{c:4,r:4}],
+      // G — vertical DOUBLE col 2 + DOUBLE col 4 right (stacked feel)
+      [{c:2,r:3,rs:1},{c:4,r:2,rs:2},{c:3,r:1},null]
+    ];
+
+    var slots = Array.prototype.slice.call(document.querySelectorAll('.hc-photo'));
+    if (!slots.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var mobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+
+    // Shared set of pool indices currently shown (across all visible slots).
+    // Used to guarantee that no two visible slots display the same photo.
+    var inUse = new Set();
+
+    // Pick a pool index that isn't in the `exclude` set.
+    // Preference: random among free candidates → feels organic, not cyclic.
+    function pickUnique(exclude){
+      var free = [];
+      for (var i = 0; i < pool.length; i++){
+        if (!exclude.has(i)) free.push(i);
+      }
+      if (!free.length) return Math.floor(Math.random() * pool.length);
+      return free[Math.floor(Math.random() * free.length)];
+    }
+
+    // Build the img crossfade pair inside each slot
+    var states = slots.map(function(slot, idx){
+      var imgA = document.createElement('img');
+      var imgB = document.createElement('img');
+      imgA.className = imgB.className = 'hc-img';
+      imgA.alt = imgB.alt = '';
+      imgA.decoding = imgB.decoding = 'async';
+
+      // Distinct starting index per slot (stride 3 over pool of 12)
+      var startIdx = (idx * 3) % pool.length;
+      imgA.src = pool[startIdx];
+      imgA.classList.add('active');
+      // imgB is hidden — preload a safe neighbor; it'll be overwritten on first cycle
+      imgB.src = pool[(startIdx + 1) % pool.length];
+      slot.appendChild(imgA);
+      slot.appendChild(imgB);
+      slot.style.opacity = '1';
+
+      inUse.add(startIdx);
+
+      return {
+        slot: slot,
+        imgA: imgA,
+        imgB: imgB,
+        showingA: true,
+        currentIdx: startIdx,
+        visible: true
+      };
+    });
+
+    // Crossfade one slot to a new unique image (guaranteed distinct from all
+    // OTHER currently visible slots AND from this slot's current image).
+    function cycleSlot(st){
+      if (!st.visible) return;
+
+      // exclude = snapshot of inUse (includes this slot's own currentIdx)
+      var exclude = new Set(inUse);
+      var nextIdx = pickUnique(exclude);
+
+      inUse.delete(st.currentIdx);
+      inUse.add(nextIdx);
+      st.currentIdx = nextIdx;
+
+      var to   = st.showingA ? st.imgB : st.imgA;
+      var from = st.showingA ? st.imgA : st.imgB;
+      to.src = pool[nextIdx];
+      setTimeout(function(){
+        to.classList.add('active');
+        from.classList.remove('active');
+        st.showingA = !st.showingA;
+      }, 90);
+    }
+
+    // On mobile, skip all grid/layout logic — CSS handles the vertical stack
+    if (mobile){
+      if (reduceMotion) return;
+      // Only slot 4 is visible on mobile (per CSS). Just cycle slot 4 uniquely.
+      // Hidden slots' currentIdx still sits in inUse (harmless — keeps variety).
+      states.forEach(function(st, idx){
+        setInterval(function(){ cycleSlot(st); }, 5200 + idx * 900);
+      });
+      return;
+    }
+
+    // Apply a layout (initial call — no fade, just placement).
+    function applyLayoutInstant(idx){
+      var layout = layouts[idx];
+      states.forEach(function(st, i){
+        var spec = layout[i];
+        if (!spec){
+          st.slot.style.display = 'none';
+          st.visible = false;
+          inUse.delete(st.currentIdx);
+        } else {
+          st.slot.style.display = '';
+          st.slot.style.gridColumn = spec.c + ' / span ' + (spec.cs || 1);
+          st.slot.style.gridRow    = spec.r + ' / span ' + (spec.rs || 1);
+          st.visible = true;
+          // currentIdx already in inUse from init — nothing to do
+        }
+      });
+    }
+
+    // Apply a layout with fully sequential per-slot fade-out → reposition → fade-in.
+    // Only ONE slot is ever in transit at a time — the other three stay
+    // fully visible. No FLIP flights, and no frame where more than one
+    // slot is partially transparent.
+    function applyLayoutAnimated(idx){
+      var layout = layouts[idx];
+      var FADE = 300;
+      // One full cycle = fade-out (FADE) + swap (30) + fade-in (FADE) + breathing room (60)
+      var SLOT_CYCLE = FADE + 30 + FADE + 60;  // 690ms per slot
+
+      // Classify each slot
+      var classified = states.map(function(st, i){
+        return {
+          st: st, i: i, spec: layout[i],
+          wasVisible: st.visible,
+          willBeVisible: !!layout[i]
+        };
+      });
+
+      // Free pool indices for leavers, then reserve fresh ones for enterers
+      classified.forEach(function(c){
+        if (c.wasVisible && !c.willBeVisible) inUse.delete(c.st.currentIdx);
+      });
+      classified.forEach(function(c){
+        if (c.willBeVisible && !c.wasVisible){
+          if (inUse.has(c.st.currentIdx)){
+            var next = pickUnique(inUse);
+            inUse.add(next);
+            c.st.currentIdx = next;
+          } else {
+            inUse.add(c.st.currentIdx);
+          }
+        }
+      });
+
+      // Only animate slots that actually have something to do
+      var queue = [];
+      classified.forEach(function(c){
+        if (!c.wasVisible && !c.willBeVisible) return;
+        if (c.wasVisible && c.willBeVisible){
+          var newCol = c.spec.c + ' / span ' + (c.spec.cs || 1);
+          var newRow = c.spec.r + ' / span ' + (c.spec.rs || 1);
+          if (c.st.slot.style.gridColumn === newCol && c.st.slot.style.gridRow === newRow){
+            return;  // nothing to do
+          }
+        }
+        queue.push(c);
+      });
+
+      queue.forEach(function(c, k){
+        var slot = c.st.slot;
+        var delay = k * SLOT_CYCLE;
+
+        // LEAVING
+        if (c.wasVisible && !c.willBeVisible){
+          setTimeout(function(){
+            slot.classList.remove('hc-slot-entering', 'hc-slot-leaving');
+            slot.style.transition = '';
+            slot.style.transform = '';
+            void slot.offsetHeight;
+            slot.classList.add('hc-slot-leaving');
+            setTimeout(function(){
+              slot.classList.remove('hc-slot-leaving');
+              slot.style.display = 'none';
+              c.st.visible = false;
+            }, FADE + 30);
+          }, delay);
+          return;
+        }
+
+        // ENTERING
+        if (!c.wasVisible && c.willBeVisible){
+          setTimeout(function(){
+            slot.style.display = '';
+            slot.style.gridColumn = c.spec.c + ' / span ' + (c.spec.cs || 1);
+            slot.style.gridRow    = c.spec.r + ' / span ' + (c.spec.rs || 1);
+            var active = c.st.showingA ? c.st.imgA : c.st.imgB;
+            active.src = pool[c.st.currentIdx];
+            c.st.visible = true;
+            slot.classList.remove('hc-slot-entering', 'hc-slot-leaving');
+            slot.style.transition = '';
+            slot.style.transform = '';
+            void slot.offsetHeight;
+            slot.classList.add('hc-slot-entering');
+            setTimeout(function(){
+              slot.classList.remove('hc-slot-entering');
+            }, FADE + 30);
+          }, delay);
+          return;
+        }
+
+        // STAYING (position changes)
+        var newCol = c.spec.c + ' / span ' + (c.spec.cs || 1);
+        var newRow = c.spec.r + ' / span ' + (c.spec.rs || 1);
+        setTimeout(function(){
+          slot.classList.remove('hc-slot-entering', 'hc-slot-leaving');
+          slot.style.transition = '';
+          slot.style.transform = '';
+          void slot.offsetHeight;
+          slot.classList.add('hc-slot-leaving');
+          setTimeout(function(){
+            slot.classList.remove('hc-slot-leaving');
+            slot.style.gridColumn = newCol;
+            slot.style.gridRow    = newRow;
+            void slot.offsetHeight;
+            slot.classList.add('hc-slot-entering');
+            setTimeout(function(){
+              slot.classList.remove('hc-slot-entering');
+            }, FADE + 30);
+          }, FADE + 30);
+        }, delay);
+      });
+    }
+
+    // Initial layout A
+    applyLayoutInstant(0);
+
+    if (reduceMotion) return;
+
+    // Per-slot photo cycling (staggered so swaps feel organic)
+    states.forEach(function(st, idx){
+      setInterval(function(){ cycleSlot(st); }, 4800 + idx * 900);
+    });
+
+    // Layout cycling — every ~9s morph into the next composition
+    var layoutIdx = 0;
+    setInterval(function(){
+      layoutIdx = (layoutIdx + 1) % layouts.length;
+      applyLayoutAnimated(layoutIdx);
+    }, 9000);
+  })();
+
+  // ============================================================
+  // "Why is this so hard?" — scroll-driven convergence animation
+  //   - Three stroke paths draw-in from left→right as section enters
+  //   - Glow + center pulse to life as scroll crosses midpoint
+  //   - Whole SVG gets gentle counter-scroll parallax
+  // ============================================================
+  (function(){
+    var converge = document.querySelector('.converge');
+    if (!converge) return;
+    var section = converge.closest('section');
+    var svg     = converge.querySelector('svg');
+    var paths   = converge.querySelectorAll('.conv-path');
+    var glow    = converge.querySelector('.conv-glow');
+    var center  = converge.querySelector('.conv-center');
+    if (!section || !svg || !paths.length) return;
+
+    // Respect user preference — CSS already shows finished state
+    var reduceMotion = window.matchMedia &&
+                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+
+    // Map raw progress into a subrange [a,b] and clamp to 0..1
+    function ease(progress, a, b){
+      return clamp((progress - a) / (b - a), 0, 1);
+    }
+
+    function update(){
+      var rect = section.getBoundingClientRect();
+      var vh   = window.innerHeight || document.documentElement.clientHeight;
+
+      // progress: 0 as section enters from the bottom of viewport,
+      //           1 as section exits past the top
+      var progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+
+      // Path drawing — staggered so three lines draw at different speeds
+      // Compressed by 0.8 so the whole sequence finishes 20% earlier than before.
+      paths.forEach(function(p, i){
+        var start = 0.04 + i * 0.048;           // 0.040 / 0.088 / 0.136
+        var end   = 0.44 + i * 0.048;           // 0.440 / 0.488 / 0.536
+        var drawn = ease(progress, start, end); // 0 → 1
+        p.style.strokeDashoffset = (1 - drawn).toFixed(4);
+      });
+
+      // Glow: starts forming as paths near the convergence point
+      var glowP = ease(progress, 0.224, 0.496);
+      glow.setAttribute('r', 30 + glowP * 95);        // 30 → 125
+      glow.style.opacity = (glowP * 0.95).toFixed(3);
+
+      // Center dot — pops in last
+      var dotP = ease(progress, 0.36, 0.576);
+      center.setAttribute('r', (dotP * 9).toFixed(2));
+      center.style.opacity = dotP.toFixed(3);
+
+      // Parallax — gentle counter-scroll for depth (±28px)
+      var parallax = (0.5 - progress) * 56;
+      svg.style.transform = 'translate3d(0,' + parallax.toFixed(1) + 'px,0)';
+    }
+
+    // rAF-throttled scroll handler
+    var ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        update();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update(); // paint once on load
+  })();
+
+  // ============================================================
+  // "Join us today" — radiate: hub forms first, 5 spokes draw
+  //   outward staggered, endpoint nodes pop in as each spoke lands.
+  //   Same scroll-driven pattern as .converge, gentle parallax.
+  // ============================================================
+  (function(){
+    var radiate = document.querySelector('.radiate');
+    if (!radiate) return;
+    var section = radiate.closest('section');
+    var svg     = radiate.querySelector('svg');
+    var paths   = radiate.querySelectorAll('.rad-path');
+    var nodes   = radiate.querySelectorAll('.rad-node');
+    var rings   = radiate.querySelectorAll('.rad-ring');
+    var glow    = radiate.querySelector('.rad-glow');
+    var center  = radiate.querySelector('.rad-center');
+    if (!section || !svg || !paths.length) return;
+
+    var reduceMotion = window.matchMedia &&
+                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+    function ease(progress, a, b){ return clamp((progress - a) / (b - a), 0, 1); }
+
+    function update(){
+      var rect = section.getBoundingClientRect();
+      var vh   = window.innerHeight || document.documentElement.clientHeight;
+      var progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+
+      // Hub first — center dot + glow come to life early
+      var glowP = ease(progress, 0.08, 0.38);
+      glow.setAttribute('r', 30 + glowP * 90);
+      glow.style.opacity = (glowP * 0.9).toFixed(3);
+      center.setAttribute('r', (glowP * 8).toFixed(2));
+      center.style.opacity = glowP.toFixed(3);
+
+      // Faint concentric rings fade in alongside the hub
+      rings.forEach(function(r){ r.style.opacity = (glowP * 0.9).toFixed(3); });
+
+      // 5 spokes draw outward, staggered
+      paths.forEach(function(p, i){
+        var start = 0.18 + i * 0.05;
+        var end   = 0.48 + i * 0.05;
+        var drawn = ease(progress, start, end);
+        p.style.strokeDashoffset = (1 - drawn).toFixed(4);
+      });
+
+      // Endpoint nodes pop in as each spoke reaches them
+      nodes.forEach(function(n, i){
+        var start = 0.42 + i * 0.05;
+        var end   = 0.54 + i * 0.05;
+        var pop   = ease(progress, start, end);
+        n.setAttribute('r', (pop * 12).toFixed(2));
+        n.style.opacity = pop.toFixed(3);
+      });
+
+      // Gentle counter-scroll parallax (±24px)
+      var parallax = (0.5 - progress) * 48;
+      svg.style.transform = 'translate3d(0,' + parallax.toFixed(1) + 'px,0)';
+    }
+
+    var ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ update(); ticking = false; });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+
+  /* -------------------------------------------------------------
+     Pillar pyramid (Design / Defend / Deliver) — scroll reveal
+     Three slabs slide in from their respective sides, staggered,
+     as the section scrolls through the viewport.
+  ------------------------------------------------------------- */
+  (function(){
+    var pyramid = document.querySelector('.pillar-pyramid');
+    if (!pyramid) return;
+    var section = pyramid.closest('section');
+    var slabs   = pyramid.querySelectorAll('.pillar-slab');
+    if (!section || !slabs.length) return;
+
+    var reduceMotion = window.matchMedia &&
+                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      // CSS handles final state via @media query — nothing to animate.
+      return;
+    }
+
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+    function ease(progress, a, b){ return clamp((progress - a) / (b - a), 0, 1); }
+
+    function update(){
+      var rect = section.getBoundingClientRect();
+      var vh   = window.innerHeight || document.documentElement.clientHeight;
+      var progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+
+      // Staggered reveal: design (i=0) → defend (i=1) → deliver (i=2)
+      slabs.forEach(function(slab, i){
+        var start = 0.10 + i * 0.07;  // 0.10 / 0.17 / 0.24
+        var end   = 0.42 + i * 0.07;  // 0.42 / 0.49 / 0.56
+        var p = ease(progress, start, end);
+        slab.style.setProperty('--p', p.toFixed(4));
+      });
+
+      // Gentle parallax on the whole pyramid (±20px counter-scroll)
+      var parallax = (0.5 - progress) * 40;
+      pyramid.style.transform = 'translate3d(0,' + parallax.toFixed(1) + 'px,0)';
+    }
+
+    var ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        update();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
+
+<!-- Count-up animation for THE ODDS section -->
+<script>
+  (function(){
+    var nodes = document.querySelectorAll('[data-count-to]');
+    if (!nodes.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function renderFinal(el){
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      var suffix = el.getAttribute('data-count-suffix') || '';
+      el.innerHTML = target + (suffix ? '<span class="text-[0.5em]">' + suffix + '</span>' : '');
+    }
+
+    function animate(el){
+      if (el.dataset.countDone === '1') return;
+      el.dataset.countDone = '1';
+
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      var suffix = el.getAttribute('data-count-suffix') || '';
+      if (isNaN(target)) return;
+
+      if (reduceMotion) { renderFinal(el); return; }
+
+      var duration = 1400;
+      var start = null;
+
+      function frame(ts){
+        if (start === null) start = ts;
+        var t = Math.min((ts - start) / duration, 1);
+        // easeOutCubic
+        var eased = 1 - Math.pow(1 - t, 3);
+        var current = Math.round(eased * target);
+        el.innerHTML = current + (suffix ? '<span class="text-[0.5em]">' + suffix + '</span>' : '');
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          renderFinal(el);
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach(renderFinal);
+      return;
+    }
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          animate(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    nodes.forEach(function(n){ io.observe(n); });
+  })();
+</script>
+
+<!-- Mobile hamburger menu toggle -->
+<script>
+  (function(){
+    var btn = document.getElementById('hamburger-btn');
+    var menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    var bars = btn.querySelector('.hb-bars');
+    var close = btn.querySelector('.hb-close');
+    function setOpen(open){
+      if (open) {
+        menu.style.maxHeight = menu.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close menu');
+        bars.classList.add('hidden');
+        close.classList.remove('hidden');
+      } else {
+        menu.style.maxHeight = '0px';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+        bars.classList.remove('hidden');
+        close.classList.add('hidden');
+      }
+    }
+    btn.addEventListener('click', function(){
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setOpen(false); });
+    });
+    window.addEventListener('resize', function(){
+      if (window.innerWidth >= 768) setOpen(false);
+    });
+  })();
+</script>
+
+
+
+<veepn-lock-screen><style>@font-face{font-family:FigtreeVF;src:url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2 supports variations"),url(chrome-extension://majdfhpaihoncoakbjgbdhglocklcgno/fonts/FigtreeVF.woff2) format("woff2-variations");font-weight:100 1000;font-display:swap}</style></veepn-lock-screen></body></html>
