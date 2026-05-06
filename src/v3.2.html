@@ -636,53 +636,114 @@
 <main id="top">
 
 <!-- ============================================================
-     SECTION 1 — HERO (black, centered, no photo grid)
+     SECTION 1 — HERO (black, two-column with animated nexus graphic)
 ============================================================ -->
-<section id="home" class="relative bg-cx-black text-white overflow-hidden">
-  <!-- Subtle radial glow -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-cx-blue/8 blur-[180px] pointer-events-none"></div>
+<section id="home" class="relative bg-cx-black text-white overflow-hidden min-h-screen">
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
 
-  <div class="relative z-10 max-w-[1000px] mx-auto px-6 md:px-10 pt-32 md:pt-40 pb-16 md:pb-20 text-center">
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
 
-    <!-- Logo -->
-    <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[28px] md:h-[36px] w-auto mx-auto mb-10 opacity-80" />
+    <!-- Left: Text content -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
 
-    <!-- Dictionary headline -->
-    <h1 class="h-display text-white" style="font-size: clamp(48px, 6vw, 88px); line-height: 0.9; letter-spacing: -0.02em;">
-      nex·us
-    </h1>
-    <p class="mt-4 text-white/60 text-base italic">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
 
-    <!-- Between lines -->
-    <div class="mt-10 max-w-[640px] mx-auto space-y-3 text-white/80 text-lg md:text-xl leading-relaxed">
-      <p>Between strategy and execution.</p>
-      <p>Between measurement and management.</p>
-      <p>Between what Finance demands and what customers feel.</p>
-      <p>Between people, processes, and technology.</p>
-      <p class="text-white">Between the short-term pressure to deliver and the long-term need to build something that lasts.</p>
+      <div class="space-y-2 text-white/70 text-[16px] leading-relaxed mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/90 font-medium">Between the short-term pressure to deliver and the long-term need to build something that lasts.</p>
+      </div>
+
+      <div class="h-px w-12 bg-cx-blue mb-8"></div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
     </div>
 
-    <!-- Divider -->
-    <div class="mt-10 mx-auto w-16 h-px bg-white/20"></div>
+    <!-- Right: Animated nexus graphic (5-point convergence) -->
+    <div class="relative flex items-center justify-center">
+      <div class="hero-nexus-graphic relative w-full max-w-[520px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <defs>
+            <radialGradient id="hero-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#0000FF" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hero-l1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l2" x1="0" y1="0.5" x2="1" y2="0.3">
+              <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l3" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l4" x1="1" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#FF00FF"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l5" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8DF4BA"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+          </defs>
 
-    <!-- Tagline -->
-    <p class="mt-10 text-white/90 text-lg md:text-xl leading-relaxed max-w-[640px] mx-auto">
-      This is where CX leaders live. And nobody taught you how to operate there.
-    </p>
-    <p class="mt-3 h-display uppercase text-white text-[clamp(24px,3vw,40px)]">
-      CX NEXUS is the program that does.
-    </p>
+          <!-- Faint orbit rings -->
+          <circle cx="300" cy="300" r="250" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="170" stroke="rgba(255,255,255,0.04)" stroke-width="1" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="90" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none" class="hero-ring"/>
 
-    <!-- CTAs -->
-    <div class="mt-10 flex flex-wrap justify-center items-center gap-4">
-      <a href="#pricing" class="btn btn-pink !py-3 !px-7 !text-[14px]">
-        Apply for the Next Cohort
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#framework" class="btn !py-3 !px-7 !text-[14px]" style="background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.4);">
-        Explore the Program
-      </a>
+          <!-- 5 convergence paths to center -->
+          <g stroke-width="2.5" stroke-linecap="round" fill="none">
+            <path class="hero-path" d="M300,50 Q310,170 300,300" stroke="url(#hero-l1)" pathLength="1"/>
+            <path class="hero-path" d="M538,190 Q420,240 300,300" stroke="url(#hero-l2)" pathLength="1"/>
+            <path class="hero-path" d="M448,510 Q380,400 300,300" stroke="url(#hero-l3)" pathLength="1"/>
+            <path class="hero-path" d="M152,510 Q220,400 300,300" stroke="url(#hero-l4)" pathLength="1"/>
+            <path class="hero-path" d="M90,190 Q190,240 300,300" stroke="url(#hero-l5)" pathLength="1"/>
+          </g>
+
+          <!-- Endpoint nodes -->
+          <circle cx="300" cy="50"  r="6" fill="#0000FF" class="hero-node" opacity="0"/>
+          <circle cx="538" cy="190" r="6" fill="#FF5BAE" class="hero-node" opacity="0"/>
+          <circle cx="448" cy="510" r="6" fill="#FFE500" class="hero-node" opacity="0"/>
+          <circle cx="152" cy="510" r="6" fill="#FF00FF" class="hero-node" opacity="0"/>
+          <circle cx="90"  cy="190" r="6" fill="#8DF4BA" class="hero-node" opacity="0"/>
+
+          <!-- Center glow + dot -->
+          <circle cx="300" cy="300" r="50" fill="url(#hero-glow)" class="hero-center-glow" opacity="0"/>
+          <circle cx="300" cy="300" r="6" fill="#fff" class="hero-center-dot" opacity="0"/>
+
+          <!-- Labels at endpoints -->
+          <text x="300" y="30" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">STRATEGY</text>
+          <text x="565" y="190" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">DATA</text>
+          <text x="468" y="535" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">TECH</text>
+          <text x="132" y="535" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">PEOPLE</text>
+          <text x="80" y="190" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">EXECUTION</text>
+        </svg>
+      </div>
     </div>
+
   </div>
 
   <!-- Credentials strip -->
@@ -700,6 +761,81 @@
     </div>
   </div>
 </section>
+
+<!-- Hero nexus animation script -->
+<script>
+(function(){
+  var graphic = document.querySelector('.hero-nexus-graphic');
+  if (!graphic) return;
+  var paths = graphic.querySelectorAll('.hero-path');
+  var nodes = graphic.querySelectorAll('.hero-node');
+  var glow = graphic.querySelector('.hero-center-glow');
+  var dot = graphic.querySelector('.hero-center-dot');
+  var labels = graphic.querySelectorAll('.hero-label');
+  var rings = graphic.querySelectorAll('.hero-ring');
+
+  // Set initial state
+  paths.forEach(function(p){ p.style.strokeDasharray='1'; p.style.strokeDashoffset='1'; });
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    nodes.forEach(function(n){ n.setAttribute('opacity','1'); });
+    if(glow) glow.setAttribute('opacity','0.8');
+    if(dot) dot.setAttribute('opacity','1');
+    labels.forEach(function(l){ l.setAttribute('opacity','1'); });
+    return;
+  }
+
+  // Animate on load with staggered timing
+  function animateIn(){
+    // Rings fade in
+    rings.forEach(function(r,i){
+      r.style.transition = 'opacity 1.5s ease ' + (i*0.3)+'s';
+      r.style.opacity = '1';
+    });
+
+    // Paths draw in staggered
+    paths.forEach(function(p,i){
+      var delay = 0.4 + i * 0.25;
+      p.style.transition = 'stroke-dashoffset 1.2s ease ' + delay + 's';
+      p.style.strokeDashoffset = '0';
+    });
+
+    // Nodes pop in after their path
+    nodes.forEach(function(n,i){
+      var delay = 0.8 + i * 0.25;
+      n.style.transition = 'opacity 0.5s ease ' + delay + 's';
+      setTimeout(function(){ n.setAttribute('opacity','1'); n.setAttribute('r','8'); }, delay*1000);
+    });
+
+    // Labels fade in
+    labels.forEach(function(l,i){
+      var delay = 1.0 + i * 0.2;
+      l.style.transition = 'opacity 0.8s ease ' + delay + 's';
+      setTimeout(function(){ l.setAttribute('fill','rgba(255,255,255,0.6)'); }, delay*1000);
+    });
+
+    // Center glow + dot
+    setTimeout(function(){
+      if(glow){ glow.style.transition='opacity 1s ease'; glow.setAttribute('opacity','0.85'); }
+      if(dot){ dot.style.transition='opacity 0.6s ease'; dot.setAttribute('opacity','1'); }
+    }, 1800);
+  }
+
+  // Start after a short delay
+  setTimeout(animateIn, 300);
+
+  // Gentle floating pulse on center glow
+  var pulseUp = true;
+  setInterval(function(){
+    if(!glow) return;
+    glow.setAttribute('r', pulseUp ? '60' : '45');
+    glow.style.transition = 'r 3s ease, opacity 3s ease';
+    pulseUp = !pulseUp;
+  }, 3000);
+})();
+</script>
 
 <!-- ============================================================
      SECTION 3 — THE THREE ROLES  (white)
