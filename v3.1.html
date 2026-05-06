@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CX NEXUS — The Digital CX Academy. Transform intent into execution. Where strategy, people, data, and tech connect." />
+  <title>CX NEXUS — The Digital CX Academy</title>
+  <link rel="icon" type="image/svg+xml" href="assets/cx-nexus-logo.svg" />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Bebas Neue (display) + Heebo (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cx-blue':     '#0000FF',
+            'cx-blue-2':   '#0A0AE0',
+            'cx-black':    '#000000',
+            'cx-ink':      '#0B0B10',
+            'cx-pink':     '#FF5BAE',
+            'cx-pink-2':   '#FF3D9F',
+            'cx-yellow':   '#FFE500',
+            'cx-magenta':  '#FF00FF',
+            'cx-lightblue':'#C4DAE5',
+            'cx-mint':     '#8DF4BA',
+            'cx-purple':   '#BD00FF',
+            'cx-gray-50':  '#F5F5F5',
+            'cx-gray-100': '#E9E9EE',
+            'cx-gray-600': '#5E5E6A',
+            'cx-gray-900': '#14141A',
+            'cx-surface':  '#1A1A1F',
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', '"Heebo"', 'system-ui', 'sans-serif'],
+            sans:    ['"Heebo"', 'system-ui', 'sans-serif'],
+            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          letterSpacing: {
+            'editorial': '-0.035em',
+          },
+          boxShadow: {
+            'card': '0 20px 60px -20px rgba(0,0,0,0.35)',
+            'pop':  '0 24px 70px -20px rgba(255,91,174,0.35)',
+            'glow': '0 0 80px rgba(255,0,255,0.25)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --cx-grid: rgba(255,255,255,0.08);
+      --cx-grid-strong: rgba(255,255,255,0.14);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      font-family: 'Heebo', system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: clip;
+    }
+
+    /* Signature thin grid overlay — used on blue & black sections */
+    .cx-grid {
+      position: relative;
+    }
+    .cx-grid::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, var(--cx-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--cx-grid) 1px, transparent 1px);
+      background-size: 16.6666% 88px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cx-grid-strong::before { background-image:
+      linear-gradient(to right, var(--cx-grid-strong) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--cx-grid-strong) 1px, transparent 1px);
+    }
+    .cx-grid > * { position: relative; z-index: 2; }
+
+    /* Editorial display headline helpers */
+    .h-display {
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 0.92;
+      text-wrap: balance;
+    }
+
+    /* Massive statistic numerals */
+    .num-stat {
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 0.85;
+      letter-spacing: 0;
+    }
+
+    /* Button base */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.6rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      border-radius: 9999px;
+      transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease;
+      will-change: transform;
+    }
+    .btn-pink {
+      background: #FF5BAE; color: #fff;
+      box-shadow: none;
+    }
+    .btn-pink:hover { background: #ff3d9f; transform: translateY(-2px); box-shadow: none; }
+    .btn-outline-white {
+      color: #fff; border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline-white:hover { background: #fff; color: #000; }
+    .btn-black { background: #000; color: #fff; }
+    .btn-black:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+    /* Pill label */
+    .pill {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+    }
+
+    /* Glass card on blue background */
+    .glass {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Three pillars circles (CSS-only, Venn-style overlap) */
+    .pillar-pyramid {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1 / 1;
+      margin-inline: auto;
+    }
+    .pillar-slab {
+      position: absolute;
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      letter-spacing: 0.02em;
+      color: #fff;
+      font-size: clamp(18px, 2vw, 28px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2.5px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      width: 58%; aspect-ratio: 1;
+      background: rgba(10,10,26,0.7);
+      opacity: var(--p, 0);
+      will-change: transform, opacity;
+    }
+    /* Final positions: three equal circles with subtle overlap */
+    .pillar-design  { top: 0; left: 50%;
+      transform: translate(-50%, calc((var(--p, 0) - 1) * 80px)); transform-origin: center;}
+    .pillar-defend  { bottom: 2%; left: 3%;
+      transform: translate(calc((var(--p, 0) - 1) * 80px), 0); transform-origin: center;}
+    .pillar-deliver { bottom: 2%; right: 3%;
+      transform: translate(calc((1 - var(--p, 0)) * 80px), 0); }
+    .pillar-slab span { transform: none; }
+    .pillar-design span { transform: none; }
+    .pillar-defend span { transform: none; }
+    .pillar-pyramid { will-change: transform; transition: transform 120ms linear; }
+    @media (prefers-reduced-motion: reduce) {
+      .pillar-slab { --p: 1; }
+    }
+
+    /* Convergence abstract (Why is this so hard) */
+    .converge {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 520px;
+      margin-inline: auto;
+      filter: drop-shadow(0 0 60px rgba(189,0,255,0.35));
+    }
+    .converge svg {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 120ms linear;
+    }
+    /* Paths start "undrawn" — pathLength=1 normalizes dash math to 0–1 */
+    .converge .conv-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    /* Glow + center dot start collapsed; JS drives them as scroll passes */
+    .converge .conv-glow,
+    .converge .conv-center { opacity: 0; }
+
+    /* Reduced motion — skip scroll animation, show the finished state */
+    @media (prefers-reduced-motion: reduce) {
+      .converge .conv-path { stroke-dashoffset: 0; }
+      .converge .conv-glow,
+      .converge .conv-center { opacity: 1; }
+      .converge svg { transition: none; }
+    }
+
+    /* Radiate abstract (Join us today) — hub radiating 5 spokes outward */
+    .radiate {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 540px;
+      margin-inline: auto;
+      filter: drop-shadow(0 0 70px rgba(255,46,120,0.32));
+    }
+    .radiate svg {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 120ms linear;
+    }
+    .radiate .rad-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    .radiate .rad-node,
+    .radiate .rad-glow,
+    .radiate .rad-center,
+    .radiate .rad-ring { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .radiate .rad-path { stroke-dashoffset: 0; }
+      .radiate .rad-node,
+      .radiate .rad-glow,
+      .radiate .rad-center,
+      .radiate .rad-ring { opacity: 1; }
+      .radiate svg { transition: none; }
+    }
+
+    /* Device frame for value proposition section */
+    .device {
+      border-radius: 22px;
+      background: #0f0f12;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+    }
+    .device-screen {
+      background: #fff; color: #111;
+      border-radius: 12px;
+      padding: 28px 26px;
+    }
+
+    /* Portrait tile */
+    .portrait-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      aspect-ratio: 3 / 4;
+      background: #111;
+    }
+    .portrait-tile img {
+      width:100%; height:100%; object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+    .portrait-tile::after {
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,255,0) 55%, rgba(0,0,255,0.25) 100%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+
+    /* Tick list */
+    .tick-list li {
+      position: relative;
+      padding-left: 1.3rem;
+      font-size: 0.95rem;
+    }
+    .tick-list li::before {
+      content:"";
+      position: absolute;
+      left: 0; top: 0.55rem;
+      width: 0.55rem; height: 0.55rem; border-radius: 2px;
+      background: #000;
+    }
+
+    /* Testimonial border accent variants */
+    .tcard { border-left-width: 4px; border-left-style: solid; }
+    .t-pink    { border-left-color: #FF5BAE; }
+    .t-yellow  { border-left-color: #FFE500; }
+    .t-magenta { border-left-color: #FF00FF; }
+    .t-blue    { border-left-color: #0000FF; }
+
+    /* Form field on blue bg */
+    .field {
+      background: #0000fe;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      color: #fff;
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+    .field::placeholder { color: rgba(255,255,255,0.75); }
+    .field:focus { outline: none; border-color: #fff; background: #0000fe; }
+
+    /* Hashtag strip */
+    .hashtag { color: rgba(255,255,255,0.75); font-weight: 500; letter-spacing: 0.04em; }
+
+    /* Decorative accent line */
+    .accent-line {
+      height: 6px; border-radius: 6px; background: linear-gradient(90deg,#FF5BAE,#FF00FF,#FFE500);
+    }
+
+    /* Subtle dotted divider */
+    .divider-dots {
+      height: 1px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 50%, transparent 50%);
+      background-size: 8px 1px;
+    }
+
+    /* Sticky nav scrolled state */
+    .nav-scrolled {
+      background: rgba(0,0,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Animations */
+    @keyframes floaty { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-6px);} }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    @keyframes pulseglow { 0%,100%{ opacity:.6; } 50%{ opacity:1;} }
+    .pulseglow { animation: pulseglow 4s ease-in-out infinite; }
+
+    /* Scroll-in fade */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Utility: strikethrough block */
+    .strikeblock { position: relative; display: inline-block; }
+    .strikeblock::after {
+      content:""; position:absolute; left:-2px; right:-2px; top:50%;
+      height: 2px; background: currentColor; transform: translateY(-50%);
+      opacity: .6;
+    }
+
+    /* Pricing card emphasized */
+    .price-card { background: #fff; border: 1px solid #E9E9EE; border-radius: 6px; }
+    .price-card.pop {
+      box-shadow: 0 40px 90px -30px rgba(0,0,0,0.25);
+      transform: translateY(-8px);
+    }
+
+    /* ============================================================
+       FAQ ACCORDION — black section with expanding questions
+    ============================================================ */
+    .faq-item { border-top: 1px solid rgba(255,255,255,0.12); position: relative; }
+    .faq-item:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .faq-summary { list-style: none; cursor: pointer; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::marker { content: ""; }
+
+    /* Number + arrow — white by default, pink when open */
+    .faq-num { color: #fff; transition: color .3s ease; }
+    .faq-toggle {
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+      transition: transform .35s ease, color .3s ease, border-color .3s ease, background .3s ease;
+    }
+    .faq-item[open] .faq-num    { color: #FF2E78; }
+    .faq-item[open] .faq-toggle {
+      transform: rotate(180deg);
+      color: #FF2E78;
+      border-color: #FF2E78;
+      background: transparent;
+    }
+
+    .faq-item[open] > .faq-answer { animation: faqFade .45s ease both; }
+    @keyframes faqFade {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .faq-item .faq-q-text { transition: color .25s ease; }
+    .faq-item:hover .faq-q-text,
+    .faq-item[open] .faq-q-text { color: #fff; }
+
+    /* Left accent bar — pink, reveals on open */
+    .faq-item::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: #FF2E78;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform .35s ease;
+      opacity: 0;
+    }
+    .faq-item[open]::before { transform: scaleY(1); opacity: 1; }
+
+    /* ============================================================
+       HERO CANVAS — asymmetric 4×4 grid with morphing photo slots
+    ============================================================ */
+    .hero-canvas {
+      position: relative;
+      display: grid;
+      /* Slightly varied column + row sizes (not a regular 25/25/25/25) */
+      grid-template-columns: 0.8fr 1.25fr 1.3fr 0.65fr;
+      grid-template-rows:    0.9fr 1.05fr 1.05fr 1fr;
+      min-height: calc(100vh - 0px);
+      padding-top: 80px; /* clear fixed nav */
+      background: #0000FF;
+      overflow: hidden;
+    }
+    /* Visible white grid overlay — draws 3 verticals + 3 horizontals at
+       the asymmetric column/row boundaries. z-index BELOW photos so that
+       when a photo spans multiple cells the internal dividing line is
+       covered by the image. */
+    .hero-canvas::after {
+      content: "";
+      position: absolute;
+      inset: 80px 0 0 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35));
+      background-repeat: no-repeat;
+      background-size:
+        1px 100%, 1px 100%, 1px 100%,
+        100% 1px, 100% 1px, 100% 1px;
+      /* V lines at col boundaries 20% / 51.25% / 83.75% and
+         H lines at row boundaries 22.5% / 48.75% / 75% */
+      background-position:
+        20% 0, 51.25% 0, 83.75% 0,
+        0 22.5%, 0 48.75%, 0 75%;
+    }
+    .hero-canvas > * { position: relative; z-index: 2; }
+
+    .hc-headline {
+      grid-column: 1 / span 2;
+      grid-row: 1 / span 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(1.25rem, 2.2vw, 2.5rem);
+      z-index: 3;
+    }
+    .hc-headline h1 {
+      font-size: clamp(44px, 5.4vw, 84px);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+    .hc-cta {
+      grid-column: 1 / span 3;
+      grid-row: 4;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(1rem, 1.8vw, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
+      z-index: 3;
+    }
+    .hc-logo {
+      grid-column: 4;
+      grid-row: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem;
+      z-index: 3;
+    }
+    .hc-logo img {
+      width: 72%; max-width: 200px;
+      opacity: 0.95;
+    }
+
+    /* Photo slot — position set dynamically by JS via inline
+       grid-column / grid-row. Transition is applied inline per-animation
+       (FLIP transform for movers, opacity keyframes for entering/leaving). */
+    .hc-photo {
+      position: relative;
+      overflow: hidden;
+      background: #0000FF;
+      z-index: 2;
+      will-change: transform, opacity;
+    }
+    .hc-photo.hc-slot-entering {
+      animation: hcSlotEnter 0.3s ease forwards;
+    }
+    .hc-photo.hc-slot-leaving {
+      animation: hcSlotLeave 0.3s ease forwards;
+    }
+    @keyframes hcSlotEnter {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes hcSlotLeave {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+    .hc-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s ease, transform 6s ease;
+      transform: scale(1.04);
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .hc-img.active { opacity: 1; transform: scale(1); }
+
+    /* Subtle photo tint to keep brand cohesion */
+    .hc-photo::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,255,0.08) 0%, rgba(0,0,255,0.18) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Hero credentials strip below the canvas */
+    .hero-credentials {
+      background: #0000FF;
+      padding: 14px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.22);
+    }
+
+    /* Responsive — mobile collapses the canvas into a vertical stack */
+    @media (max-width: 900px) {
+      .hero-canvas {
+        display: block;
+        padding: 104px 20px 20px;
+        min-height: auto;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      .hero-canvas::after { display: none; }
+      .hc-headline, .hc-cta, .hc-logo { padding: 0; }
+      .hc-headline { margin-bottom: 1.5rem; }
+      .hc-headline h1 { font-size: clamp(36px, 8vw, 60px); }
+      .hc-logo { justify-content: flex-start; margin-bottom: 1.25rem; }
+      .hc-logo img { width: 140px; }
+
+      /* Mobile: reset any JS-applied grid positions so stack order uses DOM */
+      .hc-photo { grid-column: auto !important; grid-row: auto !important; }
+
+      /* Show only the last photo slot on mobile, after the CTA */
+      .hc-photo[data-slot="1"],
+      .hc-photo[data-slot="2"],
+      .hc-photo[data-slot="3"] { display: none !important; }
+
+      .hc-photo[data-slot="4"] {
+        display: block !important;
+        height: clamp(220px, 52vw, 360px);
+        margin-top: 2.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid rgba(255,255,255,0.28);
+        opacity: 1 !important;
+      }
+    }
+
+    /* Media for small screens (legacy helper) */
+    @media (max-width: 768px) {
+      .cx-grid::before { background-size: 25% 88px; }
+    }
+  </style>
+</head>
+
+<body class="bg-cx-black text-white">
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 relative flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 text-white shrink-0" aria-label="CX NEXUS — home">
+      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[16px] md:h-[24px] w-auto" />
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90">
+      <a href="#framework" class="hover:text-cx-blue transition">Courses</a>
+      <a href="#keren" class="hover:text-cx-blue transition">About</a>
+      <a href="#pricing" class="hover:text-cx-blue transition">Pricing</a>
+      <a href="#faq" class="hover:text-cx-blue transition">FAQ</a>
+      <a href="#contact" class="hover:text-cx-blue transition">Contact</a>
+    </nav>
+    <!-- Hamburger (mobile only, absolute-centered in header) -->
+    <button id="hamburger-btn" type="button"
+      class="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center text-white leading-none"
+      aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg class="hb-icon hb-bars block" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="hb-icon hb-close hidden" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M6 18L18 6"/>
+      </svg>
+    </button>
+    <div class="flex items-center gap-3 shrink-0">
+      <a href="#contact" class="hidden sm:inline-flex text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90 hover:text-cx-blue transition">Sign&nbsp;In</a>
+      <a href="#pricing" class="btn btn-pink !py-2.5 !px-5 !text-[13px]">Sign Up</a>
+    </div>
+  </div>
+  <!-- Mobile dropdown menu -->
+  <nav id="mobile-menu"
+    class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out bg-cx-black/95 backdrop-blur border-t border-white/10">
+    <div class="px-6 py-2 flex flex-col text-[14px] font-semibold tracking-[0.18em] uppercase text-white/90 divide-y divide-white/10">
+      <a href="#framework" class="py-3 hover:text-cx-blue transition">Courses</a>
+      <a href="#keren" class="py-3 hover:text-cx-blue transition">About</a>
+      <a href="#pricing" class="py-3 hover:text-cx-blue transition">Pricing</a>
+      <a href="#faq" class="py-3 hover:text-cx-blue transition">FAQ</a>
+      <a href="#contact" class="py-3 hover:text-cx-blue transition">Contact</a>
+      <a href="#contact" class="py-3 hover:text-cx-blue transition">Sign&nbsp;In</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ============================================================
+     SECTION 1 — EDITORIAL HERO  (4×4 grid canvas with cycling portraits)
+============================================================ -->
+<section id="home" class="relative bg-cx-blue text-white overflow-hidden">
+  <div class="hero-canvas">
+
+    <!-- Headline block — spans 2 cols × 2 rows (top-left quadrant) -->
+    <div class="hc-headline">
+      <h1 class="h-display uppercase text-white" style="font-size: clamp(32px, 4vw, 56px); line-height: 0.95;">
+        nex·us
+      </h1>
+      <p class="mt-3 text-white/80 text-sm italic">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+      <div class="mt-5 space-y-1 text-white/90 text-[15px] leading-relaxed max-w-[560px]">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p>Between the short-term pressure to deliver and the long-term need to build something that lasts.</p>
+      </div>
+    </div>
+
+    <!-- NEXUS wordmark — default upper-right cell -->
+    <div class="hc-logo">
+      <img src="assets/cx-nexus-logo-white.svg" alt="" />
+    </div>
+
+    <!-- Photo slot 1 -->
+    <div class="hc-photo" data-slot="1" aria-hidden="true"></div>
+
+    <!-- Photo slot 2 -->
+    <div class="hc-photo" data-slot="2" aria-hidden="true"></div>
+
+    <!-- Photo slot 3 -->
+    <div class="hc-photo" data-slot="3" aria-hidden="true"></div>
+
+    <!-- Tagline + CTAs — bottom row, spans 3 cols -->
+    <div class="hc-cta">
+      <p class="text-white/90 text-base md:text-lg leading-relaxed max-w-[680px]">
+        This is where CX leaders live. And nobody taught you how to operate there.<br/>
+        <span class="font-bold">CX NEXUS is the program that does.</span>
+      </p>
+      <div class="mt-5 flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-5 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn !py-2.5 !px-5 !text-[13px]" style="background:#0000FF;color:#fff;border:1.5px solid rgba(255,255,255,0.6);">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Photo slot 4 (the only slot visible on mobile, after CTA) -->
+    <div class="hc-photo" data-slot="4" aria-hidden="true"></div>
+
+  </div>
+
+  <!-- Credentials strip below the canvas -->
+  <div class="hero-credentials">
+    <div class="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-wrap justify-center gap-x-8 gap-y-2 text-[11px] tracking-[0.22em] uppercase text-white/85 font-semibold">
+      <span>CCXP Certified</span>
+      <span class="text-white/40">·</span>
+      <span>CXPA Recognized Training Provider</span>
+      <span class="text-white/40">·</span>
+      <span>Since 2016</span>
+      <span class="text-white/40">·</span>
+      <span>+500 Graduates</span>
+      <span class="text-white/40">·</span>
+      <span class="text-cx-yellow">Now in a new online edition</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — THE THREE ROLES  (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center max-w-3xl mx-auto mb-8">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] text-cx-black leading-[0.95]">
+        The role nobody prepared you for
+      </h2>
+      <p class="mt-3 text-base md:text-lg text-cx-gray-600">A CX leader is three professionals in one body.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <!-- Architect -->
+      <article class="bg-cx-black text-white p-6 md:p-8 rounded-sm relative overflow-hidden">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center">
+          <img src="assets/Architect.svg" alt="Architect" width="56" height="56" class="invert" />
+        </div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-white font-semibold mb-2">An Architect</div>
+        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4">Designs the intended experience</h3>
+        <p class="text-white/75 text-[15px] leading-relaxed">
+          Designing the intended experience, experimenting to find what works, building a system that connects journeys, values, and business priorities into something operations can execute.
+        </p>
+      </article>
+
+      <!-- Accountant -->
+      <article class="bg-cx-black text-white p-6 md:p-8 rounded-sm relative overflow-hidden">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center">
+          <img src="assets/Accountant.svg" alt="Accountant" width="56" height="56" class="invert" />
+        </div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-yellow font-semibold mb-2">An Accountant</div>
+        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4">Proves the value</h3>
+        <p class="text-white/75 text-[15px] leading-relaxed">
+          Proving the value, building the business case, translating customer problems into revenue, cost, and risk in a language Finance respects.
+        </p>
+      </article>
+
+      <!-- Diplomat -->
+      <article class="bg-cx-black text-white p-6 md:p-8 rounded-sm relative overflow-hidden">
+        <div class="w-12 h-12 mb-4 flex items-center justify-center">
+          <img src="assets/Diplomat.svg" alt="Diplomat" width="56" height="56" class="invert" />
+        </div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-magenta font-semibold mb-2">A Diplomat</div>
+        <h3 class="font-display text-2xl md:text-3xl uppercase mb-4">Leads without authority</h3>
+        <p class="text-white/75 text-[15px] leading-relaxed">
+          Navigating politics, building coalitions across functions, leading change without authority, and making things stick when the meeting ends and people go back to their real priorities.
+        </p>
+      </article>
+    </div>
+
+    <div class="text-center mt-12 max-w-3xl mx-auto">
+      <p class="text-lg md:text-xl text-cx-gray-900 leading-relaxed">
+        No course teaches all three.<br class="hidden sm:block"/>
+        Most don't even acknowledge the last two exist.
+      </p>
+      <p class="mt-4 h-display uppercase text-[clamp(28px,3.5vw,44px)] leading-[0.95] text-cx-black">
+        <span class="relative inline-block">
+          CX&nbsp;NEXUS does.
+          <span class="absolute left-0 -bottom-2 h-[6px] w-full bg-cx-blue" aria-hidden="true"></span>
+        </span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — THE ODDS (white, editorial compact)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-14 md:py-16">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+    <div class="flex items-baseline justify-between mb-8 flex-wrap gap-4">
+      <h2 class="h-display uppercase text-[clamp(30px,4.5vw,56px)] text-cx-black">The odds are stacked against you.</h2>
+      <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-mono shrink-0">CX INDEX · 2024–2025</div>
+    </div>
+
+    <!-- Lead stat pair -->
+    <div class="grid md:grid-cols-2 gap-4 mb-4">
+      <div class="flex items-baseline gap-4 p-5 bg-cx-gray-50 border-l-4 border-cx-blue">
+        <span class="num-stat text-cx-black text-[clamp(40px,5vw,56px)] leading-none shrink-0" data-count-to="39" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="text-cx-gray-600 text-[14px] leading-snug">of brands declined in CX quality in 2024 — the third consecutive year at an all‑time low.</p>
+      </div>
+      <div class="flex items-baseline gap-4 p-5 bg-cx-gray-50 border-l-4 border-cx-blue">
+        <span class="num-stat text-cx-black text-[clamp(40px,5vw,56px)] leading-none shrink-0" data-count-to="7" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="text-cx-gray-600 text-[14px] leading-snug">improved in 2025. Everyone else is still stuck.</p>
+      </div>
+    </div>
+
+    <!-- Secondary stats — compact 3-col -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-4">
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="54" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug">of CX professionals say their teams cannot prove the ROI of their projects.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(28px,3.5vw,40px)] leading-none whitespace-nowrap">1&nbsp;in&nbsp;5</span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug">CX programs will disappear entirely. Others will be split up and absorbed into other functions.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="64" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug">CCO appointments grew 64% in 2024. The role is expanding faster than ever. The support system isn't.</p>
+      </div>
+    </div>
+
+    <!-- Tertiary stats — compact 3-col -->
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="55" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug">of CCOs strongly agree they are responsible for the end-to-end customer journey. The rest? Working with an undefined mandate.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="20" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug">of CCOs receive invitations to attend or speak at board meetings very frequently. The rest are leading transformation without a seat at the table.</p>
+      </div>
+      <div class="p-4 border border-cx-gray-100">
+        <span class="num-stat text-cx-black text-[clamp(32px,4vw,44px)] leading-none" data-count-to="50" data-count-suffix="%">0<span class="text-[0.5em]">%</span></span>
+        <p class="mt-1 text-cx-gray-600 text-[13px] leading-snug">say cultural resistance is one of the greatest challenges they face.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — WHY IS THIS SO HARD? (black + convergence)
+============================================================ -->
+<section class="cx-grid relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-6">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)]">
+        Why is this so <span class="text-cx-magenta">hard?</span>
+      </h2>
+      <p class="mt-8 max-w-[560px] text-white text-lg font-semibold">
+        Because the CX role demands everything.
+      </p>
+      <p class="mt-2 max-w-[560px] text-white/85 text-[15px] leading-relaxed">
+        Strategy. Measurement. Finance. Technology. Change leadership. Stakeholder management. All at once.
+      </p>
+      <p class="mt-4 max-w-[560px] text-white/75 text-[15px] leading-relaxed">
+        Most CX leaders came from one domain: VoC, service, customer success, marketing, operations. Each brings deep expertise in one area. But the role requires all of them. And no single background prepares you for that.
+      </p>
+      <p class="mt-4 max-w-[560px] text-white/75 text-[15px] leading-relaxed">
+        You need to design like an architect, prove value like a CFO, and lead change like a diplomat. You need to connect insight to action across functions you don't control, with data that is never perfect, inside organizations that weren't built to prioritize the customer.
+      </p>
+      <p class="mt-6 max-w-[560px] italic text-white font-medium">
+        That is a lot to figure out alone. And most CX leaders don't have years to learn it through trial and error.
+      </p>
+      <div class="mt-10">
+        <a href="#pricing" class="btn btn-pink">
+          Apply for the Next Cohort
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Convergence SVG -->
+    <div class="lg:col-span-6">
+      <div class="converge">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g-blue" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+            </linearGradient>
+            <linearGradient id="g-pink" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#FF00FF"/>
+            </linearGradient>
+            <linearGradient id="g-yellow" x1="0" x2="1" y1="0" y2="1">
+              <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#FF5BAE"/>
+            </linearGradient>
+            <radialGradient id="g-glow" cx="60%" cy="50%" r="30%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+              <stop offset="60%" stop-color="#FF00FF" stop-opacity="0.4"/>
+              <stop offset="100%" stop-color="#FF00FF" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <g stroke-width="4" stroke-linecap="round" fill="none">
+            <path class="conv-path" pathLength="1" d="M40,90 C 200,140 240,260 370,300 C 470,330 520,310 560,280" stroke="url(#g-blue)"/>
+            <path class="conv-path" pathLength="1" d="M40,300 C 200,320 260,310 380,300 C 470,295 520,300 560,300" stroke="url(#g-pink)"/>
+            <path class="conv-path" pathLength="1" d="M40,510 C 200,460 240,340 370,300 C 470,270 520,290 560,320" stroke="url(#g-yellow)"/>
+          </g>
+
+          <!-- convergence glow -->
+          <circle class="conv-glow" cx="380" cy="300" r="110" fill="url(#g-glow)" />
+          <circle class="conv-center" cx="380" cy="300" r="8" fill="#fff" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — YOU HAVE TWO OPTIONS (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-10">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] text-cx-black">You have two options</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+      <!-- Option 1 -->
+      <article class="p-6 md:p-8 border border-cx-gray-100 bg-cx-gray-50 rounded-sm">
+        <div class="num-stat text-cx-gray-600/80 text-[clamp(40px,5vw,60px)] mb-4">01</div>
+        <p class="text-cx-gray-600 text-lg leading-relaxed max-w-sm">
+          Keep building this discipline one budget cycle, one failed governance experiment, one stakeholder conversation at a time.
+          Some get there eventually.
+        </p>
+      </article>
+
+      <!-- Option 2 -->
+      <article class="relative p-6 md:p-8 bg-white border-2 border-cx-blue rounded-sm shadow-card">
+        <span class="pill bg-cx-gray-600 text-white mb-4">Recommended</span>
+        <div class="num-stat text-cx-blue text-[clamp(40px,5vw,60px)] mb-4">02</div>
+        <p class="text-cx-black text-lg leading-relaxed max-w-md">
+          Or join CX NEXUS and build it in weeks. With a proven system. With a mentor who has done this across industries and continents.
+          <span class="font-bold">Tailored to your organization</span>, because every company is different: different maturity, different politics, different data, different appetite for change.
+        </p>
+        <p class="mt-4 text-cx-gray-600 text-[15px] max-w-md">
+          There is no formula. There is a discipline, and CX NEXUS teaches you how to apply it to your reality.
+        </p>
+        <p class="mt-4 text-cx-gray-600 text-[15px] max-w-md">
+          You leave with the full picture: strategy, measurement, business case, governance, and change management. Not generic. Built for the organization you are actually trying to change.
+        </p>
+        <div class="mt-8">
+          <a href="#pricing" class="btn" style="background:#0000FF;color:#fff;">
+            Apply for the Next Cohort
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 7 — THE THREE PILLARS FRAMEWORK (dark / gradient)
+============================================================ -->
+<section id="framework" class="relative bg-gradient-to-b from-[#0B0B14] to-[#000] text-white py-16 md:py-20">
+  <div class="absolute inset-0 cx-grid pointer-events-none opacity-60"></div>
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10 grid lg:grid-cols-12 gap-12 lg:items-stretch">
+
+    <div class="lg:col-span-7 space-y-10">
+      <div>
+        <h2 class="h-display uppercase text-[clamp(30px,4vw,56px)]">
+          Design. Defend. Deliver.
+        </h2>
+        <p class="mt-4 text-white/70 text-lg max-w-xl">Three disciplines. One operating system. Each maps to the role you actually play: the Architect, the Accountant, the Diplomat. The foundation of every CX NEXUS cohort.</p>
+      </div>
+
+      <div class="space-y-8">
+        <div class="border-l-4 border-white/10 pl-6">
+          <h3 class="font-display text-2xl md:text-3xl uppercase">
+            <span class="underline decoration-cx-blue decoration-[3px] underline-offset-[6px]">Design</span> the Strategy
+            <span class="block text-white/60 text-base font-sans normal-case tracking-normal mt-1">The Architect</span>
+          </h3>
+          <p class="mt-3 text-white/75 text-[15px] leading-relaxed max-w-xl">
+            Intended experience design. CX values model: emotional and functional. Customer journeys that expose root causes and drive prioritization, not decorate walls.
+          </p>
+          <p class="mt-2 text-white/75 text-[15px] leading-relaxed max-w-xl font-semibold italic">You leave with: a CX strategy tied to business priorities, not aspirational statements.</p>
+        </div>
+        <div class="border-l-4 border-white/10 pl-6">
+          <h3 class="font-display text-2xl md:text-3xl uppercase">
+            <span class="underline decoration-cx-blue decoration-[3px] underline-offset-[6px]">Defend</span> the Value
+            <span class="block text-white/60 text-base font-sans normal-case tracking-normal mt-1">The Accountant</span>
+          </h3>
+          <p class="mt-3 text-white/75 text-[15px] leading-relaxed max-w-xl">
+            Measurement architecture that connects CX to business outcomes. CFO-ready business case. Value logic that survives scrutiny with imperfect data. AI-powered CFO Simulator to pressure-test before you present to the real thing.
+          </p>
+          <p class="mt-2 text-white/75 text-[15px] leading-relaxed max-w-xl font-semibold italic">You leave with: a value story your leadership team can challenge and still respect.</p>
+        </div>
+        <div class="border-l-4 border-white/10 pl-6">
+          <h3 class="font-display text-2xl md:text-3xl uppercase">
+            <span class="underline decoration-cx-yellow decoration-[3px] underline-offset-[6px]">Deliver</span> the Change
+            <span class="block text-white/60 text-base font-sans normal-case tracking-normal mt-1">The Diplomat</span>
+          </h3>
+          <p class="mt-3 text-white/75 text-[15px] leading-relaxed max-w-xl">
+            Governance model that produces decisions, owners, and deadlines. CX roadmap. Change management. How to lead execution across functions you don't control, and make it stick.
+          </p>
+          <p class="mt-2 text-white/75 text-[15px] leading-relaxed max-w-xl font-semibold italic">You leave with: an organization that acts on CX, not one that talks about it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pyramid -->
+    <div class="lg:col-span-5">
+      <div class="lg:sticky lg:top-[96px]">
+        <div class="pillar-pyramid">
+          <div class="pillar-slab pillar-design"><span class="underline decoration-cx-blue decoration-[4px] underline-offset-[8px]">DESIGN</span></div>
+          <div class="pillar-slab pillar-defend"><span class="underline decoration-cx-blue decoration-[4px] underline-offset-[8px]">DEFEND</span></div>
+          <div class="pillar-slab pillar-deliver"><span class="underline decoration-cx-yellow decoration-[4px] underline-offset-[8px]">DELIVER</span></div>
+        </div>
+        <div class="text-right mt-6 text-[11px] tracking-[0.3em] uppercase text-white/50 font-mono">
+          CX Nexus
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 8 — ABOUT KEREN (black + grid)
+============================================================ -->
+<section id="keren" class="relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 items-center">
+    <!-- Portrait -->
+    <div class="lg:col-span-5">
+      <div class="relative max-w-[269px] mx-auto">
+        <div class="absolute -inset-3 border border-cx-blue pointer-events-none rounded-2xl"></div>
+        <div class="absolute -inset-6 border border-cx-blue/40 pointer-events-none rounded-3xl"></div>
+        <div class="relative aspect-[3/4] overflow-hidden rounded-xl">
+          <img alt="Portrait of Keren — CX NEXUS founder" src="assets/Keren.jpg" class="w-full h-full object-cover" />
+          <div class="absolute inset-0 bg-gradient-to-b from-cx-blue/10 via-transparent to-cx-blue/20 mix-blend-overlay"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="lg:col-span-7">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] leading-[0.95]">About Keren</h2>
+      <div class="mt-6 space-y-2 text-[11px] tracking-[0.35em] uppercase text-cx-magenta font-semibold">
+        <div>CCXP‑certified CX strategist</div>
+        <div>CXPA recognized training provider</div>
+      </div>
+      <p class="mt-6 text-white/75 text-[15px] leading-relaxed max-w-2xl">
+        Built and led a Deloitte consulting practice. Led global BI, CRM, and XM programs across four continents. Worked with leaders of iconic global brands and fast‑scaling startups. B2B and B2C. Technology and manufacturing. Financial services, healthcare, and public sector.
+      </p>
+      <p class="mt-4 text-white/70 text-[15px] leading-relaxed max-w-2xl">
+        Started as an accountant, where numbers are clean and decisions are binary. Moved into a world where the currency is emotions, influence, and politics. Failed the first time she led CX change inside an organization. Learned what actually works. Built the system. Has been teaching it since 2016.
+      </p>
+      <div class="mt-8 flex items-center gap-6 flex-wrap">
+        <a href="#" class="inline-flex items-center gap-2 text-cx-blue font-semibold">
+          Read the full story
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="mt-8 inline-flex items-center bg-white rounded-md px-4 py-3 shadow-sm">
+        <img src="assets/credentials-logos.png" alt="CCXP Certified Customer Experience Professional · CXPA Recognized Training Provider" class="h-14 md:h-16 w-auto block" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 9 — WHO THIS IS FOR (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-10">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] text-cx-black">Who this is for</h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-10 max-w-5xl mx-auto">
+      <article class="p-8 md:p-10 bg-cx-gray-50 border-l-4 border-cx-blue rounded-sm">
+        <h3 class="font-display text-2xl md:text-3xl uppercase leading-tight mb-5">
+          You lead CX, VoC,<br/>or Service Design
+        </h3>
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed">
+          And your insight produces reports, not decisions. You need governance, a value logic your CFO respects, and an execution rhythm that doesn't depend on your personal persuasion.
+        </p>
+      </article>
+
+      <article class="p-8 md:p-10 bg-cx-gray-50 border-l-4 border-cx-blue rounded-sm">
+        <h3 class="font-display text-2xl md:text-3xl uppercase leading-tight mb-5">
+          You lead Support, Success,<br/>Ops, or Product
+        </h3>
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed">
+          And CX accountability landed in your job description. You need an operating model for cross‑functional execution, not a CX vocabulary lesson.
+        </p>
+      </article>
+    </div>
+
+    <article class="mt-6 md:mt-10 max-w-5xl mx-auto p-8 md:p-10 bg-cx-gray-50 border-l-4 border-cx-yellow rounded-sm">
+      <div class="flex items-start gap-5">
+        <div class="shrink-0 w-12 h-12 rounded-full bg-cx-yellow/20 flex items-center justify-center">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="8" cy="12" r="4"/>
+            <circle cx="16" cy="12" r="4"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-display text-2xl md:text-3xl uppercase leading-tight mb-3">
+            What both have in common
+          </h3>
+          <p class="text-cx-gray-600 text-[15px] leading-relaxed">
+            A live business challenge, a cross-functional mandate, and the intent to build during the program, not just learn.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="mt-12 max-w-5xl mx-auto">
+      <div class="flex items-center gap-4 mb-5">
+        <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-black text-white text-[11px] tracking-[0.3em] uppercase font-semibold">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M6 18L18 6"/>
+          </svg>
+          Not for you if
+        </span>
+        <span class="flex-1 h-px bg-cx-gray-100"></span>
+      </div>
+      <p class="text-cx-gray-600 text-base md:text-lg leading-relaxed">
+        Early career. Looking for platform certification. Buying frontline training. Collecting badges instead of building systems.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 10 — UNIQUE VALUE PROPS GRID (blue + 6 cards)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20 overflow-hidden">
+
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 relative z-10">
+    <div class="mb-10 text-center">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] text-cx-black">
+        What you won't find anywhere else
+      </h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <article class="p-7 md:p-8 rounded-sm border border-cx-gray-100 bg-cx-gray-50">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-3">01</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3 text-cx-black">Execution, not just education</h3>
+        <p class="text-cx-gray-600 text-[14px] leading-relaxed">Most CX programs teach frameworks and terminology. CX NEXUS teaches how to make them work inside organizations with real politics, imperfect data, and competing priorities. You learn the frameworks too, but from a practitioner's angle: what to use, when to adapt, and what to do when the textbook breaks.</p>
+      </article>
+      <article class="p-7 md:p-8 rounded-sm border border-cx-gray-100 bg-cx-gray-50">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-3">02</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3 text-cx-black">All three disciplines in one program</h3>
+        <p class="text-cx-gray-600 text-[14px] leading-relaxed">Strategy. Business value. Change leadership. Other programs cover one. CX NEXUS integrates all three because that is what the role actually demands.</p>
+      </article>
+      <article class="p-7 md:p-8 rounded-sm border border-cx-gray-100 bg-cx-gray-50">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-3">03</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3 text-cx-black">Built by someone who operates in both worlds</h3>
+        <p class="text-cx-gray-600 text-[14px] leading-relaxed">Finance, technology, and CX. Not many CX trainers have led global BI, CRM, XM, and ERP programs. That means the measurement and value logic you learn here connects to the systems your organization actually runs on.</p>
+      </article>
+      <article class="p-7 md:p-8 rounded-sm border border-cx-gray-100 bg-cx-gray-50">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-3">04</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3 text-cx-black">AI‑powered practice tools</h3>
+        <p class="text-cx-gray-600 text-[14px] leading-relaxed">A CFO Simulator to stress‑test your business case. Stakeholder conversation prompts. Tools you keep and use long after the program ends. No other CX program offers this.</p>
+      </article>
+      <article class="p-7 md:p-8 rounded-sm border border-cx-gray-100 bg-cx-gray-50">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-3">05</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3 text-cx-black">Organizational assets, not personal development</h3>
+        <p class="text-cx-gray-600 text-[14px] leading-relaxed">Every module produces something your organization uses: governance models, business cases, prioritization frameworks, measurement architectures. Your company doesn't get a "trained employee." It gets a working CX operating system.</p>
+      </article>
+      <article class="p-7 md:p-8 rounded-sm border border-cx-gray-100 bg-cx-gray-50">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-3">06</div>
+        <h3 class="font-display text-2xl uppercase leading-tight mb-3 text-cx-black">A proven track record</h3>
+        <p class="text-cx-gray-600 text-[14px] leading-relaxed">Hundreds of graduates since 2016. Alumni who now lecture in the program. A curriculum tested across B2B, B2C, public sector, and enterprise organizations on four continents. CCXP certified. CXPA recognized.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11 — GRADUATE TESTIMONIALS (black)
+============================================================ -->
+<section class="relative bg-cx-gray-50 text-cx-black py-16 md:py-20 overflow-hidden">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+    <div class="text-center mb-10">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] text-cx-black">What graduates say</h2>
+    </div>
+
+    <!-- Featured testimonial — large, centered -->
+    <blockquote class="max-w-4xl mx-auto text-center mb-12 px-4">
+      <svg class="mx-auto mb-4 text-cx-blue" width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M4.583 17.321C3.553 16.227 3 15 3 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C9.591 11.68 11 13.194 11 15c0 1.934-1.567 3.5-3.5 3.5-1.073 0-2.098-.49-2.917-1.179zM14.583 17.321C13.553 16.227 13 15 13 13.011c0-3.5 2.457-6.637 6.03-8.188l.893 1.378c-3.335 1.804-3.987 4.145-4.247 5.621.537-.278 1.24-.375 1.929-.311C19.591 11.68 21 13.194 21 15c0 1.934-1.567 3.5-3.5 3.5-1.073 0-2.098-.49-2.917-1.179z"/></svg>
+      <p class="text-xl md:text-2xl leading-relaxed text-cx-black italic">
+        "It helped me move from managing service centers to managing customer experience as an engine of growth and profitability. I connected CX to Retention, Expansion, and Revenue Growth, and positioned service as a business impact center, not a cost center. Not theoretical. It provides tools that can be implemented immediately. The results I achieved, including maintaining high customer satisfaction, are the best proof. It completely changed my perception of the business world."
+      </p>
+      <footer class="mt-6">
+        <div class="font-bold text-cx-black text-base">Oded Frenkel</div>
+        <div class="text-cx-gray-600 text-sm">Chief Customer Officer, Nayax</div>
+      </footer>
+    </blockquote>
+
+    <div class="border-t border-cx-gray-100"></div>
+
+    <!-- Masonry-style 3-column testimonials -->
+    <div class="mt-10 columns-1 md:columns-2 lg:columns-3 gap-5 space-y-5">
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"The most practical course out there. You leave knowing exactly how to implement what you've learned."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Shirley Campbell</div>
+          <div class="text-cx-gray-600 text-xs">CX Manager, Nayax</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"We actually implemented things within our organization during the course. We also won a large new client."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Chemi Cohen</div>
+          <div class="text-cx-gray-600 text-xs">Director of Quality and Safety, Tower Semiconductor</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"As a graduate of one of the first cohorts, I took the methodologies and applied them. Today, I lecture in the course."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Meni Dahan</div>
+          <div class="text-cx-gray-600 text-xs">Chief Customer Experience and Digital Officer, H.Y. Group</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"The connection between Employee Experience and Customer Experience, linking journeys to organizational values, business results, and measurable outcomes."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Moran Keinan</div>
+          <div class="text-cx-gray-600 text-xs">Head of Employee Experience, Bank Hapoalim</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"I came in with very high expectations, aiming to get tools, work methodologies, and defined practices, and I really did receive that."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Ornit Goldberg</div>
+          <div class="text-cx-gray-600 text-xs">CX, UX &amp; Customer Journeys Director, Ministry of Health</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"I originally came from marketing. The course helped me tremendously. I am now heading toward brainstorming initiatives within our organization using what we learned here."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Maya Berkovich</div>
+          <div class="text-cx-gray-600 text-xs">Champion Motors</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"One of the best professional decisions I've made in my life."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Doron Hornfeld</div>
+          <div class="text-cx-gray-600 text-xs">CEO &amp; Owner, Premium Insurance</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"I gained tools at Intel that allow me to drive CX processes. Even during the course, we started forming a group to deeply explore improving customer experience."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Ady Marad</div>
+          <div class="text-cx-gray-600 text-xs">Operations and Employee Experience, Intel</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"CEOs and CX leaders who will undoubtedly remain lifelong friends."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Moran Weiss</div>
+          <div class="text-cx-gray-600 text-xs">Director of Service and Customer Experience, Tzabar Medicine</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"Our cohort is still actively communicating, sharing successes, and scheduling meetups months later."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Iris Krichely</div>
+          <div class="text-cx-gray-600 text-xs">Training &amp; Implementation Manager, Ministry of Labor</div>
+        </footer>
+      </blockquote>
+
+      <blockquote class="break-inside-avoid bg-white rounded-lg p-6 border border-cx-gray-100">
+        <p class="text-cx-gray-600 text-[15px] leading-relaxed italic">"Already during the course we began holding weekly discussions about customer experience. This course gave me tools to turn good experience into excellent experience."</p>
+        <footer class="mt-4 pt-4 border-t border-cx-gray-100">
+          <div class="font-bold text-cx-black text-sm">Inbar Aloni</div>
+          <div class="text-cx-gray-600 text-xs">Service Manager and Customer Experience, Bank Massad</div>
+        </footer>
+      </blockquote>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11.5 — WHAT YOUR ORGANIZATION GETS (white)
+============================================================ -->
+<section class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="mb-10 text-center">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] leading-[0.9] text-cx-black">
+        What your <span class="text-cx-magenta">organization</span> gets
+      </h2>
+      <p class="mt-8 text-cx-gray-600 text-lg max-w-2xl">
+        CX NEXUS doesn't just develop the leader. It equips your organization.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+      <article class="bg-cx-gray-50 border border-cx-gray-100 p-6 md:p-8 rounded-sm">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-4">For the CX leader</div>
+        <p class="text-cx-black text-lg leading-relaxed">
+          A proven system to move from insight to execution. Governance, measurement, business case, and change management skills that make you <strong>indispensable, not fragile</strong>.
+        </p>
+      </article>
+
+      <article class="bg-cx-gray-50 border border-cx-gray-100 p-6 md:p-8 rounded-sm">
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mb-4">For the organization investing in this</div>
+        <p class="text-cx-black text-lg leading-relaxed">
+          A CX operating model your team builds and owns. Not a consultant's report that collects dust. Not a certificate that changes nothing. A working system for cross‑functional decision‑making, prioritization, and accountability that scales across the business and survives leadership changes.
+        </p>
+      </article>
+    </div>
+
+    <p class="mt-12 text-cx-gray-600 text-lg max-w-3xl leading-relaxed">
+      Every module produces an organizational asset: a governance structure, a business case, a prioritization framework, a measurement model. Your leader returns with a <span class="font-semibold text-cx-black">system ready to implement</span>, not a notebook full of theory.
+    </p>
+
+    <div class="mt-10">
+      <a href="#pricing" class="btn btn-black">
+        Apply for the Next Cohort
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 11.75 — JOIN US TODAY (black + radiate animation)
+============================================================ -->
+<section class="cx-grid relative bg-cx-black text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 grid lg:grid-cols-12 gap-12 lg:items-stretch">
+
+    <!-- Left column: radiate SVG animation (scroll-driven, sticky on desktop) -->
+    <div class="lg:col-span-6 order-2 lg:order-1">
+      <div class="lg:sticky lg:top-[96px]">
+        <div class="radiate">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <linearGradient id="rad-g1" x1="0.5" y1="0.5" x2="0.5" y2="0">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="rad-g2" x1="0.5" y1="0.5" x2="1" y2="0.4">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#FF2E78"/>
+            </linearGradient>
+            <linearGradient id="rad-g3" x1="0.5" y1="0.5" x2="0.8" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#FFD400"/>
+            </linearGradient>
+            <linearGradient id="rad-g4" x1="0.5" y1="0.5" x2="0.2" y2="1">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#FF00FF"/>
+            </linearGradient>
+            <linearGradient id="rad-g5" x1="0.5" y1="0.5" x2="0" y2="0.4">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9"/>
+              <stop offset="100%" stop-color="#FF5BAE"/>
+            </linearGradient>
+            <radialGradient id="rad-glow-grad" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+              <stop offset="55%" stop-color="#FF2E78" stop-opacity="0.45"/>
+              <stop offset="100%" stop-color="#FF2E78" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- Outer faint rings -->
+          <circle class="rad-ring" cx="300" cy="300" r="230"
+                  stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/>
+          <circle class="rad-ring" cx="300" cy="300" r="150"
+                  stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+
+          <!-- 5 radiating paths from center -->
+          <g stroke-width="4" stroke-linecap="round" fill="none">
+            <path class="rad-path" pathLength="1" d="M300,300 Q 310,180 300,80"   stroke="url(#rad-g1)"/>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 415,245 509,232"  stroke="url(#rad-g2)"/>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 380,405 429,478"  stroke="url(#rad-g3)"/>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 220,405 171,478"  stroke="url(#rad-g4)"/>
+            <path class="rad-path" pathLength="1" d="M300,300 Q 185,245 91,232"   stroke="url(#rad-g5)"/>
+          </g>
+
+          <!-- Endpoint nodes -->
+          <circle class="rad-node" cx="300" cy="80"  r="0" fill="#0000FF"/>
+          <circle class="rad-node" cx="509" cy="232" r="0" fill="#FF2E78"/>
+          <circle class="rad-node" cx="429" cy="478" r="0" fill="#FFD400"/>
+          <circle class="rad-node" cx="171" cy="478" r="0" fill="#FF00FF"/>
+          <circle class="rad-node" cx="91"  cy="232" r="0" fill="#FF5BAE"/>
+
+          <!-- Central glow + dot -->
+          <circle class="rad-glow"   cx="300" cy="300" r="30" fill="url(#rad-glow-grad)"/>
+          <circle class="rad-center" cx="300" cy="300" r="0"  fill="#fff"/>
+        </svg>
+        </div>
+        <div class="text-right mt-6 text-[11px] tracking-[0.3em] uppercase text-white/50 font-mono">
+          CX Nexus
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: copy + 5 pillar blocks + CTA -->
+    <div class="lg:col-span-6 order-1 lg:order-2">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] leading-[0.92]">
+        Join us <span class="text-cx-yellow">today</span>
+      </h2>
+
+      <ul class="mt-10 space-y-7 max-w-[580px]">
+        <li class="border-l-2 border-cx-blue pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">Self‑paced modules</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed">
+            Short lessons across the 3D framework. Frameworks, methodologies, and terminology taught from a practical angle: what to use, when, and what to do when the textbook answer doesn't survive your organization. Templates and tools you apply immediately.
+          </p>
+        </li>
+        <li class="border-l-2 border-cx-blue pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">Live sessions with Keren</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed">
+            Regular office hours: teaching, Q&amp;A, and working through the real challenges you are facing at work. Direct access to someone who has led this work at global scale across XM, CRM, BI, and enterprise technology.
+          </p>
+        </li>
+        <li class="border-l-2 border-cx-yellow pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">AI‑powered tools</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed">
+            CFO Simulator for pressure‑testing your business case. Stakeholder conversation practice. Prompts you keep and use after the program ends.
+          </p>
+        </li>
+        <li class="border-l-2 border-cx-magenta pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">Practical deliverables</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed">
+            Every module produces something you use at work: a CX values model, a governance structure, a business case, a prioritization framework. Not assignments. Assets.
+          </p>
+        </li>
+        <li class="border-l-2 border-[#FF5BAE] pl-5">
+          <h3 class="font-display uppercase text-white text-[17px] md:text-lg tracking-wide">A peer network that lasts</h3>
+          <p class="mt-2 text-white/70 text-[15px] leading-relaxed">
+            Past cohorts still meet years later. Some graduates now teach in the program. That says something about what this community creates.
+          </p>
+        </li>
+      </ul>
+
+      <p class="mt-10 italic text-white font-medium max-w-[580px]">
+        Proven curriculum since 2016. Hundreds of graduates. First time available in this online format, globally.
+      </p>
+      <div class="mt-8">
+        <a href="#pricing" class="btn btn-pink">
+          Apply for the Next Cohort
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12 — PRICING (white)
+============================================================ -->
+<section id="pricing" class="relative bg-white text-cx-black py-16 md:py-20">
+  <div class="max-w-[1200px] mx-auto px-6 md:px-10">
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+      <!-- Left column: heading, description, what's included -->
+      <div>
+        <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] text-cx-black leading-[0.95]">Pricing</h2>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-cx-blue font-semibold mt-3">First Online Cohort — Launch Pricing</div>
+        <p class="mt-6 text-cx-gray-600 text-[15px] leading-relaxed">
+          This is the first time CX NEXUS is available in this format, globally. Launch pricing reflects that you are joining early.
+        </p>
+
+        <div class="mt-8 pt-6 border-t border-cx-gray-100">
+          <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold mb-5">All tiers include</div>
+          <ul class="space-y-3 text-cx-black text-[15px]">
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-blue"></span>
+              Self‑paced modules across the full 3D framework
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-blue"></span>
+              Live sessions with Keren
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-blue"></span>
+              AI‑powered practice tools
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-blue"></span>
+              Templates, frameworks, and deliverables you build during the program
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="shrink-0 mt-2 w-1.5 h-1.5 rounded-full bg-cx-blue"></span>
+              Alumni network access
+            </li>
+          </ul>
+        </div>
+
+        <p class="mt-8 text-cx-black text-[15px] font-semibold">
+          No upsells. No "premium tier" with the good stuff. Everyone gets the full program.
+        </p>
+      </div>
+
+      <!-- Right column: pricing tiers stacked -->
+      <div class="space-y-4">
+        <!-- Inner Circle -->
+        <article class="p-6 md:p-8 border-2 border-cx-blue bg-white rounded-sm shadow-card">
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold">Inner Circle</div>
+            <div class="text-[11px] tracking-[0.25em] uppercase font-semibold text-cx-blue">5 Spots</div>
+          </div>
+          <div class="num-stat text-cx-black text-[clamp(48px,6vw,72px)] leading-none">$700</div>
+          <p class="mt-4 text-cx-gray-600 text-[14px] leading-relaxed">
+            The first five. Same full program, plus a 1‑on‑1 session with Keren tailored to your specific CX challenge. Your feedback directly influences the curriculum, and you are credited as part of the founding cohort in future materials. Lowest price this program will ever offer.
+          </p>
+          <div class="mt-5">
+            <a href="#contact" class="btn btn-pink w-full justify-center">Secure My Spot</a>
+          </div>
+        </article>
+
+        <!-- Launch Price -->
+        <article class="p-6 md:p-8 border border-cx-gray-100 bg-white rounded-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold">Launch Price</div>
+          </div>
+          <div class="num-stat text-cx-black text-[clamp(48px,6vw,72px)] leading-none">$1,000</div>
+          <p class="mt-4 text-cx-gray-600 text-[14px] leading-relaxed">
+            Available after the first five spots are taken. Still significantly below full price.
+          </p>
+          <div class="mt-5">
+            <a href="#contact" class="btn btn-black w-full justify-center">Secure My Spot</a>
+          </div>
+        </article>
+
+        <!-- Full Price -->
+        <article class="p-6 md:p-8 border border-cx-gray-100 bg-cx-gray-50 rounded-sm">
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-[11px] tracking-[0.3em] uppercase text-cx-gray-600 font-semibold">Full Price</div>
+          </div>
+          <div class="num-stat text-cx-black text-[clamp(48px,6vw,72px)] leading-none">$1,400</div>
+          <p class="mt-4 text-cx-gray-600 text-[14px] leading-relaxed">
+            Standard pricing for future cohorts.
+          </p>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 12.5 — FAQ (black)
+============================================================ -->
+<section id="faq" class="cx-grid relative bg-black text-white py-16 md:py-20 overflow-hidden">
+  <!-- Decorative accent blob -->
+  <div aria-hidden="true" class="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-cx-blue/20 blur-[120px] pointer-events-none"></div>
+  <div aria-hidden="true" class="absolute bottom-0 -left-20 w-[380px] h-[380px] rounded-full bg-cx-blue/30 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative max-w-[1440px] mx-auto px-6 md:px-10">
+    <div class="mb-10 md:mb-20 text-center">
+      <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] leading-[0.9]">
+        Frequently asked <span class="text-cx-yellow">questions</span>
+      </h2>
+    </div>
+
+    <div class="max-w-5xl mx-auto">
+      <details class="faq-item" open>
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">01</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">How much time does this take per week?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            CX NEXUS is self‑paced, designed for working professionals with full calendars. Most participants spend 3–4 hours per week: short lessons you can fit between meetings, plus live sessions with Keren. The program is built to run alongside your job, not compete with it. In fact, the deliverables you create during the program are meant to be used in your current role immediately.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">02</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">Is this relevant for B2B? For my industry?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Yes. The 3D framework was built and tested across B2B, B2C, public sector, healthcare, financial services, manufacturing, and technology. The curriculum does not assume a B2C‑only world. In B2B, CX is often about value realization, partnership, adoption, and expansion, not just satisfaction scores. The frameworks and tools adapt to your context, and the live sessions are where we work through your specific organizational reality.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">03</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">How is this different from other CX training programs?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Most CX programs focus on one thing: either frameworks and terminology, or certification prep, or a single discipline like VoC or journey mapping. CX NEXUS covers strategy, business value, AND change leadership in one integrated program. More importantly, you don't just learn concepts. You build organizational assets: a governance model, a business case, a measurement architecture, a CX roadmap. You also get live access to a practitioner who has led this work globally, not recorded lectures from an academic. If all you need is a badge or a vocabulary refresher, there are cheaper options. If you need to actually run CX inside a real organization, this is the program.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">04</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">What if I'm the only CX person in my organization?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            That is exactly who this program is designed for. Most CX leaders operate without a large team. The 3D framework gives you a system to lead cross‑functionally without depending on headcount. The governance and stakeholder management modules are specifically built for leaders who need to drive change through influence, not authority.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">05</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">Do I get a certificate?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Yes, you receive a certificate of completion. CX NEXUS is delivered by a CCXP‑certified trainer and CXPA recognized training provider. The program covers content relevant to CCXP preparation, but it is not a certification prep course. It is a practitioner program focused on execution.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">06</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">Can my organization pay for this?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            Yes. Many participants have their organization cover the investment. Payment is available by credit card or bank transfer. The "What Your Organization Gets" section above outlines the value case for budget holders. Every module produces an organizational asset, not just personal development. A two‑week satisfaction window applies if the program is not the right fit.
+          </div>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary class="faq-summary flex items-center gap-5 md:gap-8 pl-5 md:pl-10 pr-4 py-6 md:py-8">
+          <span class="faq-num h-display text-[clamp(22px,2.4vw,34px)] leading-none shrink-0 w-[2.4ch]">07</span>
+          <span class="faq-q-text h-display uppercase text-[clamp(18px,1.8vw,26px)] leading-[1.15] flex-1 text-white/80">What if I realize it's not for me?</span>
+          <span class="faq-toggle w-11 h-11 rounded-full border border-white/30 grid place-items-center shrink-0">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </summary>
+        <div class="faq-answer pl-5 md:pl-10 pr-4 pb-6 md:pb-8 text-white/70 text-base md:text-[17px] leading-relaxed">
+          <div class="max-w-[62ch] md:pl-[calc(2.4ch+1.25rem)]">
+            If within the first two weeks you feel this is not the right fit, reach out and we will find a solution. I would rather have the right people in the room than keep someone who is not getting value.
+          </div>
+        </div>
+      </details>
+    </div>
+
+    <div class="mt-16 md:mt-20 text-center">
+      <a href="#contact" class="btn btn-pink">
+        Ask a different question
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 13 — CONTACT + FOOTER (blue + black)
+============================================================ -->
+<section id="contact" class="cx-grid cx-grid-strong relative bg-cx-blue text-white py-16 md:py-20">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 text-center">
+    <h2 class="h-display uppercase text-[clamp(30px,4.2vw,56px)] leading-[0.92]">Ready to build the system your organization is missing?</h2>
+    <p class="mt-6 text-white/85 text-lg max-w-2xl mx-auto">CX NEXUS accepts practitioners with a live CX challenge and the intent to implement.</p>
+    <div class="mt-8 flex justify-center">
+      <a href="#pricing" class="btn btn-pink">
+        Apply for the Next Cohort
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <p class="mt-6 text-white/70 text-sm">Applications reviewed within 48 hours. If it's not the right fit, I'll tell you directly.</p>
+    <p class="mt-2 text-white/70 text-sm">Inner circle spots at $700 — then $1,000 until full price kicks in.</p>
+
+    <div class="mt-12 pt-8 border-t border-white/15 flex flex-wrap justify-center gap-8 items-center">
+      <div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-white/70 font-semibold mb-1">Email</div>
+        <a href="mailto:keren.shaked@b-pro.pro" class="text-lg font-display hover:text-cx-yellow transition">keren.shaked@b-pro.pro</a>
+      </div>
+      <div>
+        <div class="text-[11px] tracking-[0.3em] uppercase text-white/70 font-semibold mb-1">Phone</div>
+        <a href="tel:+15589554885" class="text-lg font-display hover:text-cx-yellow transition">+1 5589 55488 55</a>
+      </div>
+      <div class="flex gap-3">
+        <a href="#" class="w-10 h-10 rounded-full border border-white/30 grid place-items-center hover:bg-white hover:text-cx-blue transition" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full border border-white/30 grid place-items-center hover:bg-white hover:text-cx-blue transition" aria-label="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+        </a>
+        <a href="#" class="w-10 h-10 rounded-full border border-white/30 grid place-items-center hover:bg-white hover:text-cx-blue transition" aria-label="LinkedIn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.25 8h4.5V24H.25V8zM8 8h4.31v2.18h.06c.6-1.13 2.06-2.32 4.24-2.32 4.54 0 5.39 2.99 5.39 6.88V24h-4.5v-7.04c0-1.68-.03-3.84-2.34-3.84-2.34 0-2.7 1.83-2.7 3.72V24H8V8z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer strip -->
+<footer class="bg-cx-black text-white/70 py-10">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 flex flex-wrap items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[22px] w-auto opacity-90" />
+    </div>
+    <nav class="flex items-center gap-6 text-sm">
+      <a href="#" class="hover:text-white transition">Blog</a>
+      <a href="#" class="hover:text-white transition">Terms</a>
+      <a href="#" class="hover:text-white transition">Cookies</a>
+      <a href="#" class="hover:text-white transition">Privacy</a>
+    </nav>
+    <div class="text-xs tracking-[0.2em] uppercase text-white/50">© 2026 CX NEXUS</div>
+  </div>
+</footer>
+
+</main>
+
+<script>
+  // Sticky nav state
+  (function(){
+    var nav = document.getElementById('nav');
+    var onScroll = function(){
+      if (window.scrollY > 60) nav.classList.add('nav-scrolled');
+      else nav.classList.remove('nav-scrolled');
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Reveal-on-scroll
+  (function(){
+    var items = document.querySelectorAll('section h2, section article, section p, section form');
+    if (!('IntersectionObserver' in window)) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach(function(el){
+      el.classList.add('reveal');
+      io.observe(el);
+    });
+  })();
+
+  // ============================================================
+  // Hero canvas — morphing photo layouts over an asymmetric grid
+  // Slots periodically merge into 2x / 3x / 2x2 blocks that show a
+  // single image across the merged region, then break apart again.
+  // ============================================================
+  (function(){
+    var pool = [
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1463453091185-61582044d556?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?auto=format&fit=crop&w=1100&q=80',
+      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=1100&q=80'
+    ];
+
+    // Each layout: an array of 4 slot specs (one per .hc-photo).
+    // Spec: {c:col, r:row, cs:colSpan=1, rs:rowSpan=1} OR null (hidden).
+    // Fixed items (headline cols1-2 rows1-2, logo col4 row1, cta cols1-3 row4)
+    // are avoided to prevent stacking conflicts.
+    var layouts = [
+      // A — four scattered singles (editorial rhythm)
+      [{c:3,r:1},{c:3,r:2},{c:2,r:3},{c:4,r:4}],
+      // B — vertical DOUBLE on the right + 2 singles
+      [{c:4,r:2,rs:2},{c:2,r:3},{c:3,r:1},{c:4,r:4}],
+      // C — vertical TRIPLE filling col 3 (rows 1-3) + one single
+      [{c:3,r:1,rs:3},{c:2,r:3},null,{c:4,r:4}],
+      // D — horizontal DOUBLE across cols 2-3 row 3 + 2 singles
+      [{c:2,r:3,cs:2},{c:3,r:1},{c:4,r:2},{c:4,r:4}],
+      // E — BIG 2x2 block across cols 3-4 rows 2-3 + side single
+      [{c:3,r:2,cs:2,rs:2},{c:3,r:1},{c:2,r:3},null],
+      // F — horizontal TRIPLE panorama across cols 1-3 row 3 + singles
+      [{c:1,r:3,cs:3},{c:3,r:1},{c:4,r:2},{c:4,r:4}],
+      // G — vertical DOUBLE col 2 + DOUBLE col 4 right (stacked feel)
+      [{c:2,r:3,rs:1},{c:4,r:2,rs:2},{c:3,r:1},null]
+    ];
+
+    var slots = Array.prototype.slice.call(document.querySelectorAll('.hc-photo'));
+    if (!slots.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var mobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+
+    // Shared set of pool indices currently shown (across all visible slots).
+    // Used to guarantee that no two visible slots display the same photo.
+    var inUse = new Set();
+
+    // Pick a pool index that isn't in the `exclude` set.
+    // Preference: random among free candidates → feels organic, not cyclic.
+    function pickUnique(exclude){
+      var free = [];
+      for (var i = 0; i < pool.length; i++){
+        if (!exclude.has(i)) free.push(i);
+      }
+      if (!free.length) return Math.floor(Math.random() * pool.length);
+      return free[Math.floor(Math.random() * free.length)];
+    }
+
+    // Build the img crossfade pair inside each slot
+    var states = slots.map(function(slot, idx){
+      var imgA = document.createElement('img');
+      var imgB = document.createElement('img');
+      imgA.className = imgB.className = 'hc-img';
+      imgA.alt = imgB.alt = '';
+      imgA.decoding = imgB.decoding = 'async';
+
+      // Distinct starting index per slot (stride 3 over pool of 12)
+      var startIdx = (idx * 3) % pool.length;
+      imgA.src = pool[startIdx];
+      imgA.classList.add('active');
+      // imgB is hidden — preload a safe neighbor; it'll be overwritten on first cycle
+      imgB.src = pool[(startIdx + 1) % pool.length];
+      slot.appendChild(imgA);
+      slot.appendChild(imgB);
+      slot.style.opacity = '1';
+
+      inUse.add(startIdx);
+
+      return {
+        slot: slot,
+        imgA: imgA,
+        imgB: imgB,
+        showingA: true,
+        currentIdx: startIdx,
+        visible: true
+      };
+    });
+
+    // Crossfade one slot to a new unique image (guaranteed distinct from all
+    // OTHER currently visible slots AND from this slot's current image).
+    function cycleSlot(st){
+      if (!st.visible) return;
+
+      // exclude = snapshot of inUse (includes this slot's own currentIdx)
+      var exclude = new Set(inUse);
+      var nextIdx = pickUnique(exclude);
+
+      inUse.delete(st.currentIdx);
+      inUse.add(nextIdx);
+      st.currentIdx = nextIdx;
+
+      var to   = st.showingA ? st.imgB : st.imgA;
+      var from = st.showingA ? st.imgA : st.imgB;
+      to.src = pool[nextIdx];
+      setTimeout(function(){
+        to.classList.add('active');
+        from.classList.remove('active');
+        st.showingA = !st.showingA;
+      }, 90);
+    }
+
+    // On mobile, skip all grid/layout logic — CSS handles the vertical stack
+    if (mobile){
+      if (reduceMotion) return;
+      // Only slot 4 is visible on mobile (per CSS). Just cycle slot 4 uniquely.
+      // Hidden slots' currentIdx still sits in inUse (harmless — keeps variety).
+      states.forEach(function(st, idx){
+        setInterval(function(){ cycleSlot(st); }, 5200 + idx * 900);
+      });
+      return;
+    }
+
+    // Apply a layout (initial call — no fade, just placement).
+    function applyLayoutInstant(idx){
+      var layout = layouts[idx];
+      states.forEach(function(st, i){
+        var spec = layout[i];
+        if (!spec){
+          st.slot.style.display = 'none';
+          st.visible = false;
+          inUse.delete(st.currentIdx);
+        } else {
+          st.slot.style.display = '';
+          st.slot.style.gridColumn = spec.c + ' / span ' + (spec.cs || 1);
+          st.slot.style.gridRow    = spec.r + ' / span ' + (spec.rs || 1);
+          st.visible = true;
+          // currentIdx already in inUse from init — nothing to do
+        }
+      });
+    }
+
+    // Apply a layout with fully sequential per-slot fade-out → reposition → fade-in.
+    // Only ONE slot is ever in transit at a time — the other three stay
+    // fully visible. No FLIP flights, and no frame where more than one
+    // slot is partially transparent.
+    function applyLayoutAnimated(idx){
+      var layout = layouts[idx];
+      var FADE = 300;
+      // One full cycle = fade-out (FADE) + swap (30) + fade-in (FADE) + breathing room (60)
+      var SLOT_CYCLE = FADE + 30 + FADE + 60;  // 690ms per slot
+
+      // Classify each slot
+      var classified = states.map(function(st, i){
+        return {
+          st: st, i: i, spec: layout[i],
+          wasVisible: st.visible,
+          willBeVisible: !!layout[i]
+        };
+      });
+
+      // Free pool indices for leavers, then reserve fresh ones for enterers
+      classified.forEach(function(c){
+        if (c.wasVisible && !c.willBeVisible) inUse.delete(c.st.currentIdx);
+      });
+      classified.forEach(function(c){
+        if (c.willBeVisible && !c.wasVisible){
+          if (inUse.has(c.st.currentIdx)){
+            var next = pickUnique(inUse);
+            inUse.add(next);
+            c.st.currentIdx = next;
+          } else {
+            inUse.add(c.st.currentIdx);
+          }
+        }
+      });
+
+      // Only animate slots that actually have something to do
+      var queue = [];
+      classified.forEach(function(c){
+        if (!c.wasVisible && !c.willBeVisible) return;
+        if (c.wasVisible && c.willBeVisible){
+          var newCol = c.spec.c + ' / span ' + (c.spec.cs || 1);
+          var newRow = c.spec.r + ' / span ' + (c.spec.rs || 1);
+          if (c.st.slot.style.gridColumn === newCol && c.st.slot.style.gridRow === newRow){
+            return;  // nothing to do
+          }
+        }
+        queue.push(c);
+      });
+
+      queue.forEach(function(c, k){
+        var slot = c.st.slot;
+        var delay = k * SLOT_CYCLE;
+
+        // LEAVING
+        if (c.wasVisible && !c.willBeVisible){
+          setTimeout(function(){
+            slot.classList.remove('hc-slot-entering', 'hc-slot-leaving');
+            slot.style.transition = '';
+            slot.style.transform = '';
+            void slot.offsetHeight;
+            slot.classList.add('hc-slot-leaving');
+            setTimeout(function(){
+              slot.classList.remove('hc-slot-leaving');
+              slot.style.display = 'none';
+              c.st.visible = false;
+            }, FADE + 30);
+          }, delay);
+          return;
+        }
+
+        // ENTERING
+        if (!c.wasVisible && c.willBeVisible){
+          setTimeout(function(){
+            slot.style.display = '';
+            slot.style.gridColumn = c.spec.c + ' / span ' + (c.spec.cs || 1);
+            slot.style.gridRow    = c.spec.r + ' / span ' + (c.spec.rs || 1);
+            var active = c.st.showingA ? c.st.imgA : c.st.imgB;
+            active.src = pool[c.st.currentIdx];
+            c.st.visible = true;
+            slot.classList.remove('hc-slot-entering', 'hc-slot-leaving');
+            slot.style.transition = '';
+            slot.style.transform = '';
+            void slot.offsetHeight;
+            slot.classList.add('hc-slot-entering');
+            setTimeout(function(){
+              slot.classList.remove('hc-slot-entering');
+            }, FADE + 30);
+          }, delay);
+          return;
+        }
+
+        // STAYING (position changes)
+        var newCol = c.spec.c + ' / span ' + (c.spec.cs || 1);
+        var newRow = c.spec.r + ' / span ' + (c.spec.rs || 1);
+        setTimeout(function(){
+          slot.classList.remove('hc-slot-entering', 'hc-slot-leaving');
+          slot.style.transition = '';
+          slot.style.transform = '';
+          void slot.offsetHeight;
+          slot.classList.add('hc-slot-leaving');
+          setTimeout(function(){
+            slot.classList.remove('hc-slot-leaving');
+            slot.style.gridColumn = newCol;
+            slot.style.gridRow    = newRow;
+            void slot.offsetHeight;
+            slot.classList.add('hc-slot-entering');
+            setTimeout(function(){
+              slot.classList.remove('hc-slot-entering');
+            }, FADE + 30);
+          }, FADE + 30);
+        }, delay);
+      });
+    }
+
+    // Initial layout A
+    applyLayoutInstant(0);
+
+    if (reduceMotion) return;
+
+    // Per-slot photo cycling (staggered so swaps feel organic)
+    states.forEach(function(st, idx){
+      setInterval(function(){ cycleSlot(st); }, 4800 + idx * 900);
+    });
+
+    // Layout cycling — every ~9s morph into the next composition
+    var layoutIdx = 0;
+    setInterval(function(){
+      layoutIdx = (layoutIdx + 1) % layouts.length;
+      applyLayoutAnimated(layoutIdx);
+    }, 9000);
+  })();
+
+  // ============================================================
+  // "Why is this so hard?" — scroll-driven convergence animation
+  //   - Three stroke paths draw-in from left→right as section enters
+  //   - Glow + center pulse to life as scroll crosses midpoint
+  //   - Whole SVG gets gentle counter-scroll parallax
+  // ============================================================
+  (function(){
+    var converge = document.querySelector('.converge');
+    if (!converge) return;
+    var section = converge.closest('section');
+    var svg     = converge.querySelector('svg');
+    var paths   = converge.querySelectorAll('.conv-path');
+    var glow    = converge.querySelector('.conv-glow');
+    var center  = converge.querySelector('.conv-center');
+    if (!section || !svg || !paths.length) return;
+
+    // Respect user preference — CSS already shows finished state
+    var reduceMotion = window.matchMedia &&
+                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+
+    // Map raw progress into a subrange [a,b] and clamp to 0..1
+    function ease(progress, a, b){
+      return clamp((progress - a) / (b - a), 0, 1);
+    }
+
+    function update(){
+      var rect = section.getBoundingClientRect();
+      var vh   = window.innerHeight || document.documentElement.clientHeight;
+
+      // progress: 0 as section enters from the bottom of viewport,
+      //           1 as section exits past the top
+      var progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+
+      // Path drawing — staggered so three lines draw at different speeds
+      // Compressed by 0.8 so the whole sequence finishes 20% earlier than before.
+      paths.forEach(function(p, i){
+        var start = 0.04 + i * 0.048;           // 0.040 / 0.088 / 0.136
+        var end   = 0.44 + i * 0.048;           // 0.440 / 0.488 / 0.536
+        var drawn = ease(progress, start, end); // 0 → 1
+        p.style.strokeDashoffset = (1 - drawn).toFixed(4);
+      });
+
+      // Glow: starts forming as paths near the convergence point
+      var glowP = ease(progress, 0.224, 0.496);
+      glow.setAttribute('r', 30 + glowP * 95);        // 30 → 125
+      glow.style.opacity = (glowP * 0.95).toFixed(3);
+
+      // Center dot — pops in last
+      var dotP = ease(progress, 0.36, 0.576);
+      center.setAttribute('r', (dotP * 9).toFixed(2));
+      center.style.opacity = dotP.toFixed(3);
+
+      // Parallax — gentle counter-scroll for depth (±28px)
+      var parallax = (0.5 - progress) * 56;
+      svg.style.transform = 'translate3d(0,' + parallax.toFixed(1) + 'px,0)';
+    }
+
+    // rAF-throttled scroll handler
+    var ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        update();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update(); // paint once on load
+  })();
+
+  // ============================================================
+  // "Join us today" — radiate: hub forms first, 5 spokes draw
+  //   outward staggered, endpoint nodes pop in as each spoke lands.
+  //   Same scroll-driven pattern as .converge, gentle parallax.
+  // ============================================================
+  (function(){
+    var radiate = document.querySelector('.radiate');
+    if (!radiate) return;
+    var section = radiate.closest('section');
+    var svg     = radiate.querySelector('svg');
+    var paths   = radiate.querySelectorAll('.rad-path');
+    var nodes   = radiate.querySelectorAll('.rad-node');
+    var rings   = radiate.querySelectorAll('.rad-ring');
+    var glow    = radiate.querySelector('.rad-glow');
+    var center  = radiate.querySelector('.rad-center');
+    if (!section || !svg || !paths.length) return;
+
+    var reduceMotion = window.matchMedia &&
+                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+    function ease(progress, a, b){ return clamp((progress - a) / (b - a), 0, 1); }
+
+    function update(){
+      var rect = section.getBoundingClientRect();
+      var vh   = window.innerHeight || document.documentElement.clientHeight;
+      var progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+
+      // Hub first — center dot + glow come to life early
+      var glowP = ease(progress, 0.08, 0.38);
+      glow.setAttribute('r', 30 + glowP * 90);
+      glow.style.opacity = (glowP * 0.9).toFixed(3);
+      center.setAttribute('r', (glowP * 8).toFixed(2));
+      center.style.opacity = glowP.toFixed(3);
+
+      // Faint concentric rings fade in alongside the hub
+      rings.forEach(function(r){ r.style.opacity = (glowP * 0.9).toFixed(3); });
+
+      // 5 spokes draw outward, staggered
+      paths.forEach(function(p, i){
+        var start = 0.18 + i * 0.05;
+        var end   = 0.48 + i * 0.05;
+        var drawn = ease(progress, start, end);
+        p.style.strokeDashoffset = (1 - drawn).toFixed(4);
+      });
+
+      // Endpoint nodes pop in as each spoke reaches them
+      nodes.forEach(function(n, i){
+        var start = 0.42 + i * 0.05;
+        var end   = 0.54 + i * 0.05;
+        var pop   = ease(progress, start, end);
+        n.setAttribute('r', (pop * 12).toFixed(2));
+        n.style.opacity = pop.toFixed(3);
+      });
+
+      // Gentle counter-scroll parallax (±24px)
+      var parallax = (0.5 - progress) * 48;
+      svg.style.transform = 'translate3d(0,' + parallax.toFixed(1) + 'px,0)';
+    }
+
+    var ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ update(); ticking = false; });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+
+  /* -------------------------------------------------------------
+     Pillar pyramid (Design / Defend / Deliver) — scroll reveal
+     Three slabs slide in from their respective sides, staggered,
+     as the section scrolls through the viewport.
+  ------------------------------------------------------------- */
+  (function(){
+    var pyramid = document.querySelector('.pillar-pyramid');
+    if (!pyramid) return;
+    var section = pyramid.closest('section');
+    var slabs   = pyramid.querySelectorAll('.pillar-slab');
+    if (!section || !slabs.length) return;
+
+    var reduceMotion = window.matchMedia &&
+                       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      // CSS handles final state via @media query — nothing to animate.
+      return;
+    }
+
+    function clamp(n, lo, hi){ return Math.max(lo, Math.min(hi, n)); }
+    function ease(progress, a, b){ return clamp((progress - a) / (b - a), 0, 1); }
+
+    function update(){
+      var rect = section.getBoundingClientRect();
+      var vh   = window.innerHeight || document.documentElement.clientHeight;
+      var progress = clamp((vh - rect.top) / (vh + rect.height), 0, 1);
+
+      // Staggered reveal: design (i=0) → defend (i=1) → deliver (i=2)
+      slabs.forEach(function(slab, i){
+        var start = 0.10 + i * 0.07;  // 0.10 / 0.17 / 0.24
+        var end   = 0.42 + i * 0.07;  // 0.42 / 0.49 / 0.56
+        var p = ease(progress, start, end);
+        slab.style.setProperty('--p', p.toFixed(4));
+      });
+
+      // Gentle parallax on the whole pyramid (±20px counter-scroll)
+      var parallax = (0.5 - progress) * 40;
+      pyramid.style.transform = 'translate3d(0,' + parallax.toFixed(1) + 'px,0)';
+    }
+
+    var ticking = false;
+    function onScroll(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){
+        update();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
+
+<!-- Count-up animation for THE ODDS section -->
+<script>
+  (function(){
+    var nodes = document.querySelectorAll('[data-count-to]');
+    if (!nodes.length) return;
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function renderFinal(el){
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      var suffix = el.getAttribute('data-count-suffix') || '';
+      el.innerHTML = target + (suffix ? '<span class="text-[0.5em]">' + suffix + '</span>' : '');
+    }
+
+    function animate(el){
+      if (el.dataset.countDone === '1') return;
+      el.dataset.countDone = '1';
+
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      var suffix = el.getAttribute('data-count-suffix') || '';
+      if (isNaN(target)) return;
+
+      if (reduceMotion) { renderFinal(el); return; }
+
+      var duration = 1400;
+      var start = null;
+
+      function frame(ts){
+        if (start === null) start = ts;
+        var t = Math.min((ts - start) / duration, 1);
+        // easeOutCubic
+        var eased = 1 - Math.pow(1 - t, 3);
+        var current = Math.round(eased * target);
+        el.innerHTML = current + (suffix ? '<span class="text-[0.5em]">' + suffix + '</span>' : '');
+        if (t < 1) {
+          requestAnimationFrame(frame);
+        } else {
+          renderFinal(el);
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      nodes.forEach(renderFinal);
+      return;
+    }
+
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          animate(entry.target);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.35 });
+
+    nodes.forEach(function(n){ io.observe(n); });
+  })();
+</script>
+
+<!-- Mobile hamburger menu toggle -->
+<script>
+  (function(){
+    var btn = document.getElementById('hamburger-btn');
+    var menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+    var bars = btn.querySelector('.hb-bars');
+    var close = btn.querySelector('.hb-close');
+    function setOpen(open){
+      if (open) {
+        menu.style.maxHeight = menu.scrollHeight + 'px';
+        btn.setAttribute('aria-expanded', 'true');
+        btn.setAttribute('aria-label', 'Close menu');
+        bars.classList.add('hidden');
+        close.classList.remove('hidden');
+      } else {
+        menu.style.maxHeight = '0px';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.setAttribute('aria-label', 'Open menu');
+        bars.classList.remove('hidden');
+        close.classList.add('hidden');
+      }
+    }
+    btn.addEventListener('click', function(){
+      setOpen(btn.getAttribute('aria-expanded') !== 'true');
+    });
+    menu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){ setOpen(false); });
+    });
+    window.addEventListener('resize', function(){
+      if (window.innerWidth >= 768) setOpen(false);
+    });
+  })();
+</script>
+
+</body>
+</html>
