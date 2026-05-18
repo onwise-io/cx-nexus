@@ -1,0 +1,3591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="CX NEXUS — The Digital CX Academy. Transform intent into execution. Where strategy, people, data, and tech connect." />
+  <title>CX NEXUS — The Digital CX Academy</title>
+  <link rel="icon" type="image/svg+xml" href="assets/cx-nexus-logo.svg" />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts: Bebas Neue (display) + Heebo (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'cx-blue':     '#0000FF',
+            'cx-blue-2':   '#0A0AE0',
+            'cx-black':    '#000000',
+            'cx-ink':      '#0B0B10',
+            'cx-pink':     '#FF5BAE',
+            'cx-pink-2':   '#FF3D9F',
+            'cx-yellow':   '#FFE500',
+            'cx-magenta':  '#FF00FF',
+            'cx-lightblue':'#C4DAE5',
+            'cx-mint':     '#8DF4BA',
+            'cx-purple':   '#BD00FF',
+            'cx-gray-50':  '#F5F5F5',
+            'cx-gray-100': '#E9E9EE',
+            'cx-gray-600': '#5E5E6A',
+            'cx-gray-900': '#14141A',
+            'cx-surface':  '#1A1A1F',
+          },
+          fontFamily: {
+            display: ['"Bebas Neue"', '"Heebo"', 'system-ui', 'sans-serif'],
+            sans:    ['"Heebo"', 'system-ui', 'sans-serif'],
+            mono:    ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          letterSpacing: {
+            'editorial': '-0.035em',
+          },
+          boxShadow: {
+            'card': '0 20px 60px -20px rgba(0,0,0,0.35)',
+            'pop':  '0 24px 70px -20px rgba(255,91,174,0.35)',
+            'glow': '0 0 80px rgba(255,0,255,0.25)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --cx-grid: rgba(255,255,255,0.08);
+      --cx-grid-strong: rgba(255,255,255,0.14);
+    }
+
+    html { scroll-behavior: smooth; overflow-x: clip; }
+    body {
+      font-family: 'Heebo', system-ui, sans-serif;
+      background: #000;
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: clip;
+    }
+
+    /* Signature thin grid overlay — used on blue & black sections */
+    .cx-grid {
+      position: relative;
+    }
+    .cx-grid::before {
+      content: "";
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(to right, var(--cx-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--cx-grid) 1px, transparent 1px);
+      background-size: 16.6666% 88px;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .cx-grid-strong::before { background-image:
+      linear-gradient(to right, var(--cx-grid-strong) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--cx-grid-strong) 1px, transparent 1px);
+    }
+    .cx-grid > * { position: relative; z-index: 2; }
+
+    /* Editorial display headline helpers */
+    .h-display {
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 0.92;
+      text-wrap: balance;
+    }
+
+    /* Massive statistic numerals */
+    .num-stat {
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      font-weight: 400;
+      line-height: 0.85;
+      letter-spacing: 0;
+    }
+
+    /* Button base */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.6rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      border-radius: 9999px;
+      transition: transform .25s ease, box-shadow .25s ease, background-color .2s ease;
+      will-change: transform;
+    }
+    .btn-pink {
+      background: #FF5BAE; color: #fff;
+      box-shadow: none;
+    }
+    .btn-pink:hover { background: #ff3d9f; transform: translateY(-2px); box-shadow: none; }
+    .btn-outline-white {
+      color: #fff; border: 1.5px solid rgba(255,255,255,0.6);
+    }
+    .btn-outline-white:hover { background: #fff; color: #000; }
+    .btn-black { background: #000; color: #fff; }
+    .btn-black:hover { background: #1a1a1a; transform: translateY(-2px); }
+
+    /* Pill label */
+    .pill {
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+    }
+
+    /* Glass card on blue background */
+    .glass {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* Three pillars circles (CSS-only, Venn-style overlap) */
+    .pillar-pyramid {
+      position: relative;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1 / 1;
+      margin-inline: auto;
+    }
+    .pillar-slab {
+      position: absolute;
+      font-family: 'Bebas Neue', 'Heebo', system-ui, sans-serif;
+      letter-spacing: 0.02em;
+      color: #fff;
+      font-size: clamp(18px, 2vw, 28px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2.5px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      width: 58%; aspect-ratio: 1;
+      background: rgba(10,10,26,0.7);
+      opacity: var(--p, 0);
+      will-change: transform, opacity;
+    }
+    /* Final positions: three equal circles with subtle overlap */
+    .pillar-design  { top: 0; left: 50%;
+      transform: translate(-50%, calc((var(--p, 0) - 1) * 80px)); transform-origin: center;}
+    .pillar-defend  { bottom: 2%; left: 3%;
+      transform: translate(calc((var(--p, 0) - 1) * 80px), 0); transform-origin: center;}
+    .pillar-deliver { bottom: 2%; right: 3%;
+      transform: translate(calc((1 - var(--p, 0)) * 80px), 0); }
+    .pillar-slab span { transform: none; }
+    .pillar-design span { transform: none; }
+    .pillar-defend span { transform: none; }
+    .pillar-pyramid { will-change: transform; transition: transform 120ms linear; }
+    @media (prefers-reduced-motion: reduce) {
+      .pillar-slab { --p: 1; }
+    }
+
+    /* Convergence abstract (Why is this so hard) */
+    .converge {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 520px;
+      margin-inline: auto;
+      filter: drop-shadow(0 0 60px rgba(189,0,255,0.35));
+    }
+    .converge svg {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 120ms linear;
+    }
+    /* Paths start "undrawn" — pathLength=1 normalizes dash math to 0–1 */
+    .converge .conv-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    /* Glow + center dot start collapsed; JS drives them as scroll passes */
+    .converge .conv-glow,
+    .converge .conv-center { opacity: 0; }
+
+    /* Reduced motion — skip scroll animation, show the finished state */
+    @media (prefers-reduced-motion: reduce) {
+      .converge .conv-path { stroke-dashoffset: 0; }
+      .converge .conv-glow,
+      .converge .conv-center { opacity: 1; }
+      .converge svg { transition: none; }
+    }
+
+    /* Radiate abstract (Join us today) — hub radiating 5 spokes outward */
+    .radiate {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
+      max-width: 540px;
+      margin-inline: auto;
+      filter: drop-shadow(0 0 70px rgba(255,46,120,0.32));
+    }
+    .radiate svg {
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+      transition: transform 120ms linear;
+    }
+    .radiate .rad-path {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    .radiate .rad-node,
+    .radiate .rad-glow,
+    .radiate .rad-center,
+    .radiate .rad-ring { opacity: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .radiate .rad-path { stroke-dashoffset: 0; }
+      .radiate .rad-node,
+      .radiate .rad-glow,
+      .radiate .rad-center,
+      .radiate .rad-ring { opacity: 1; }
+      .radiate svg { transition: none; }
+    }
+
+    /* Device frame for value proposition section */
+    .device {
+      border-radius: 22px;
+      background: #0f0f12;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 14px;
+      box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6);
+    }
+    .device-screen {
+      background: #fff; color: #111;
+      border-radius: 12px;
+      padding: 28px 26px;
+    }
+
+    /* Portrait tile */
+    .portrait-tile {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      aspect-ratio: 3 / 4;
+      background: #111;
+    }
+    .portrait-tile img {
+      width:100%; height:100%; object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+    }
+    .portrait-tile::after {
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,255,0) 55%, rgba(0,0,255,0.25) 100%);
+      mix-blend-mode: overlay;
+      pointer-events:none;
+    }
+
+    /* Tick list */
+    .tick-list li {
+      position: relative;
+      padding-left: 1.3rem;
+      font-size: 0.95rem;
+    }
+    .tick-list li::before {
+      content:"";
+      position: absolute;
+      left: 0; top: 0.55rem;
+      width: 0.55rem; height: 0.55rem; border-radius: 2px;
+      background: #000;
+    }
+
+    /* Testimonial border accent variants */
+    .tcard { border-left-width: 4px; border-left-style: solid; }
+    .t-pink    { border-left-color: #FF5BAE; }
+    .t-yellow  { border-left-color: #FFE500; }
+    .t-magenta { border-left-color: #FF00FF; }
+    .t-blue    { border-left-color: #0000FF; }
+
+    /* Form field on blue bg */
+    .field {
+      background: #0000fe;
+      border: 1.5px solid rgba(255,255,255,0.55);
+      color: #fff;
+      width: 100%;
+      padding: 0.95rem 1rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      transition: border-color .2s ease, background-color .2s ease;
+    }
+    .field::placeholder { color: rgba(255,255,255,0.75); }
+    .field:focus { outline: none; border-color: #fff; background: #0000fe; }
+
+    /* Hashtag strip */
+    .hashtag { color: rgba(255,255,255,0.75); font-weight: 500; letter-spacing: 0.04em; }
+
+    /* Decorative accent line */
+    .accent-line {
+      height: 6px; border-radius: 6px; background: linear-gradient(90deg,#FF5BAE,#FF00FF,#FFE500);
+    }
+
+    /* Subtle dotted divider */
+    .divider-dots {
+      height: 1px;
+      background-image: linear-gradient(90deg, rgba(255,255,255,0.3) 0, rgba(255,255,255,0.3) 50%, transparent 50%);
+      background-size: 8px 1px;
+    }
+
+    /* Sticky nav scrolled state */
+    .nav-scrolled {
+      background: rgba(0,0,255,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Animations */
+    @keyframes floaty { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-6px);} }
+    .floaty { animation: floaty 6s ease-in-out infinite; }
+
+    @keyframes pulseglow { 0%,100%{ opacity:.6; } 50%{ opacity:1;} }
+    .pulseglow { animation: pulseglow 4s ease-in-out infinite; }
+
+    /* Scroll-in fade */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* Utility: strikethrough block */
+    .strikeblock { position: relative; display: inline-block; }
+    .strikeblock::after {
+      content:""; position:absolute; left:-2px; right:-2px; top:50%;
+      height: 2px; background: currentColor; transform: translateY(-50%);
+      opacity: .6;
+    }
+
+    /* Pricing card emphasized */
+    .price-card { background: #fff; border: 1px solid #E9E9EE; border-radius: 6px; }
+    .price-card.pop {
+      box-shadow: 0 40px 90px -30px rgba(0,0,0,0.25);
+      transform: translateY(-8px);
+    }
+
+    /* ============================================================
+       FAQ ACCORDION — black section with expanding questions
+    ============================================================ */
+    .faq-item { border-top: 1px solid rgba(255,255,255,0.12); position: relative; }
+    .faq-item:last-of-type { border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .faq-summary { list-style: none; cursor: pointer; }
+    .faq-summary::-webkit-details-marker { display: none; }
+    .faq-summary::marker { content: ""; }
+
+    /* Number + arrow — white by default, pink when open */
+    .faq-num { color: #fff; transition: color .3s ease; }
+    .faq-toggle {
+      color: #fff;
+      border-color: rgba(255,255,255,0.3);
+      transition: transform .35s ease, color .3s ease, border-color .3s ease, background .3s ease;
+    }
+    .faq-item[open] .faq-num    { color: #FF2E78; }
+    .faq-item[open] .faq-toggle {
+      transform: rotate(180deg);
+      color: #FF2E78;
+      border-color: #FF2E78;
+      background: transparent;
+    }
+
+    .faq-item[open] > .faq-answer { animation: faqFade .45s ease both; }
+    @keyframes faqFade {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .faq-item .faq-q-text { transition: color .25s ease; }
+    .faq-item:hover .faq-q-text,
+    .faq-item[open] .faq-q-text { color: #fff; }
+
+    /* Left accent bar — pink, reveals on open */
+    .faq-item::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: #FF2E78;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform .35s ease;
+      opacity: 0;
+    }
+    .faq-item[open]::before { transform: scaleY(1); opacity: 1; }
+
+    /* ============================================================
+       HERO CANVAS — asymmetric 4×4 grid with morphing photo slots
+    ============================================================ */
+    .hero-canvas {
+      position: relative;
+      display: grid;
+      /* Slightly varied column + row sizes (not a regular 25/25/25/25) */
+      grid-template-columns: 0.8fr 1.25fr 1.3fr 0.65fr;
+      grid-template-rows:    0.9fr 1.05fr 1.05fr 1fr;
+      min-height: calc(100vh - 0px);
+      padding-top: 80px; /* clear fixed nav */
+      background: #0000FF;
+      overflow: hidden;
+    }
+    /* Visible white grid overlay — draws 3 verticals + 3 horizontals at
+       the asymmetric column/row boundaries. z-index BELOW photos so that
+       when a photo spans multiple cells the internal dividing line is
+       covered by the image. */
+    .hero-canvas::after {
+      content: "";
+      position: absolute;
+      inset: 80px 0 0 0;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35)),
+        linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0.35));
+      background-repeat: no-repeat;
+      background-size:
+        1px 100%, 1px 100%, 1px 100%,
+        100% 1px, 100% 1px, 100% 1px;
+      /* V lines at col boundaries 20% / 51.25% / 83.75% and
+         H lines at row boundaries 22.5% / 48.75% / 75% */
+      background-position:
+        20% 0, 51.25% 0, 83.75% 0,
+        0 22.5%, 0 48.75%, 0 75%;
+    }
+    .hero-canvas > * { position: relative; z-index: 2; }
+
+    .hc-headline {
+      grid-column: 1 / span 2;
+      grid-row: 1 / span 2;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(1.25rem, 2.2vw, 2.5rem);
+      z-index: 3;
+    }
+    .hc-headline h1 {
+      font-size: clamp(44px, 5.4vw, 84px);
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+    .hc-cta {
+      grid-column: 1 / span 3;
+      grid-row: 4;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: clamp(1rem, 1.8vw, 2rem) clamp(1.25rem, 2.2vw, 2.5rem);
+      z-index: 3;
+    }
+    .hc-logo {
+      grid-column: 4;
+      grid-row: 1;
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.25rem;
+      z-index: 3;
+    }
+    .hc-logo img {
+      width: 72%; max-width: 200px;
+      opacity: 0.95;
+    }
+
+    /* Photo slot — position set dynamically by JS via inline
+       grid-column / grid-row. Transition is applied inline per-animation
+       (FLIP transform for movers, opacity keyframes for entering/leaving). */
+    .hc-photo {
+      position: relative;
+      overflow: hidden;
+      background: #0000FF;
+      z-index: 2;
+      will-change: transform, opacity;
+    }
+    .hc-photo.hc-slot-entering {
+      animation: hcSlotEnter 0.3s ease forwards;
+    }
+    .hc-photo.hc-slot-leaving {
+      animation: hcSlotLeave 0.3s ease forwards;
+    }
+    @keyframes hcSlotEnter {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes hcSlotLeave {
+      from { opacity: 1; }
+      to   { opacity: 0; }
+    }
+    .hc-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.4s ease, transform 6s ease;
+      transform: scale(1.04);
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .hc-img.active { opacity: 1; transform: scale(1); }
+
+    /* Subtle photo tint to keep brand cohesion */
+    .hc-photo::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,255,0.08) 0%, rgba(0,0,255,0.18) 100%);
+      mix-blend-mode: multiply;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Hero credentials strip below the canvas */
+    .hero-credentials {
+      background: #0000FF;
+      padding: 14px 0 28px;
+      border-top: 1px solid rgba(255,255,255,0.22);
+    }
+
+    /* Responsive — mobile collapses the canvas into a vertical stack */
+    @media (max-width: 900px) {
+      .hero-canvas {
+        display: block;
+        padding: 104px 20px 20px;
+        min-height: auto;
+        grid-template-columns: none;
+        grid-template-rows: none;
+      }
+      .hero-canvas::after { display: none; }
+      .hc-headline, .hc-cta, .hc-logo { padding: 0; }
+      .hc-headline { margin-bottom: 1.5rem; }
+      .hc-headline h1 { font-size: clamp(36px, 8vw, 60px); }
+      .hc-logo { justify-content: flex-start; margin-bottom: 1.25rem; }
+      .hc-logo img { width: 140px; }
+
+      /* Mobile: reset any JS-applied grid positions so stack order uses DOM */
+      .hc-photo { grid-column: auto !important; grid-row: auto !important; }
+
+      /* Show only the last photo slot on mobile, after the CTA */
+      .hc-photo[data-slot="1"],
+      .hc-photo[data-slot="2"],
+      .hc-photo[data-slot="3"] { display: none !important; }
+
+      .hc-photo[data-slot="4"] {
+        display: block !important;
+        height: clamp(220px, 52vw, 360px);
+        margin-top: 2.5rem;
+        margin-bottom: 0.5rem;
+        border: 1px solid rgba(255,255,255,0.28);
+        opacity: 1 !important;
+      }
+    }
+
+    /* Media for small screens (legacy helper) */
+    @media (max-width: 768px) {
+      .cx-grid::before { background-size: 25% 88px; }
+    }
+  </style>
+</head>
+
+<body class="bg-cx-black text-white">
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<header id="nav" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 bg-cx-black">
+  <div class="max-w-[1440px] mx-auto px-6 md:px-10 py-4 relative flex items-center justify-between">
+    <a href="#top" class="flex items-center gap-3 text-white shrink-0" aria-label="CX NEXUS — home">
+      <img src="assets/cx-nexus-logo-white.svg" alt="CX NEXUS" class="h-[16px] md:h-[24px] w-auto" />
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90">
+      <a href="#framework" class="hover:text-cx-yellow transition">Courses</a>
+      <a href="#keren" class="hover:text-cx-yellow transition">About</a>
+      <a href="#pricing" class="hover:text-cx-yellow transition">Pricing</a>
+      <a href="#faq" class="hover:text-cx-yellow transition">FAQ</a>
+      <a href="#contact" class="hover:text-cx-yellow transition">Contact</a>
+    </nav>
+    <!-- Hamburger (mobile only, absolute-centered in header) -->
+    <button id="hamburger-btn" type="button"
+      class="md:hidden absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-11 h-11 inline-flex items-center justify-center text-white leading-none"
+      aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false">
+      <svg class="hb-icon hb-bars block" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <svg class="hb-icon hb-close hidden" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M6 18L18 6"/>
+      </svg>
+    </button>
+    <div class="flex items-center gap-3 shrink-0">
+      <a href="#contact" class="hidden sm:inline-flex text-[13px] font-semibold tracking-[0.18em] uppercase text-white/90 hover:text-cx-yellow transition">Sign&nbsp;In</a>
+      <a href="#pricing" class="btn btn-pink !py-2.5 !px-5 !text-[13px]">Sign Up</a>
+    </div>
+  </div>
+  <!-- Mobile dropdown menu -->
+  <nav id="mobile-menu"
+    class="md:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-in-out bg-cx-black border-t border-white/10">
+    <div class="px-6 py-2 flex flex-col text-[14px] font-semibold tracking-[0.18em] uppercase text-white/90 divide-y divide-white/10">
+      <a href="#framework" class="py-3 hover:text-cx-yellow transition">Courses</a>
+      <a href="#keren" class="py-3 hover:text-cx-yellow transition">About</a>
+      <a href="#pricing" class="py-3 hover:text-cx-yellow transition">Pricing</a>
+      <a href="#faq" class="py-3 hover:text-cx-yellow transition">FAQ</a>
+      <a href="#contact" class="py-3 hover:text-cx-yellow transition">Contact</a>
+      <a href="#contact" class="py-3 hover:text-cx-yellow transition">Sign&nbsp;In</a>
+    </div>
+  </nav>
+</header>
+
+
+<!-- ============================================================
+     HERO VARIANT 1: Original V3.3 Cloud
+     Static starfield: many scattered dots with twinkling opacity, keywords as a static tag-cloud, no per-point spokes.
+============================================================ -->
+<section id="home-v1" data-variant="1" class="hero-variant-v1 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- Left: Text content -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Animated nexus graphic (5-point convergence) -->
+    <div class="relative flex items-center justify-center">
+      <div class="hero-nexus-graphic relative w-full max-w-[520px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <defs>
+            <radialGradient id="hero-glow-v1" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#0000FF" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hero-l1-v1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l2-v1" x1="0" y1="0.5" x2="1" y2="0.3">
+              <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l3-v1" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l4-v1" x1="1" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#FF00FF"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l5-v1" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8DF4BA"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Background keyword cloud (rendered first so it sits behind everything) -->
+          <g class="hero-bg-cloud" opacity="0"></g>
+
+          <!-- Faint orbit rings -->
+          <circle cx="300" cy="300" r="250" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="170" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="90" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" fill="none" class="hero-ring"/>
+
+          <!-- 5 convergence paths to center -->
+          <g stroke-width="2.5" stroke-linecap="round" fill="none">
+            <path class="hero-path" d="M300,50 Q310,170 300,300" stroke="url(#hero-l1-v1)" pathLength="1"/>
+            <path class="hero-path" d="M538,190 Q420,240 300,300" stroke="url(#hero-l2-v1)" pathLength="1"/>
+            <path class="hero-path" d="M448,510 Q380,400 300,300" stroke="url(#hero-l3-v1)" pathLength="1"/>
+            <path class="hero-path" d="M152,510 Q220,400 300,300" stroke="url(#hero-l4-v1)" pathLength="1"/>
+            <path class="hero-path" d="M90,190 Q190,240 300,300" stroke="url(#hero-l5-v1)" pathLength="1"/>
+          </g>
+
+          <!-- Endpoint nodes -->
+          <circle cx="300" cy="50"  r="6" fill="#0000FF" class="hero-node" opacity="0"/>
+          <circle cx="538" cy="190" r="6" fill="#FF5BAE" class="hero-node" opacity="0"/>
+          <circle cx="448" cy="510" r="6" fill="#FFE500" class="hero-node" opacity="0"/>
+          <circle cx="152" cy="510" r="6" fill="#FF00FF" class="hero-node" opacity="0"/>
+          <circle cx="90"  cy="190" r="6" fill="#8DF4BA" class="hero-node" opacity="0"/>
+
+          <!-- Center glow + dot -->
+          <circle cx="300" cy="300" r="50" fill="url(#hero-glow-v1)" class="hero-center-glow" opacity="0"/>
+          <circle cx="300" cy="300" r="6" fill="#fff" class="hero-center-dot" opacity="0"/>
+
+          <!-- Labels at endpoints -->
+          <text x="300" y="30" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">STRATEGY</text>
+          <text x="565" y="190" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">DATA</text>
+          <text x="468" y="535" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">TECH</text>
+          <text x="132" y="535" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">PEOPLE</text>
+          <text x="80" y="190" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">EXECUTION</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- Hero nexus animation script -->
+<script>
+(function(){
+  var graphic = document.querySelector('[data-variant="1"] .hero-nexus-graphic');
+  if (!graphic) return;
+  var paths = graphic.querySelectorAll('.hero-path');
+  var nodes = graphic.querySelectorAll('.hero-node');
+  var glow = graphic.querySelector('.hero-center-glow');
+  var dot = graphic.querySelector('.hero-center-dot');
+  var labels = graphic.querySelectorAll('.hero-label');
+  var rings = graphic.querySelectorAll('.hero-ring');
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+
+  /* === BG-VARIANT-1-GEN-START === */
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+  if (bgCloud) {
+    // V3.3 baseline: radial keyword cloud — 32 keywords on jittered angles with thin
+    // connector lines to the center, two-axis sinusoidal floating drift, and a
+    // post-layout pass that hides labels whose getBBox collides with another.
+    (function(){
+      var KEYWORDS = [
+        'Journey','NPS','CSAT','Voice','Loyalty','Touchpoint','Mapping','Insights',
+        'Persona','Empathy','Metrics','Service','Brand','Trust','Feedback','Listening',
+        'Design','Culture','Value','Retention','Churn','Onboarding','Quality','ROI',
+        'Survey','Analytics','Engagement','KPI','Channel','Lifecycle','Moments','Process'
+      ];
+      var RESERVED = [
+        -Math.PI/2,
+        Math.atan2(190-300, 538-300),
+        Math.atan2(510-300, 448-300),
+        Math.atan2(510-300, 152-300),
+        Math.atan2(190-300,  90-300)
+      ];
+      function nearReserved(a){
+        for (var i=0;i<RESERVED.length;i++){
+          var d = Math.abs(a - RESERVED[i]);
+          d = Math.min(d, Math.PI*2 - d);
+          if (d < 0.18) return true;
+        }
+        return false;
+      }
+
+      var cloudItems = [];
+      var seed = 91237;
+      function rnd(){ seed = (seed*9301 + 49297) % 233280; return seed/233280; }
+
+      var count = KEYWORDS.length;
+      var placed = [];
+      var MIN_DIST = 42;
+
+      for (var i=0;i<count;i++){
+        var baseA = (i / count) * Math.PI * 2 - Math.PI/2;
+        var cx, cy, a, r;
+        var attempts = 0;
+        do {
+          a = baseA + (rnd()-0.5) * (Math.PI*2/count) * 1.1;
+          if (nearReserved(a)) a += 0.22;
+          r = 70 + rnd() * 140;
+          cx = 300 + Math.cos(a) * r;
+          cy = 300 + Math.sin(a) * r;
+          var ok = true;
+          for (var k=0;k<placed.length;k++){
+            var ddx = cx - placed[k].cx, ddy = cy - placed[k].cy;
+            if (ddx*ddx + ddy*ddy < MIN_DIST*MIN_DIST){ ok = false; break; }
+          }
+          attempts++;
+          if (ok || attempts > 30) break;
+        } while (true);
+        placed.push({ cx:cx, cy:cy });
+
+        var sizeRoll = rnd();
+        var fontSize = sizeRoll < 0.55 ? (8 + rnd()*2)
+                     : sizeRoll < 0.85 ? (11 + rnd()*2)
+                                       : (14 + rnd()*3);
+        var dotR    = sizeRoll < 0.55 ? 1.2 + rnd()*0.6
+                     : sizeRoll < 0.85 ? 1.8 + rnd()*0.8
+                                       : 2.6 + rnd()*0.8;
+        var baseOp  = 0.18 + rnd()*0.55;
+        var lineOp  = 0.04 + (baseOp*0.18);
+        var phase   = rnd() * Math.PI * 2;
+        var freq    = 0.00018 + rnd()*0.00022;
+        var amp     = 2 + rnd()*4;
+
+        var line = document.createElementNS(SVG_NS,'line');
+        line.setAttribute('x1','300'); line.setAttribute('y1','300');
+        line.setAttribute('x2', cx);   line.setAttribute('y2', cy);
+        line.setAttribute('stroke','rgba(255,255,255,'+lineOp.toFixed(3)+')');
+        line.setAttribute('stroke-width','0.6');
+        bgCloud.appendChild(line);
+
+        var dotEl = document.createElementNS(SVG_NS,'circle');
+        dotEl.setAttribute('cx', cx); dotEl.setAttribute('cy', cy);
+        dotEl.setAttribute('r', dotR);
+        dotEl.setAttribute('fill','rgba(255,255,255,'+(Math.min(1,baseOp+0.15)).toFixed(3)+')');
+        bgCloud.appendChild(dotEl);
+
+        var word = KEYWORDS[i % KEYWORDS.length];
+        var txt = document.createElementNS(SVG_NS,'text');
+        var anchor = cx > 320 ? 'start' : (cx < 280 ? 'end' : 'middle');
+        var dx = cx > 320 ? 6 : (cx < 280 ? -6 : 0);
+        var dy = cy < 300 ? -4 : (cy > 300 ? 12 : 4);
+        txt.setAttribute('x', cx + dx); txt.setAttribute('y', cy + dy);
+        txt.setAttribute('text-anchor', anchor);
+        txt.setAttribute('fill','rgba(255,255,255,'+baseOp.toFixed(3)+')');
+        txt.setAttribute('font-size', fontSize.toFixed(1));
+        txt.setAttribute('font-family',"'Heebo',sans-serif");
+        txt.setAttribute('letter-spacing','0.12em');
+        txt.setAttribute('font-weight','500');
+        txt.textContent = word.toUpperCase();
+        bgCloud.appendChild(txt);
+
+        cloudItems.push({
+          line:line, dot:dotEl, txt:txt,
+          bx:cx, by:cy, phase:phase, freq:freq, amp:amp,
+          anchorDX:dx, anchorDY:dy,
+          fontSize:fontSize
+        });
+      }
+
+      // Hide colliding labels (keep dots+lines). Larger font wins.
+      function rectsOverlap(a, b, pad){
+        return !(a.x + a.width  + pad < b.x ||
+                 b.x + b.width  + pad < a.x ||
+                 a.y + a.height + pad < b.y ||
+                 b.y + b.height + pad < a.y);
+      }
+      requestAnimationFrame(function(){
+        var sorted = cloudItems.slice().sort(function(a,b){ return b.fontSize - a.fontSize; });
+        var kept = [];
+        for (var i=0;i<sorted.length;i++){
+          var it = sorted[i];
+          var bb;
+          try { bb = it.txt.getBBox(); } catch(e){ continue; }
+          var pad = 2 + it.amp;
+          var collided = false;
+          for (var j=0;j<kept.length;j++){
+            if (rectsOverlap(bb, kept[j].bb, pad)){ collided = true; break; }
+          }
+          if (collided){
+            it.txt.setAttribute('opacity','0');
+            it.txt.style.display = 'none';
+          } else {
+            kept.push({ bb: bb, it: it });
+          }
+        }
+      });
+
+      // Continuous floating drift
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduced && cloudItems.length){
+        var start = performance.now();
+        function tick(now){
+          var t = now - start;
+          for (var i=0;i<cloudItems.length;i++){
+            var it = cloudItems[i];
+            var ox = Math.cos(t*it.freq + it.phase) * it.amp;
+            var oy = Math.sin(t*it.freq*1.3 + it.phase*1.7) * it.amp;
+            var nx = it.bx + ox;
+            var ny = it.by + oy;
+            it.line.setAttribute('x2', nx.toFixed(2));
+            it.line.setAttribute('y2', ny.toFixed(2));
+            it.dot.setAttribute('cx', nx.toFixed(2));
+            it.dot.setAttribute('cy', ny.toFixed(2));
+            it.txt.setAttribute('x', (nx + it.anchorDX).toFixed(2));
+            it.txt.setAttribute('y', (ny + it.anchorDY).toFixed(2));
+          }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+    })();
+  }
+  /* === BG-VARIANT-1-GEN-END === */
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    nodes.forEach(function(n){ n.setAttribute('opacity','1'); });
+    if(glow) glow.setAttribute('opacity','0.8');
+    if(dot) dot.setAttribute('opacity','1');
+    labels.forEach(function(l){ l.setAttribute('opacity','1'); });
+    if(bgCloud){ bgCloud.setAttribute('opacity','1'); }
+    return;
+  }
+
+  // Animate on load with staggered timing
+  function animateIn(){
+    // Background cloud fades in first (sits behind everything)
+    if (bgCloud){
+      bgCloud.style.transition = 'opacity 2s ease 0.1s';
+      bgCloud.setAttribute('opacity','1');
+    }
+    // Rings fade in
+    rings.forEach(function(r,i){
+      r.style.transition = 'opacity 1.5s ease ' + (i*0.3)+'s';
+      r.style.opacity = '1';
+    });
+
+    // Paths draw in staggered
+    paths.forEach(function(p,i){
+      var delay = 0.4 + i * 0.25;
+      p.style.transition = 'stroke-dashoffset 1.2s ease ' + delay + 's';
+      p.style.strokeDashoffset = '0';
+    });
+
+    // Nodes pop in after their path
+    nodes.forEach(function(n,i){
+      var delay = 0.8 + i * 0.25;
+      n.style.transition = 'opacity 0.5s ease ' + delay + 's';
+      setTimeout(function(){ n.setAttribute('opacity','1'); n.setAttribute('r','8'); }, delay*1000);
+    });
+
+    // Labels fade in
+    labels.forEach(function(l,i){
+      var delay = 1.0 + i * 0.2;
+      l.style.transition = 'opacity 0.8s ease ' + delay + 's';
+      setTimeout(function(){ l.setAttribute('fill','rgba(255,255,255,0.6)'); }, delay*1000);
+    });
+
+    // Center glow + dot
+    setTimeout(function(){
+      if(glow){ glow.style.transition='opacity 1s ease'; glow.setAttribute('opacity','0.85'); }
+      if(dot){ dot.style.transition='opacity 0.6s ease'; dot.setAttribute('opacity','1'); }
+    }, 1800);
+  }
+
+  // Start after a short delay
+  setTimeout(animateIn, 300);
+
+  // Gentle floating pulse on center glow
+  var pulseUp = true;
+  setInterval(function(){
+    if(!glow) return;
+    glow.setAttribute('r', pulseUp ? '60' : '45');
+    glow.style.transition = 'r 3s ease, opacity 3s ease';
+    pulseUp = !pulseUp;
+  }, 3000);
+
+  /* === BG-VARIANT-1-ANIM-START === */
+  // Background animation handled inside the variant IIFE above.
+  /* === BG-VARIANT-1-ANIM-END === */
+})();
+</script>
+
+<!-- ============================================================
+     HERO VARIANT 2: Radar Sweep
+     Keywords on 3-4 concentric arcs, each arc rotates slowly (alternating CW/CCW); subtle radial ticks.
+============================================================ -->
+<section id="home-v2" data-variant="2" class="hero-variant-v2 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- Left: Text content -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Animated nexus graphic (5-point convergence) -->
+    <div class="relative flex items-center justify-center">
+      <div class="hero-nexus-graphic relative w-full max-w-[520px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <defs>
+            <radialGradient id="hero-glow-v2" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#0000FF" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hero-l1-v2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l2-v2" x1="0" y1="0.5" x2="1" y2="0.3">
+              <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l3-v2" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l4-v2" x1="1" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#FF00FF"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l5-v2" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8DF4BA"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Background keyword cloud (rendered first so it sits behind everything) -->
+          <g class="hero-bg-cloud" opacity="0"></g>
+
+          <!-- Faint orbit rings -->
+          <circle cx="300" cy="300" r="250" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="170" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="90" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" fill="none" class="hero-ring"/>
+
+          <!-- 5 convergence paths to center -->
+          <g stroke-width="2.5" stroke-linecap="round" fill="none">
+            <path class="hero-path" d="M300,50 Q310,170 300,300" stroke="url(#hero-l1-v2)" pathLength="1"/>
+            <path class="hero-path" d="M538,190 Q420,240 300,300" stroke="url(#hero-l2-v2)" pathLength="1"/>
+            <path class="hero-path" d="M448,510 Q380,400 300,300" stroke="url(#hero-l3-v2)" pathLength="1"/>
+            <path class="hero-path" d="M152,510 Q220,400 300,300" stroke="url(#hero-l4-v2)" pathLength="1"/>
+            <path class="hero-path" d="M90,190 Q190,240 300,300" stroke="url(#hero-l5-v2)" pathLength="1"/>
+          </g>
+
+          <!-- Endpoint nodes -->
+          <circle cx="300" cy="50"  r="6" fill="#0000FF" class="hero-node" opacity="0"/>
+          <circle cx="538" cy="190" r="6" fill="#FF5BAE" class="hero-node" opacity="0"/>
+          <circle cx="448" cy="510" r="6" fill="#FFE500" class="hero-node" opacity="0"/>
+          <circle cx="152" cy="510" r="6" fill="#FF00FF" class="hero-node" opacity="0"/>
+          <circle cx="90"  cy="190" r="6" fill="#8DF4BA" class="hero-node" opacity="0"/>
+
+          <!-- Center glow + dot -->
+          <circle cx="300" cy="300" r="50" fill="url(#hero-glow-v2)" class="hero-center-glow" opacity="0"/>
+          <circle cx="300" cy="300" r="6" fill="#fff" class="hero-center-dot" opacity="0"/>
+
+          <!-- Labels at endpoints -->
+          <text x="300" y="30" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">STRATEGY</text>
+          <text x="565" y="190" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">DATA</text>
+          <text x="468" y="535" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">TECH</text>
+          <text x="132" y="535" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">PEOPLE</text>
+          <text x="80" y="190" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">EXECUTION</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- Hero nexus animation script -->
+<script>
+(function(){
+  var graphic = document.querySelector('[data-variant="2"] .hero-nexus-graphic');
+  if (!graphic) return;
+  var paths = graphic.querySelectorAll('.hero-path');
+  var nodes = graphic.querySelectorAll('.hero-node');
+  var glow = graphic.querySelector('.hero-center-glow');
+  var dot = graphic.querySelector('.hero-center-dot');
+  var labels = graphic.querySelectorAll('.hero-label');
+  var rings = graphic.querySelectorAll('.hero-ring');
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+
+  /* === BG-VARIANT-2-GEN-START === */
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+  if (bgCloud) {
+    // Radar Sweep hero background: a faint rotating wedge sweeps clockwise around center,
+    // briefly lighting up static dots and keyword labels in its path with a ~2s phosphor afterglow.
+    // Layout is seeded for stability; respects prefers-reduced-motion.
+    (function () {
+      var CX = 300, CY = 300;
+      var R_MIN = 45, R_MAX = 215;
+      var SWEEP_R = 220;
+      var WEDGE_DEG = 30;
+      var PERIOD_MS = 4500;
+      var DECAY_MS = 2000;
+
+      function mulberry32(a) {
+        return function () {
+          a |= 0; a = (a + 0x6D2B79F5) | 0;
+          var t = a;
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      var rand = mulberry32(0xC0FFEE07);
+
+      var defs = document.createElementNS(SVG_NS, 'defs');
+      var grad = document.createElementNS(SVG_NS, 'linearGradient');
+      grad.setAttribute('id', 'radar-sweep-grad-v2');
+      grad.setAttribute('x1', '0%'); grad.setAttribute('y1', '0%');
+      grad.setAttribute('x2', '100%'); grad.setAttribute('y2', '0%');
+      var s1 = document.createElementNS(SVG_NS, 'stop');
+      s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', 'rgba(0,255,200,0.0)');
+      var s2 = document.createElementNS(SVG_NS, 'stop');
+      s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', 'rgba(0,255,200,0.20)');
+      grad.appendChild(s1); grad.appendChild(s2);
+      defs.appendChild(grad);
+      bgCloud.appendChild(defs);
+
+      [80, 140, 200].forEach(function (r) {
+        var c = document.createElementNS(SVG_NS, 'circle');
+        c.setAttribute('cx', CX); c.setAttribute('cy', CY); c.setAttribute('r', r);
+        c.setAttribute('fill', 'none');
+        c.setAttribute('stroke', 'rgba(0,255,200,0.06)');
+        c.setAttribute('stroke-width', '0.7');
+        bgCloud.appendChild(c);
+      });
+
+      var SPOKES = [];
+      [[300,50],[538,190],[448,510],[152,510],[90,190]].forEach(function (p) {
+        var dx = p[0] - CX, dy = p[1] - CY;
+        var a = Math.atan2(dy, dx) * 180 / Math.PI;
+        SPOKES.push(((a % 360) + 360) % 360);
+      });
+      function tooCloseToSpoke(angDeg) {
+        for (var i = 0; i < SPOKES.length; i++) {
+          var d = Math.abs(((angDeg - SPOKES[i] + 540) % 360) - 180);
+          if (d < 9) return true;
+        }
+        return false;
+      }
+
+      var dots = [];
+      for (var i = 0; i < 50; i++) {
+        var ang = rand() * Math.PI * 2;
+        var dist = R_MIN + rand() * (R_MAX - R_MIN);
+        var x = CX + Math.cos(ang) * dist;
+        var y = CY + Math.sin(ang) * dist;
+        var el = document.createElementNS(SVG_NS, 'circle');
+        el.setAttribute('cx', x); el.setAttribute('cy', y);
+        el.setAttribute('r', 1.1 + rand() * 0.9);
+        el.setAttribute('fill', '#ffffff');
+        var baseOp = 0.10 + rand() * 0.25;
+        el.setAttribute('opacity', baseOp);
+        bgCloud.appendChild(el);
+        var angDeg = ((ang * 180 / Math.PI) % 360 + 360) % 360;
+        dots.push({ el: el, ang: angDeg, baseOp: baseOp, lastLit: -1e9 });
+      }
+
+      var POOL = ['Journey','NPS','CSAT','Voice','Loyalty','Touchpoint','Mapping','Insights',
+        'Persona','Empathy','Metrics','Service','Brand','Trust','Feedback','Listening',
+        'Design','Culture','Value','Retention','Churn','Onboarding','Quality','ROI',
+        'Survey','Analytics','Engagement','KPI','Channel','Lifecycle','Moments','Process'];
+      for (var k = POOL.length - 1; k > 0; k--) {
+        var j = Math.floor(rand() * (k + 1));
+        var t = POOL[k]; POOL[k] = POOL[j]; POOL[j] = t;
+      }
+      var WORD_COUNT = 20;
+      var words = [];
+      var placedAngles = [];
+      var attempts = 0;
+      while (words.length < WORD_COUNT && attempts < 400) {
+        attempts++;
+        var word = POOL[words.length % POOL.length];
+        var aDeg = rand() * 360;
+        if (tooCloseToSpoke(aDeg)) continue;
+        var ok = true;
+        for (var p = 0; p < placedAngles.length; p++) {
+          var dd = Math.abs(((aDeg - placedAngles[p] + 540) % 360) - 180);
+          if (dd < 12) { ok = false; break; }
+        }
+        if (!ok) continue;
+        var d = 80 + rand() * 120;
+        var rA = aDeg * Math.PI / 180;
+        var wx = CX + Math.cos(rA) * d;
+        var wy = CY + Math.sin(rA) * d;
+        var bucket = rand();
+        var fs = bucket < 0.45 ? (9 + Math.floor(rand() * 2))
+               : bucket < 0.85 ? (11 + Math.floor(rand() * 3))
+               : (14 + Math.floor(rand() * 3));
+        var txt = document.createElementNS(SVG_NS, 'text');
+        txt.setAttribute('x', wx); txt.setAttribute('y', wy);
+        txt.setAttribute('text-anchor', 'middle');
+        txt.setAttribute('dominant-baseline', 'middle');
+        txt.setAttribute('font-family', "'Heebo',sans-serif");
+        txt.setAttribute('font-weight', '500');
+        txt.setAttribute('letter-spacing', '0.12em');
+        txt.setAttribute('font-size', fs);
+        txt.setAttribute('fill', '#ffffff');
+        var baseO = 0.08 + rand() * 0.12;
+        txt.setAttribute('opacity', baseO);
+        txt.textContent = word.toUpperCase();
+        bgCloud.appendChild(txt);
+        placedAngles.push(aDeg);
+        words.push({ el: txt, ang: aDeg, baseOp: baseO, fontSize: fs, lastLit: -1e9 });
+      }
+
+      words.sort(function (a, b) { return b.fontSize - a.fontSize; });
+      var kept = [];
+      for (var wi = 0; wi < words.length; wi++) {
+        var w = words[wi];
+        var bb;
+        try { bb = w.el.getBBox(); } catch (e) { bb = null; }
+        if (!bb) { kept.push(w); continue; }
+        var collide = false;
+        for (var ki = 0; ki < kept.length; ki++) {
+          var kb = kept[ki]._bb;
+          if (!kb) continue;
+          if (!(bb.x + bb.width < kb.x || kb.x + kb.width < bb.x ||
+                bb.y + bb.height < kb.y || kb.y + kb.height < bb.y)) {
+            collide = true; break;
+          }
+        }
+        if (collide) {
+          w.el.setAttribute('opacity', '0');
+          w.el.style.display = 'none';
+          w.hidden = true;
+        } else {
+          w._bb = bb;
+          kept.push(w);
+        }
+      }
+      words = kept.filter(function (w) { return !w.hidden; });
+
+      var wedge = document.createElementNS(SVG_NS, 'path');
+      wedge.setAttribute('fill', 'url(#radar-sweep-grad-v2)');
+      wedge.style.pointerEvents = 'none';
+      bgCloud.appendChild(wedge);
+
+      function setWedge(thetaDeg) {
+        var a1 = (thetaDeg - WEDGE_DEG) * Math.PI / 180;
+        var a2 = thetaDeg * Math.PI / 180;
+        var x1 = CX + Math.cos(a1) * SWEEP_R;
+        var y1 = CY + Math.sin(a1) * SWEEP_R;
+        var x2 = CX + Math.cos(a2) * SWEEP_R;
+        var y2 = CY + Math.sin(a2) * SWEEP_R;
+        wedge.setAttribute('d',
+          'M' + CX + ',' + CY + ' L' + x1.toFixed(2) + ',' + y1.toFixed(2) +
+          ' A' + SWEEP_R + ',' + SWEEP_R + ' 0 0 1 ' + x2.toFixed(2) + ',' + y2.toFixed(2) + ' Z');
+      }
+
+      var reduced = false;
+      try {
+        reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      } catch (e) {}
+
+      if (reduced) {
+        setWedge(0);
+        wedge.setAttribute('opacity', '0');
+        return;
+      }
+
+      function inWedge(angDeg, leadDeg) {
+        var trail = (leadDeg - WEDGE_DEG + 360) % 360;
+        var a = (angDeg + 360) % 360;
+        if (trail < leadDeg) return a >= trail && a <= leadDeg;
+        return a >= trail || a <= leadDeg;
+      }
+
+      var start = performance.now();
+      function frame(now) {
+        var t = (now - start) % PERIOD_MS;
+        var theta = (t / PERIOD_MS) * 360;
+        setWedge(theta);
+
+        for (var i = 0; i < dots.length; i++) {
+          var d = dots[i];
+          if (inWedge(d.ang, theta)) d.lastLit = now;
+          var glow = Math.exp(-(now - d.lastLit) / DECAY_MS);
+          var op = d.baseOp + (1 - d.baseOp) * glow;
+          d.el.setAttribute('opacity', op.toFixed(3));
+        }
+        for (var w = 0; w < words.length; w++) {
+          var wd = words[w];
+          if (inWedge(wd.ang, theta)) wd.lastLit = now;
+          var g = Math.exp(-(now - wd.lastLit) / DECAY_MS);
+          var o = wd.baseOp + (1 - wd.baseOp) * g;
+          wd.el.setAttribute('opacity', o.toFixed(3));
+          var fs = wd.fontSize * (g > 0.7 ? (1 + 0.2 * ((g - 0.7) / 0.3)) : 1);
+          wd.el.setAttribute('font-size', fs.toFixed(2));
+        }
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    })();
+  }
+  /* === BG-VARIANT-2-GEN-END === */
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    nodes.forEach(function(n){ n.setAttribute('opacity','1'); });
+    if(glow) glow.setAttribute('opacity','0.8');
+    if(dot) dot.setAttribute('opacity','1');
+    labels.forEach(function(l){ l.setAttribute('opacity','1'); });
+    if(bgCloud){ bgCloud.setAttribute('opacity','1'); }
+    return;
+  }
+
+  // Animate on load with staggered timing
+  function animateIn(){
+    // Background cloud fades in first (sits behind everything)
+    if (bgCloud){
+      bgCloud.style.transition = 'opacity 2s ease 0.1s';
+      bgCloud.setAttribute('opacity','1');
+    }
+    // Rings fade in
+    rings.forEach(function(r,i){
+      r.style.transition = 'opacity 1.5s ease ' + (i*0.3)+'s';
+      r.style.opacity = '1';
+    });
+
+    // Paths draw in staggered
+    paths.forEach(function(p,i){
+      var delay = 0.4 + i * 0.25;
+      p.style.transition = 'stroke-dashoffset 1.2s ease ' + delay + 's';
+      p.style.strokeDashoffset = '0';
+    });
+
+    // Nodes pop in after their path
+    nodes.forEach(function(n,i){
+      var delay = 0.8 + i * 0.25;
+      n.style.transition = 'opacity 0.5s ease ' + delay + 's';
+      setTimeout(function(){ n.setAttribute('opacity','1'); n.setAttribute('r','8'); }, delay*1000);
+    });
+
+    // Labels fade in
+    labels.forEach(function(l,i){
+      var delay = 1.0 + i * 0.2;
+      l.style.transition = 'opacity 0.8s ease ' + delay + 's';
+      setTimeout(function(){ l.setAttribute('fill','rgba(255,255,255,0.6)'); }, delay*1000);
+    });
+
+    // Center glow + dot
+    setTimeout(function(){
+      if(glow){ glow.style.transition='opacity 1s ease'; glow.setAttribute('opacity','0.85'); }
+      if(dot){ dot.style.transition='opacity 0.6s ease'; dot.setAttribute('opacity','1'); }
+    }, 1800);
+  }
+
+  // Start after a short delay
+  setTimeout(animateIn, 300);
+
+  // Gentle floating pulse on center glow
+  var pulseUp = true;
+  setInterval(function(){
+    if(!glow) return;
+    glow.setAttribute('r', pulseUp ? '60' : '45');
+    glow.style.transition = 'r 3s ease, opacity 3s ease';
+    pulseUp = !pulseUp;
+  }, 3000);
+
+  /* === BG-VARIANT-2-ANIM-START === */
+  // Background animation handled inside the variant IIFE above.
+  /* === BG-VARIANT-2-ANIM-END === */
+})();
+</script>
+
+<!-- ============================================================
+     HERO VARIANT 3: Hex Grid Lattice
+     Static hexagonal lattice with keyword labels; highlight pulse travels sequentially through nodes; hex edges connect neighbours.
+============================================================ -->
+<section id="home-v3" data-variant="3" class="hero-variant-v3 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- Left: Text content -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Animated nexus graphic (5-point convergence) -->
+    <div class="relative flex items-center justify-center">
+      <div class="hero-nexus-graphic relative w-full max-w-[520px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <defs>
+            <radialGradient id="hero-glow-v3" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#0000FF" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hero-l1-v3" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l2-v3" x1="0" y1="0.5" x2="1" y2="0.3">
+              <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l3-v3" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l4-v3" x1="1" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#FF00FF"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l5-v3" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8DF4BA"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Background keyword cloud (rendered first so it sits behind everything) -->
+          <g class="hero-bg-cloud" opacity="0"></g>
+
+          <!-- Faint orbit rings -->
+          <circle cx="300" cy="300" r="250" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="170" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="90" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" fill="none" class="hero-ring"/>
+
+          <!-- 5 convergence paths to center -->
+          <g stroke-width="2.5" stroke-linecap="round" fill="none">
+            <path class="hero-path" d="M300,50 Q310,170 300,300" stroke="url(#hero-l1-v3)" pathLength="1"/>
+            <path class="hero-path" d="M538,190 Q420,240 300,300" stroke="url(#hero-l2-v3)" pathLength="1"/>
+            <path class="hero-path" d="M448,510 Q380,400 300,300" stroke="url(#hero-l3-v3)" pathLength="1"/>
+            <path class="hero-path" d="M152,510 Q220,400 300,300" stroke="url(#hero-l4-v3)" pathLength="1"/>
+            <path class="hero-path" d="M90,190 Q190,240 300,300" stroke="url(#hero-l5-v3)" pathLength="1"/>
+          </g>
+
+          <!-- Endpoint nodes -->
+          <circle cx="300" cy="50"  r="6" fill="#0000FF" class="hero-node" opacity="0"/>
+          <circle cx="538" cy="190" r="6" fill="#FF5BAE" class="hero-node" opacity="0"/>
+          <circle cx="448" cy="510" r="6" fill="#FFE500" class="hero-node" opacity="0"/>
+          <circle cx="152" cy="510" r="6" fill="#FF00FF" class="hero-node" opacity="0"/>
+          <circle cx="90"  cy="190" r="6" fill="#8DF4BA" class="hero-node" opacity="0"/>
+
+          <!-- Center glow + dot -->
+          <circle cx="300" cy="300" r="50" fill="url(#hero-glow-v3)" class="hero-center-glow" opacity="0"/>
+          <circle cx="300" cy="300" r="6" fill="#fff" class="hero-center-dot" opacity="0"/>
+
+          <!-- Labels at endpoints -->
+          <text x="300" y="30" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">STRATEGY</text>
+          <text x="565" y="190" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">DATA</text>
+          <text x="468" y="535" text-anchor="start" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">TECH</text>
+          <text x="132" y="535" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">PEOPLE</text>
+          <text x="80" y="190" text-anchor="end" fill="rgba(255,255,255,0.5)" font-size="11" font-family="'Heebo',sans-serif" letter-spacing="0.15em" class="uppercase hero-label">EXECUTION</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- Hero nexus animation script -->
+<script>
+(function(){
+  var graphic = document.querySelector('[data-variant="3"] .hero-nexus-graphic');
+  if (!graphic) return;
+  var paths = graphic.querySelectorAll('.hero-path');
+  var nodes = graphic.querySelectorAll('.hero-node');
+  var glow = graphic.querySelector('.hero-center-glow');
+  var dot = graphic.querySelector('.hero-center-dot');
+  var labels = graphic.querySelectorAll('.hero-label');
+  var rings = graphic.querySelectorAll('.hero-ring');
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+
+  /* === BG-VARIANT-3-GEN-START === */
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+  if (bgCloud) {
+    // Hex Grid Lattice: static honeycomb of dots+thin connectors behind the nexus.
+    // A radial wave pulses outward from center, briefly lighting nodes (and their
+    // labels) with cosine falloff. Respects prefers-reduced-motion.
+    (() => {
+      const CX = 300, CY = 300;
+      const R_MAX = 215, R_MIN = 38;
+      const SPACING = 38;
+      const SPOKES = [[300,50],[538,190],[448,510],[152,510],[90,190]];
+
+      let seed = 0x9e3779b1;
+      const rnd = () => {
+        seed = (seed * 1664525 + 1013904223) >>> 0;
+        return seed / 0xffffffff;
+      };
+
+      const KEYWORDS = ['Journey','NPS','CSAT','Voice','Loyalty','Touchpoint','Mapping',
+        'Insights','Persona','Empathy','Metrics','Service','Brand','Trust','Feedback',
+        'Listening','Design','Culture','Value','Retention','Churn','Onboarding',
+        'Quality','ROI','Survey','Analytics','Engagement','KPI','Channel','Lifecycle',
+        'Moments','Process'];
+
+      const SQRT3 = Math.sqrt(3);
+      const dx = SPACING * 1.5;
+      const dy = SPACING * SQRT3;
+      const qRange = Math.ceil(R_MAX / dx) + 1;
+      const rRange = Math.ceil(R_MAX / dy) + 1;
+
+      const nodes = [];
+      const nodeMap = new Map();
+      const key = (q,r) => q + ',' + r;
+
+      for (let q = -qRange; q <= qRange; q++) {
+        for (let r = -rRange; r <= rRange; r++) {
+          const x = CX + dx * q;
+          const y = CY + dy * (r + q / 2);
+          const dist = Math.hypot(x - CX, y - CY);
+          if (dist > R_MAX || dist < R_MIN) continue;
+          const baseOp = 0.22 + rnd() * 0.18;
+          const circ = document.createElementNS(SVG_NS, 'circle');
+          circ.setAttribute('cx', x.toFixed(2));
+          circ.setAttribute('cy', y.toFixed(2));
+          circ.setAttribute('r', '1.8');
+          circ.setAttribute('fill', `rgba(255,255,255,${baseOp.toFixed(3)})`);
+          bgCloud.appendChild(circ);
+          const node = { el: circ, x, y, q, r, dist, baseOp, label: null, labelBaseOp: 0 };
+          nodes.push(node);
+          nodeMap.set(key(q, r), node);
+        }
+      }
+
+      const NEIGH = [[1,0],[1,-1],[0,-1],[-1,0],[-1,1],[0,1]];
+      const seenEdges = new Set();
+      for (const n of nodes) {
+        for (const [dq, dr] of NEIGH) {
+          const nk = key(n.q + dq, n.r + dr);
+          const m = nodeMap.get(nk);
+          if (!m) continue;
+          const ek = n.q < m.q || (n.q === m.q && n.r < m.r)
+            ? key(n.q,n.r) + '|' + nk
+            : nk + '|' + key(n.q,n.r);
+          if (seenEdges.has(ek)) continue;
+          seenEdges.add(ek);
+          const mx = (n.x + m.x) / 2;
+          const my = (n.y + m.y) / 2;
+          if (Math.hypot(mx - CX, my - CY) < 40) continue;
+          const ln = document.createElementNS(SVG_NS, 'line');
+          ln.setAttribute('x1', n.x.toFixed(2));
+          ln.setAttribute('y1', n.y.toFixed(2));
+          ln.setAttribute('x2', m.x.toFixed(2));
+          ln.setAttribute('y2', m.y.toFixed(2));
+          ln.setAttribute('stroke', 'rgba(255,255,255,0.06)');
+          ln.setAttribute('stroke-width', '0.5');
+          bgCloud.appendChild(ln);
+        }
+      }
+
+      const buckets = new Map();
+      for (const n of nodes) {
+        const ang = Math.atan2(n.y - CY, n.x - CX);
+        const aBucket = Math.floor(((ang + Math.PI) / (Math.PI * 2)) * 8);
+        const rBucket = Math.floor(n.dist / 35);
+        const bk = aBucket + '_' + rBucket;
+        if (!buckets.has(bk)) buckets.set(bk, []);
+        buckets.get(bk).push(n);
+      }
+      const bucketKeys = Array.from(buckets.keys()).sort(() => rnd() - 0.5);
+      const candidates = [];
+      for (const bk of bucketKeys) {
+        const arr = buckets.get(bk);
+        candidates.push(arr[Math.floor(rnd() * arr.length)]);
+        if (candidates.length >= 22) break;
+      }
+
+      const farFromSpokes = (x, y) => SPOKES.every(([sx, sy]) => Math.hypot(x - sx, y - sy) > 50);
+      const labelPool = KEYWORDS.slice().sort(() => rnd() - 0.5);
+      const labels = [];
+      let kwIdx = 0;
+      for (const n of candidates) {
+        if (kwIdx >= labelPool.length) break;
+        if (!farFromSpokes(n.x, n.y)) continue;
+        const word = labelPool[kwIdx++];
+        const sizeRoll = rnd();
+        const size = sizeRoll < 0.45 ? 9 + rnd() * 1.5
+                   : sizeRoll < 0.80 ? 11 + rnd() * 1.5
+                   : 13 + rnd() * 2;
+        const opBase = 0.30 + rnd() * 0.40;
+        const offX = n.x >= CX ? 6 : -6;
+        const offY = n.y >= CY ? 11 : -6;
+        const anchor = n.x >= CX ? 'start' : 'end';
+        const t = document.createElementNS(SVG_NS, 'text');
+        t.setAttribute('x', (n.x + offX).toFixed(2));
+        t.setAttribute('y', (n.y + offY).toFixed(2));
+        t.setAttribute('text-anchor', anchor);
+        t.setAttribute('font-family', "'Heebo',sans-serif");
+        t.setAttribute('font-weight', '500');
+        t.setAttribute('font-size', size.toFixed(1));
+        t.setAttribute('letter-spacing', '0.12em');
+        t.setAttribute('fill', `rgba(255,255,255,${opBase.toFixed(3)})`);
+        t.textContent = word.toUpperCase();
+        bgCloud.appendChild(t);
+        n.label = t;
+        n.labelBaseOp = opBase;
+        labels.push({ node: n, el: t, size, op: opBase });
+      }
+
+      const rectsOverlap = (a, b) =>
+        !(a.x + a.width < b.x || b.x + b.width < a.x ||
+          a.y + a.height < b.y || b.y + b.height < a.y);
+      const spokeBoxes = SPOKES.map(([sx, sy]) => ({ x: sx - 30, y: sy - 30, width: 60, height: 60 }));
+      const sorted = labels.slice().sort((a, b) => b.size - a.size);
+      const kept = [];
+      for (const lab of sorted) {
+        let bb;
+        try { bb = lab.el.getBBox(); } catch (_) { bb = null; }
+        if (!bb) continue;
+        let drop = spokeBoxes.some(sb => rectsOverlap(bb, sb));
+        if (!drop) {
+          for (const k of kept) {
+            if (rectsOverlap(bb, k.bb)) { drop = true; break; }
+          }
+        }
+        if (drop) {
+          lab.el.remove();
+          lab.node.label = null;
+          lab.node.labelBaseOp = 0;
+        } else {
+          kept.push({ ...lab, bb });
+        }
+      }
+
+      const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduced) return;
+
+      const WAVE_SPEED = 80;
+      const WAVE_SPAN = 22;
+      const CYCLE = 260 + 80;
+      const t0 = performance.now();
+
+      const tick = (now) => {
+        const t = (now - t0) / 1000;
+        const R = ((t * WAVE_SPEED) % CYCLE) - 40;
+        for (const n of nodes) {
+          const d = Math.abs(n.dist - R);
+          if (d < WAVE_SPAN) {
+            const k = 0.5 + 0.5 * Math.cos((d / WAVE_SPAN) * Math.PI);
+            const op = n.baseOp + (0.95 - n.baseOp) * k;
+            const rad = 1.8 + 1.3 * k;
+            n.el.setAttribute('fill', `rgba(255,255,255,${op.toFixed(3)})`);
+            n.el.setAttribute('r', rad.toFixed(2));
+            if (n.label) {
+              const lo = Math.min(1, n.labelBaseOp + 0.25 * k);
+              n.label.setAttribute('fill', `rgba(255,255,255,${lo.toFixed(3)})`);
+            }
+          } else {
+            n.el.setAttribute('fill', `rgba(255,255,255,${n.baseOp.toFixed(3)})`);
+            n.el.setAttribute('r', '1.8');
+            if (n.label) {
+              n.label.setAttribute('fill', `rgba(255,255,255,${n.labelBaseOp.toFixed(3)})`);
+            }
+          }
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    })();
+  }
+  /* === BG-VARIANT-3-GEN-END === */
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    nodes.forEach(function(n){ n.setAttribute('opacity','1'); });
+    if(glow) glow.setAttribute('opacity','0.8');
+    if(dot) dot.setAttribute('opacity','1');
+    labels.forEach(function(l){ l.setAttribute('opacity','1'); });
+    if(bgCloud){ bgCloud.setAttribute('opacity','1'); }
+    return;
+  }
+
+  // Animate on load with staggered timing
+  function animateIn(){
+    // Background cloud fades in first (sits behind everything)
+    if (bgCloud){
+      bgCloud.style.transition = 'opacity 2s ease 0.1s';
+      bgCloud.setAttribute('opacity','1');
+    }
+    // Rings fade in
+    rings.forEach(function(r,i){
+      r.style.transition = 'opacity 1.5s ease ' + (i*0.3)+'s';
+      r.style.opacity = '1';
+    });
+
+    // Paths draw in staggered
+    paths.forEach(function(p,i){
+      var delay = 0.4 + i * 0.25;
+      p.style.transition = 'stroke-dashoffset 1.2s ease ' + delay + 's';
+      p.style.strokeDashoffset = '0';
+    });
+
+    // Nodes pop in after their path
+    nodes.forEach(function(n,i){
+      var delay = 0.8 + i * 0.25;
+      n.style.transition = 'opacity 0.5s ease ' + delay + 's';
+      setTimeout(function(){ n.setAttribute('opacity','1'); n.setAttribute('r','8'); }, delay*1000);
+    });
+
+    // Labels fade in
+    labels.forEach(function(l,i){
+      var delay = 1.0 + i * 0.2;
+      l.style.transition = 'opacity 0.8s ease ' + delay + 's';
+      setTimeout(function(){ l.setAttribute('fill','rgba(255,255,255,0.6)'); }, delay*1000);
+    });
+
+    // Center glow + dot
+    setTimeout(function(){
+      if(glow){ glow.style.transition='opacity 1s ease'; glow.setAttribute('opacity','0.85'); }
+      if(dot){ dot.style.transition='opacity 0.6s ease'; dot.setAttribute('opacity','1'); }
+    }, 1800);
+  }
+
+  // Start after a short delay
+  setTimeout(animateIn, 300);
+
+  // Gentle floating pulse on center glow
+  var pulseUp = true;
+  setInterval(function(){
+    if(!glow) return;
+    glow.setAttribute('r', pulseUp ? '60' : '45');
+    glow.style.transition = 'r 3s ease, opacity 3s ease';
+    pulseUp = !pulseUp;
+  }, 3000);
+
+  /* === BG-VARIANT-3-ANIM-START === */
+  // Background animation handled inside the variant IIFE above.
+  /* === BG-VARIANT-3-ANIM-END === */
+})();
+</script>
+
+<!-- ============================================================
+     HERO VARIANT 4: 5 New Pillars
+     Particles drift along curved spline paths toward the center, leaving fading trails; keywords ride a few of the particles.
+============================================================ -->
+<section id="home-v4" data-variant="4" class="hero-variant-v4 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- Left: Text content -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Animated nexus graphic (5-point convergence) -->
+    <div class="relative flex items-center justify-center">
+      <div class="hero-nexus-graphic relative w-full max-w-[520px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <defs>
+            <radialGradient id="hero-glow-v4" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.9"/>
+              <stop offset="40%" stop-color="#0000FF" stop-opacity="0.3"/>
+              <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="hero-l1-v4" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l2-v4" x1="0" y1="0.5" x2="1" y2="0.3">
+              <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l3-v4" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l4-v4" x1="1" y1="1" x2="0" y2="0">
+              <stop offset="0%" stop-color="#FF00FF"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+            <linearGradient id="hero-l5-v4" x1="1" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#8DF4BA"/><stop offset="100%" stop-color="#0000FF"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Faint orbit rings -->
+
+
+          <!-- Faint orbit rings -->
+          <circle cx="300" cy="300" r="250" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="170" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" class="hero-ring"/>
+          <circle cx="300" cy="300" r="90" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" fill="none" class="hero-ring"/>
+
+          <!-- Background keyword cloud (rendered first so it sits behind everything) -->
+          <g class="hero-bg-cloud" opacity="0"></g>
+
+          <!-- Faint orbit rings -->
+
+
+          <!-- Center glow + dot -->
+          <circle cx="300" cy="300" r="50" fill="url(#hero-glow-v4)" class="hero-center-glow" opacity="0"/>
+          <circle cx="300" cy="300" r="6" fill="#fff" class="hero-center-dot" opacity="0"/>
+
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+</section><!-- Hero nexus animation script -->
+<script>
+(function(){
+  var graphic = document.querySelector('[data-variant="4"] .hero-nexus-graphic');
+  if (!graphic) return;
+  var paths = graphic.querySelectorAll('.hero-path');
+  var nodes = graphic.querySelectorAll('.hero-node');
+  var glow = graphic.querySelector('.hero-center-glow');
+  var dot = graphic.querySelector('.hero-center-dot');
+  var labels = graphic.querySelectorAll('.hero-label');
+  var rings = graphic.querySelectorAll('.hero-ring');
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+
+  /* === BG-VARIANT-4-GEN-START === */
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var bgCloud = graphic.querySelector('.hero-bg-cloud');
+  if (bgCloud) {
+    // V4 hero-graphic: 5 pillar hubs (EXPERIENCE, VOICE, INSIGHT, LOYALTY, CULTURE)
+    // radiating from center, each with its own satellite sub-cluster.
+    // Seeded jitter, gentle pulse animation, reduced-motion aware, collision-hide sub-labels.
+    (function () {
+      if (typeof bgCloud === 'undefined' || !bgCloud) return;
+
+      var CENTER_X = 300, CENTER_Y = 300;
+      var ANCHOR_R = 215;
+
+      // Each pillar has its own ANGLE and RADIUS — placement is asymmetric,
+      // so the 5 anchors land at different vertices of the web (not on one perfect circle).
+      var PILLARS = [
+        { key: 'EXPERIENCE', color: '#0000FF', angle: -1.32, radius: 200,
+          subs: ['Journey','Touchpoint','Moments','Channel','Service'] },
+        { key: 'VOICE',      color: '#FF5BAE', angle: -0.20, radius: 225,
+          subs: ['Feedback','Listening','NPS','CSAT','Survey'] },
+        { key: 'INSIGHT',    color: '#FFE500', angle:  1.10, radius: 165,
+          subs: ['Analytics','Metrics','Mapping','Persona','Data'] },
+        { key: 'LOYALTY',    color: '#FF00FF', angle:  2.55, radius: 175,
+          subs: ['Trust','Retention','Brand','Value','Engagement'] },
+        { key: 'CULTURE',    color: '#8DF4BA', angle: -2.40, radius: 150,
+          subs: ['Empathy','Onboarding','Training','Mindset','Quality'] }
+      ];
+
+      function makeRng(seed) {
+        var s = seed >>> 0;
+        return function () {
+          s = (s + 0x6D2B79F5) >>> 0;
+          var t = s;
+          t = Math.imul(t ^ (t >>> 15), t | 1);
+          t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+          return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+        };
+      }
+      var rng = makeRng(0xC0FFEE);
+
+      function el(name, attrs) {
+        var n = document.createElementNS(SVG_NS, name);
+        if (attrs) {
+          for (var k in attrs) {
+            if (Object.prototype.hasOwnProperty.call(attrs, k)) {
+              n.setAttribute(k, attrs[k]);
+            }
+          }
+        }
+        return n;
+      }
+
+      function clampToCenterRadius(x, y, maxR) {
+        var dx = x - CENTER_X, dy = y - CENTER_Y;
+        var d = Math.sqrt(dx * dx + dy * dy);
+        if (d <= maxR) return [x, y];
+        var s = maxR / d;
+        return [CENTER_X + dx * s, CENTER_Y + dy * s];
+      }
+
+      var anchorDots = [];
+      var satDots = [];
+      var subTexts = [];
+      var mainLabels = []; // the 5 big pillar labels — sub-text must never overlap these
+      var pillarEls = []; // {group, spoke} for entrance animation
+
+      for (var i = 0; i < PILLARS.length; i++) {
+        var p = PILLARS[i];
+        var angle = p.angle;
+        var thisR = p.radius;
+        var ax = CENTER_X + thisR * Math.cos(angle);
+        var ay = CENTER_Y + thisR * Math.sin(angle);
+
+        var spoke = el('line', {
+          x1: CENTER_X, y1: CENTER_Y, x2: ax, y2: ay,
+          stroke: p.color, 'stroke-opacity': '0.55',
+          'stroke-width': '1.6', 'stroke-linecap': 'round'
+        });
+        spoke.style.opacity = '0';
+        bgCloud.appendChild(spoke);
+
+        // Group that holds everything that belongs to this pillar (sats, conns, halo, dot, label, sub-text)
+        var group = el('g');
+        group.style.opacity = '0';
+        bgCloud.appendChild(group);
+        pillarEls.push({ group: group, spoke: spoke });
+
+        var subCount = p.subs.length;
+        for (var j = 0; j < subCount; j++) {
+          var jitter = (rng() - 0.5) * (Math.PI / subCount) * 0.6;
+          var subAngle = angle + Math.PI + ((j / subCount) * Math.PI * 2) + jitter;
+          var subR = 28 + rng() * 12;
+          var sx = ax + subR * Math.cos(subAngle);
+          var sy = ay + subR * Math.sin(subAngle);
+          var clamped = clampToCenterRadius(sx, sy, 220);
+          sx = clamped[0]; sy = clamped[1];
+
+          var conn = el('line', {
+            x1: sx, y1: sy, x2: ax, y2: ay,
+            stroke: 'rgba(255,255,255,0.15)', 'stroke-width': '0.6'
+          });
+          group.appendChild(conn);
+
+          var baseOp = 0.55 + rng() * 0.30;
+          var sDot = el('circle', {
+            cx: sx, cy: sy, r: '2.2',
+            fill: p.color, opacity: String(baseOp)
+          });
+          group.appendChild(sDot);
+          satDots.push({ circle: sDot, baseOpacity: baseOp, phase: rng() * Math.PI * 2 });
+
+          var tdx = sx - ax, tdy = sy - ay;
+          var td = Math.sqrt(tdx * tdx + tdy * tdy) || 1;
+          var tx = sx + (tdx / td) * 6;
+          var ty = sy + (tdy / td) * 6 + 3;
+          var ta = (tdx > 4) ? 'start' : (tdx < -4) ? 'end' : 'middle';
+          var subText = el('text', {
+            x: tx, y: ty,
+            'text-anchor': ta,
+            'font-family': "'Heebo',sans-serif",
+            'font-weight': '500',
+            'font-size': '8.5',
+            fill: 'rgba(255,255,255,0.55)',
+            'letter-spacing': '0.10em'
+          });
+          subText.textContent = p.subs[j].toUpperCase();
+          group.appendChild(subText);
+          subTexts.push(subText);
+        }
+
+        var halo = el('circle', { cx: ax, cy: ay, r: '14', fill: p.color, opacity: '0.15' });
+        group.appendChild(halo);
+
+        var dot = el('circle', { cx: ax, cy: ay, r: '8', fill: p.color });
+        group.appendChild(dot);
+        anchorDots.push({ circle: dot, phase: (i / PILLARS.length) * Math.PI * 2 });
+
+        var lx = ax + 22 * Math.cos(angle);
+        var ly = ay + 22 * Math.sin(angle);
+        var labelAnchor = 'middle';
+        var cosA = Math.cos(angle);
+        if (cosA > 0.35) labelAnchor = 'start';
+        else if (cosA < -0.35) labelAnchor = 'end';
+        var label = el('text', {
+          x: lx, y: ly + 4,
+          'text-anchor': labelAnchor,
+          'font-family': "'Heebo',sans-serif",
+          'font-weight': '700',
+          'font-size': '14',
+          fill: '#ffffff',
+          'letter-spacing': '0.18em'
+        });
+        label.textContent = p.key;
+        group.appendChild(label);
+        mainLabels.push(label);
+      }
+
+      try {
+        function overlaps(a, b) {
+          return !(a.x + a.width < b.x || b.x + b.width < a.x ||
+                   a.y + a.height < b.y || b.y + b.height < a.y);
+        }
+        function inflate(bb, pad) {
+          return { x: bb.x - pad, y: bb.y - pad,
+                   width: bb.width + 2 * pad, height: bb.height + 2 * pad };
+        }
+
+        // Reserved keep-out zones for the 5 main pillar labels (with extra padding).
+        var mainBoxes = [];
+        for (var ml = 0; ml < mainLabels.length; ml++) {
+          try { mainBoxes.push(inflate(mainLabels[ml].getBBox(), 6)); }
+          catch (e) {}
+        }
+
+        // First pass: hide any sub-text that overlaps a main label keep-out box.
+        var subBboxes = [];
+        for (var bi = 0; bi < subTexts.length; bi++) {
+          var bb = null;
+          try { bb = subTexts[bi].getBBox(); } catch (e) { bb = null; }
+          if (bb) {
+            for (var mb = 0; mb < mainBoxes.length; mb++) {
+              if (overlaps(bb, mainBoxes[mb])) {
+                subTexts[bi].style.display = 'none';
+                bb = null;
+                break;
+              }
+            }
+          }
+          subBboxes.push(bb);
+        }
+
+        // Second pass: hide sub-texts that overlap another sub-text from a different cluster.
+        var clusterSize = PILLARS[0].subs.length;
+        function clusterOf(idx) { return Math.floor(idx / clusterSize); }
+        for (var xi = 0; xi < subTexts.length; xi++) {
+          if (!subBboxes[xi]) continue;
+          for (var yi = xi + 1; yi < subTexts.length; yi++) {
+            if (!subBboxes[yi]) continue;
+            if (clusterOf(xi) === clusterOf(yi)) continue;
+            if (overlaps(subBboxes[xi], subBboxes[yi])) {
+              subTexts[yi].style.display = 'none';
+              subBboxes[yi] = null;
+            }
+          }
+        }
+      } catch (e) {}
+
+      var reduce = false;
+      try {
+        reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      } catch (e) { reduce = false; }
+
+      // Entrance animation — staggered fade-in for each pillar (spoke first, then its group).
+      // Coordinated with the baseline ring fade-in so the whole scene assembles together.
+      if (reduce) {
+        // Reduced motion: just reveal everything immediately.
+        for (var rp = 0; rp < pillarEls.length; rp++) {
+          pillarEls[rp].spoke.style.opacity = '1';
+          pillarEls[rp].group.style.opacity = '1';
+        }
+        return;
+      } else {
+        var ENTRANCE_DELAY_MS = 600;   // wait for rings to begin fading in
+        var ENTRANCE_STEP_MS  = 220;   // delay between consecutive pillars
+        for (var ep = 0; ep < pillarEls.length; ep++) {
+          (function (idx, item) {
+            // Spoke line draws in slightly before the rest of the cluster
+            item.spoke.style.transition = 'opacity 0.7s ease ' + (ENTRANCE_DELAY_MS + idx * ENTRANCE_STEP_MS) / 1000 + 's';
+            item.group.style.transition = 'opacity 0.9s ease ' + (ENTRANCE_DELAY_MS + 180 + idx * ENTRANCE_STEP_MS) / 1000 + 's';
+            // Kick the transitions on the next frame
+            requestAnimationFrame(function () {
+              item.spoke.style.opacity = '1';
+              item.group.style.opacity = '1';
+            });
+          })(ep, pillarEls[ep]);
+        }
+      }
+
+      var start = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+      function tick(now) {
+        var t = (now - start) / 1000;
+
+        for (var a = 0; a < anchorDots.length; a++) {
+          var ad = anchorDots[a];
+          var r = 8 + Math.sin((t / 3) * Math.PI * 2 + ad.phase);
+          ad.circle.setAttribute('r', r.toFixed(2));
+        }
+        for (var s = 0; s < satDots.length; s++) {
+          var sd = satDots[s];
+          var op = sd.baseOpacity + 0.15 * Math.sin((t / 2.5) * Math.PI * 2 + sd.phase);
+          if (op < 0.05) op = 0.05;
+          if (op > 1) op = 1;
+          sd.circle.setAttribute('opacity', op.toFixed(3));
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
+  }
+  /* === BG-VARIANT-4-GEN-END === */
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) {
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    nodes.forEach(function(n){ n.setAttribute('opacity','1'); });
+    if(glow) glow.setAttribute('opacity','0.8');
+    if(dot) dot.setAttribute('opacity','1');
+    labels.forEach(function(l){ l.setAttribute('opacity','1'); });
+    if(bgCloud){ bgCloud.setAttribute('opacity','1'); }
+    return;
+  }
+
+  // Animate on load with staggered timing
+  function animateIn(){
+    // Background cloud fades in first (sits behind everything)
+    if (bgCloud){
+      bgCloud.style.transition = 'opacity 2s ease 0.1s';
+      bgCloud.setAttribute('opacity','1');
+    }
+    // Rings fade in
+    rings.forEach(function(r,i){
+      r.style.transition = 'opacity 1.5s ease ' + (i*0.3)+'s';
+      r.style.opacity = '1';
+    });
+
+    // Paths draw in staggered
+    paths.forEach(function(p,i){
+      var delay = 0.4 + i * 0.25;
+      p.style.transition = 'stroke-dashoffset 1.2s ease ' + delay + 's';
+      p.style.strokeDashoffset = '0';
+    });
+
+    // Nodes pop in after their path
+    nodes.forEach(function(n,i){
+      var delay = 0.8 + i * 0.25;
+      n.style.transition = 'opacity 0.5s ease ' + delay + 's';
+      setTimeout(function(){ n.setAttribute('opacity','1'); n.setAttribute('r','8'); }, delay*1000);
+    });
+
+    // Labels fade in
+    labels.forEach(function(l,i){
+      var delay = 1.0 + i * 0.2;
+      l.style.transition = 'opacity 0.8s ease ' + delay + 's';
+      setTimeout(function(){ l.setAttribute('fill','rgba(255,255,255,0.6)'); }, delay*1000);
+    });
+
+    // Center glow + dot
+    setTimeout(function(){
+      if(glow){ glow.style.transition='opacity 1s ease'; glow.setAttribute('opacity','0.85'); }
+      if(dot){ dot.style.transition='opacity 0.6s ease'; dot.setAttribute('opacity','1'); }
+    }, 1800);
+  }
+
+  // Start after a short delay
+  setTimeout(animateIn, 300);
+
+  // Gentle floating pulse on center glow
+  var pulseUp = true;
+  setInterval(function(){
+    if(!glow) return;
+    glow.setAttribute('r', pulseUp ? '60' : '45');
+    glow.style.transition = 'r 3s ease, opacity 3s ease';
+    pulseUp = !pulseUp;
+  }, 3000);
+
+  /* === BG-VARIANT-4-ANIM-START === */
+  // Background animation handled inside the variant IIFE above.
+  /* === BG-VARIANT-4-ANIM-END === */
+})();
+</script>
+
+
+
+<!-- ============================================================
+     HERO VARIANT 5: Design · Defend · Deliver word cycle
+============================================================ -->
+<section id="home-v5" data-variant="5" class="hero-variant-v5 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- Left: Text content -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Word-cycle graphic (Design · Defend · Deliver) -->
+    <div class="relative flex items-center justify-center">
+      <div class="v5-graphic relative w-full max-w-[520px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <defs>
+            <radialGradient id="v5-glow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#fff" stop-opacity="0.55"/>
+              <stop offset="55%" stop-color="#0000FF" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#0000FF" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <circle cx="300" cy="300" r="250" stroke="rgba(255,255,255,0.10)" stroke-width="1" fill="none"/>
+          <circle cx="300" cy="300" r="200" stroke="rgba(255,255,255,0.16)" stroke-width="1" fill="none"/>
+          <circle cx="300" cy="300" r="140" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+
+          <circle class="v5-glow" cx="300" cy="300" r="160" fill="url(#v5-glow)" opacity="0.6"/>
+
+          <g class="v5-sats"></g>
+
+          <text class="v5-main" x="300" y="300"
+                text-anchor="middle" dominant-baseline="middle"
+                font-family="'Heebo',sans-serif" font-weight="800"
+                font-size="64" letter-spacing="0.04em"
+                fill="#FF5BAE" opacity="1"
+                style="transform-origin: 300px 300px;">DESIGN</text>
+
+          <g class="v5-accents"></g>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Hero v5 word-cycle script -->
+<script>
+(function(){
+  var root = document.querySelector('[data-variant="5"] .v5-graphic');
+  if (!root) return;
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+
+  var WORD_SETS = [
+    { main: 'DESIGN',  color: '#FF5BAE',
+      sats: ['Vision','Journey','Persona','Empathy','Blueprint','Architecture','Map','Prototype','Touchpoint','Strategy','Insight','Experience'] },
+    { main: 'DEFEND',  color: '#FFE500',
+      sats: ['Trust','Brand','Loyalty','Value','Retention','Quality','Integrity','Standards','Reputation','Voice','Consistency','Promise'] },
+    { main: 'DELIVER', color: '#8DF4BA',
+      sats: ['Service','Execution','Speed','Moments','Outcomes','Operations','Channel','Cadence','Performance','Feedback','Result','Action'] }
+  ];
+
+  var CENTER_X = 300, CENTER_Y = 300;
+  var BASE_R = 200;
+  var EXIT_R = 280;
+  var ENTER_R = 140;
+  var N = 12;
+
+  var satGroup    = root.querySelector('.v5-sats');
+  var accentGroup = root.querySelector('.v5-accents');
+  var mainText    = root.querySelector('.v5-main');
+  var glow        = root.querySelector('.v5-glow');
+
+  var sats = [];
+  for (var i = 0; i < N; i++) {
+    var a = (i / N) * Math.PI * 2 - Math.PI / 2;
+    var sizeRoll = i % 4;
+    var fs = sizeRoll === 0 ? 18 : sizeRoll === 1 ? 14 : sizeRoll === 2 ? 12 : 16;
+    var baseOp = 0.45 + ((i * 37) % 100) / 200;
+    var t = document.createElementNS(SVG_NS, 'text');
+    t.setAttribute('x', (CENTER_X + Math.cos(a) * BASE_R).toFixed(2));
+    t.setAttribute('y', (CENTER_Y + Math.sin(a) * BASE_R).toFixed(2));
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'middle');
+    t.setAttribute('font-family', "'Heebo',sans-serif");
+    t.setAttribute('font-weight', '500');
+    t.setAttribute('font-size', fs);
+    t.setAttribute('letter-spacing', '0.14em');
+    t.setAttribute('fill', '#ffffff');
+    t.setAttribute('opacity', baseOp.toFixed(2));
+    satGroup.appendChild(t);
+    sats.push({ el: t, angle: a, baseOp: baseOp, baseFontSize: fs });
+  }
+
+  var accentDots = [];
+  for (var k = 0; k < 18; k++) {
+    var ang = (k / 18) * Math.PI * 2 + Math.PI / 18;
+    var r = 90 + ((k * 53) % 60);
+    var c = document.createElementNS(SVG_NS, 'circle');
+    c.setAttribute('cx', (CENTER_X + Math.cos(ang) * r).toFixed(2));
+    c.setAttribute('cy', (CENTER_Y + Math.sin(ang) * r).toFixed(2));
+    c.setAttribute('r', '1.6');
+    c.setAttribute('fill', '#ffffff');
+    c.setAttribute('opacity', '0.45');
+    accentGroup.appendChild(c);
+    accentDots.push(c);
+  }
+
+  function applySet(set){
+    mainText.textContent = set.main;
+    mainText.setAttribute('fill', set.color);
+    for (var i = 0; i < N; i++) {
+      sats[i].el.textContent = (set.sats[i % set.sats.length] || '').toUpperCase();
+    }
+    for (var k = 0; k < accentDots.length; k++) {
+      accentDots[k].setAttribute('fill', set.color);
+    }
+  }
+  applySet(WORD_SETS[0]);
+
+  var reduced = false;
+  try { reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  if (reduced) {
+    var idx = 0;
+    setInterval(function(){
+      idx = (idx + 1) % WORD_SETS.length;
+      applySet(WORD_SETS[idx]);
+    }, 3000);
+    return;
+  }
+
+  var EXIT_MS = 600;
+  var ENTER_MS = 700;
+  var HOLD_MS = 1600;
+  var idx = 0;
+
+  function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+  function easeIn(t){ return t * t * t; }
+  function lerp(a, b, t){ return a + (b - a) * t; }
+
+  function animatePhase(opts){
+    var start = performance.now();
+    function frame(now){
+      var t = Math.min(1, (now - start) / opts.duration);
+      var e = opts.easing ? opts.easing(t) : t;
+      var r = lerp(opts.fromR, opts.toR, e);
+      var op = lerp(opts.fromOp, opts.toOp, e);
+      for (var i = 0; i < N; i++) {
+        var s = sats[i];
+        var nx = CENTER_X + Math.cos(s.angle) * r;
+        var ny = CENTER_Y + Math.sin(s.angle) * r;
+        s.el.setAttribute('x', nx.toFixed(2));
+        s.el.setAttribute('y', ny.toFixed(2));
+        s.el.setAttribute('opacity', (op * s.baseOp).toFixed(3));
+      }
+      var mScale = lerp(opts.fromMainScale, opts.toMainScale, e);
+      var mOp = lerp(opts.fromMainOp, opts.toMainOp, e);
+      mainText.setAttribute('opacity', mOp.toFixed(3));
+      mainText.style.transform = 'translate(' + CENTER_X + 'px,' + CENTER_Y + 'px) scale(' + mScale.toFixed(3) + ') translate(-' + CENTER_X + 'px,-' + CENTER_Y + 'px)';
+      var glowOp = 0.4 + 0.5 * (1 - Math.abs(e - 0.5) * 2);
+      if (glow) glow.setAttribute('opacity', glowOp.toFixed(3));
+      if (t < 1) requestAnimationFrame(frame);
+      else if (opts.then) opts.then();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  function cycle(){
+    animatePhase({
+      fromR: BASE_R, toR: EXIT_R,
+      fromOp: 1, toOp: 0,
+      fromMainScale: 1, toMainScale: 0.72,
+      fromMainOp: 1, toMainOp: 0,
+      duration: EXIT_MS,
+      easing: easeIn,
+      then: function(){
+        idx = (idx + 1) % WORD_SETS.length;
+        applySet(WORD_SETS[idx]);
+        for (var i = 0; i < N; i++) {
+          var s = sats[i];
+          var nx = CENTER_X + Math.cos(s.angle) * ENTER_R;
+          var ny = CENTER_Y + Math.sin(s.angle) * ENTER_R;
+          s.el.setAttribute('x', nx.toFixed(2));
+          s.el.setAttribute('y', ny.toFixed(2));
+          s.el.setAttribute('opacity', '0');
+        }
+        animatePhase({
+          fromR: ENTER_R, toR: BASE_R,
+          fromOp: 0, toOp: 1,
+          fromMainScale: 1.15, toMainScale: 1,
+          fromMainOp: 0, toMainOp: 1,
+          duration: ENTER_MS,
+          easing: easeOut,
+          then: function(){
+            setTimeout(cycle, HOLD_MS);
+          }
+        });
+      }
+    });
+  }
+
+  setTimeout(cycle, 1200);
+})();
+</script>
+
+
+
+
+
+<!-- ============================================================
+     HERO VARIANT 6: Tag-cloud cycle (Design / Defend / Deliver)
+============================================================ -->
+<section id="home-v6" data-variant="6" class="hero-variant-v6 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient glow blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- Left: Text content (identical to the other heroes) -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Word-cloud cycle illustration -->
+    <div class="relative flex items-center justify-center">
+      <div class="v6-cloud relative w-full max-w-[560px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+          <g class="v6-sats"></g>
+          <text class="v6-main" x="300" y="300"
+                text-anchor="middle" dominant-baseline="middle"
+                font-family="'Heebo',sans-serif" font-weight="800"
+                font-size="92" letter-spacing="0.02em"
+                fill="#FF5BAE" opacity="1"
+                style="transform-origin: 300px 300px;">DESIGN</text>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Hero v6 word-cloud cycle script -->
+<script>
+(function(){
+  var root = document.querySelector('[data-variant="6"] .v6-cloud');
+  if (!root) return;
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  var stage = root.querySelector('.v6-sats');
+  var mainText = root.querySelector('.v6-main');
+  var SAT_BBOX = { x: 50, y: 110, w: 500, h: 380 };
+  var mainBox = { x: 110, y: 245, w: 380, h: 110 }; // updated by measureMain()
+
+  // Three modes — main + satellites are thematic per mode.
+  // Size buckets: a couple of "anchor" satellites at 38–42, several medium 22–30, many small 14–18, a few tiny 11–13.
+  var WORD_SETS = [
+    {
+      main: 'DESIGN',  color: '#FF5BAE',
+      sats: [
+        { t:'Strategy',     s:42, w:700, c:'#FFFFFF' },
+        { t:'Journey',      s:38, w:700, c:'#0000FF' },
+        { t:'Experience',   s:30, w:600, c:'#FFFFFF' },
+        { t:'Vision',       s:28, w:600, c:'#FFFFFF' },
+        { t:'Blueprint',    s:26, w:600, c:'#0000FF' },
+        { t:'Persona',      s:24, w:600, c:'#FFE500' },
+        { t:'Empathy',      s:22, w:500, c:'#FFFFFF' },
+        { t:'Insight',      s:22, w:500, c:'#FFFFFF' },
+        { t:'Touchpoint',   s:20, w:500, c:'#0000FF' },
+        { t:'Architecture', s:18, w:500, c:'#FFFFFF' },
+        { t:'Prototype',    s:16, w:500, c:'#FFFFFF' },
+        { t:'Concept',      s:16, w:500, c:'#FFFFFF' },
+        { t:'Story',        s:16, w:500, c:'#FF5BAE' },
+        { t:'Sketch',       s:14, w:500, c:'#FFFFFF' },
+        { t:'Frame',        s:14, w:500, c:'#0000FF' },
+        { t:'Pattern',      s:14, w:500, c:'#FFFFFF' },
+        { t:'System',       s:13, w:500, c:'#FFFFFF' },
+        { t:'Wireframe',    s:12, w:500, c:'#FFFFFF' },
+        { t:'Layout',       s:12, w:500, c:'#0000FF' },
+        { t:'Map',          s:11, w:500, c:'#FFFFFF' }
+      ]
+    },
+    {
+      main: 'DEFEND',  color: '#FFE500',
+      sats: [
+        { t:'Loyalty',      s:42, w:700, c:'#FFFFFF' },
+        { t:'Trust',        s:38, w:700, c:'#FFFFFF' },
+        { t:'Brand',        s:30, w:700, c:'#0000FF' },
+        { t:'Retention',    s:26, w:600, c:'#FFFFFF' },
+        { t:'Voice',        s:24, w:600, c:'#FFFFFF' },
+        { t:'Reputation',   s:22, w:500, c:'#0000FF' },
+        { t:'Quality',      s:22, w:500, c:'#0000FF' },
+        { t:'Value',        s:22, w:600, c:'#FFE500' },
+        { t:'Promise',      s:22, w:500, c:'#FF5BAE' },
+        { t:'Integrity',    s:18, w:500, c:'#FFFFFF' },
+        { t:'Standards',    s:18, w:500, c:'#FFFFFF' },
+        { t:'Consistency',  s:16, w:500, c:'#FFFFFF' },
+        { t:'Resilience',   s:16, w:500, c:'#0000FF' },
+        { t:'Care',         s:16, w:500, c:'#FFE500' },
+        { t:'Compliance',   s:14, w:500, c:'#FFFFFF' },
+        { t:'Stability',    s:14, w:500, c:'#FFFFFF' },
+        { t:'Shield',       s:13, w:500, c:'#0000FF' },
+        { t:'Guard',        s:13, w:500, c:'#FFFFFF' },
+        { t:'Risk',         s:12, w:500, c:'#FFFFFF' },
+        { t:'Audit',        s:11, w:500, c:'#FFFFFF' }
+      ]
+    },
+    {
+      main: 'DELIVER', color: '#8DF4BA',
+      sats: [
+        { t:'Service',      s:42, w:700, c:'#FFFFFF' },
+        { t:'Execution',    s:34, w:700, c:'#0000FF' },
+        { t:'Operations',   s:26, w:600, c:'#0000FF' },
+        { t:'Outcomes',     s:26, w:600, c:'#8DF4BA' },
+        { t:'Speed',        s:24, w:600, c:'#FFFFFF' },
+        { t:'Result',       s:24, w:600, c:'#FFE500' },
+        { t:'Moments',      s:22, w:500, c:'#FFFFFF' },
+        { t:'Feedback',     s:22, w:500, c:'#FFFFFF' },
+        { t:'Channel',      s:20, w:500, c:'#FFFFFF' },
+        { t:'Action',       s:20, w:500, c:'#0000FF' },
+        { t:'Performance',  s:18, w:500, c:'#FF5BAE' },
+        { t:'Cadence',      s:16, w:500, c:'#FFFFFF' },
+        { t:'Tempo',        s:16, w:500, c:'#FFFFFF' },
+        { t:'Pace',         s:16, w:500, c:'#0000FF' },
+        { t:'Flow',         s:14, w:500, c:'#FFFFFF' },
+        { t:'Scale',        s:14, w:500, c:'#FFFFFF' },
+        { t:'Drive',        s:13, w:500, c:'#8DF4BA' },
+        { t:'Launch',       s:13, w:500, c:'#FFFFFF' },
+        { t:'Ship',         s:12, w:500, c:'#FFFFFF' },
+        { t:'Rollout',      s:11, w:500, c:'#FFFFFF' }
+      ]
+    }
+  ];
+
+  // ----- Seeded RNG (re-seeded per cycle so each pack feels fresh but stable per word set) -----
+  function makeRng(seed){
+    var s = seed >>> 0;
+    return function(){
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 0xffffffff;
+    };
+  }
+
+  // Pre-create 20 satellite <text> nodes — content/attrs are set per cycle.
+  var sats = [];
+  for (var i = 0; i < 20; i++) {
+    var t = document.createElementNS(SVG_NS, 'text');
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'middle');
+    t.setAttribute('font-family', "'Heebo',sans-serif");
+    t.setAttribute('opacity', '0');
+    stage.appendChild(t);
+    sats.push({ el: t, cx: 300, cy: 300, baseOp: 0.9, rot: 0, placed: true });
+  }
+
+  function measureMain(){
+    var bb;
+    try { bb = mainText.getBBox(); } catch (e) { bb = null; }
+    if (bb && bb.width) {
+      mainBox.x = bb.x - 14;
+      mainBox.y = bb.y - 10;
+      mainBox.w = bb.width + 28;
+      mainBox.h = bb.height + 20;
+    }
+  }
+
+  function applyMainText(set){
+    mainText.textContent = set.main;
+    mainText.setAttribute('fill', set.color);
+    measureMain();
+  }
+
+  // ---------- layoutSats: tight side-quota placement (LEFT/RIGHT/TOP/BOTTOM) ----------
+  function layoutSats(set, sats, mainBox, satBBox, rng) {
+    var SIDES = ['LEFT', 'RIGHT', 'TOP', 'BOTTOM'];
+    var HUG = 6;
+    var MAX_JITTER = 40;
+    var ATTEMPTS_PREF = 120;
+    var ATTEMPTS_TOTAL = 250;
+
+    var items = set.sats.map(function (sd, i) {
+      return { idx: i, t: sd.t, s: sd.s, w: sd.w, c: sd.c };
+    });
+    items.sort(function (a, b) { return b.s - a.s; });
+
+    var placedRects = [{ x: mainBox.x, y: mainBox.y, w: mainBox.w, h: mainBox.h }];
+
+    function intersects(a, b) {
+      return !(a.x + a.w <= b.x || b.x + b.w <= a.x || a.y + a.h <= b.y || b.y + b.h <= a.y);
+    }
+    function inside(r, c) {
+      return r.x >= c.x && r.y >= c.y && r.x + r.w <= c.x + c.w && r.y + r.h <= c.y + c.h;
+    }
+    function collidesAny(r) {
+      for (var k = 0; k < placedRects.length; k++) if (intersects(r, placedRects[k])) return true;
+      return false;
+    }
+    function baseOpFor(s) {
+      if (s >= 30) return 0.95;
+      if (s >= 20) return 0.88;
+      if (s >= 14) return 0.78;
+      return 0.65;
+    }
+
+    function trySide(side, t, s, vertical) {
+      var ew = t.length * s * 0.55;
+      var eh = s * 1.08;
+      var w = vertical ? eh : ew;
+      var h = vertical ? ew : eh;
+      var jitter = rng() * MAX_JITTER;
+      var cx, cy;
+      if (side === 'LEFT') {
+        cx = mainBox.x - HUG - w / 2 - jitter;
+        cy = mainBox.y + rng() * mainBox.h;
+      } else if (side === 'RIGHT') {
+        cx = mainBox.x + mainBox.w + HUG + w / 2 + jitter;
+        cy = mainBox.y + rng() * mainBox.h;
+      } else if (side === 'TOP') {
+        cx = mainBox.x + rng() * mainBox.w;
+        cy = mainBox.y - HUG - h / 2 - jitter;
+      } else {
+        cx = mainBox.x + rng() * mainBox.w;
+        cy = mainBox.y + mainBox.h + HUG + h / 2 + jitter;
+      }
+      var rect = { x: cx - w / 2, y: cy - h / 2, w: w, h: h };
+      if (!inside(rect, satBBox)) return null;
+      if (collidesAny(rect)) return null;
+      return { cx: cx, cy: cy, rect: rect };
+    }
+
+    for (var ii = 0; ii < items.length; ii++) {
+      var it = items[ii];
+      var origIdx = it.idx;
+      var sObj = sats[origIdx];
+      var el = sObj.el;
+      var verticalChance = rng() < 0.25;
+      var preferred = SIDES[ii % 4];
+      var order = [preferred].concat(SIDES.filter(function (s) { return s !== preferred; }));
+
+      var placement = null;
+      var totalTries = 0;
+
+      for (var a = 0; a < ATTEMPTS_PREF && !placement; a++) {
+        totalTries++;
+        var vert = verticalChance;
+        if ((preferred === 'LEFT' || preferred === 'RIGHT') && rng() < 0.35) vert = true;
+        placement = trySide(preferred, it.t, it.s, vert);
+        if (placement) { placement._vert = vert; placement._side = preferred; }
+      }
+
+      while (!placement && totalTries < ATTEMPTS_TOTAL) {
+        for (var oi = 1; oi < order.length && !placement; oi++) {
+          var side = order[oi];
+          for (var b = 0; b < 40 && !placement; b++) {
+            totalTries++;
+            if (totalTries >= ATTEMPTS_TOTAL) break;
+            var v2 = rng() < 0.25;
+            if ((side === 'LEFT' || side === 'RIGHT') && rng() < 0.35) v2 = true;
+            placement = trySide(side, it.t, it.s, v2);
+            if (placement) { placement._vert = v2; placement._side = side; }
+          }
+        }
+        if (!placement) break;
+      }
+
+      if (!placement) {
+        sObj.placed = false;
+        sObj.baseOp = 0;
+        if (el) { el.setAttribute('opacity', '0'); el.textContent = it.t; }
+        continue;
+      }
+
+      var rot = placement._vert ? (rng() < 0.5 ? -90 : 90) : 0;
+      sObj.cx = placement.cx;
+      sObj.cy = placement.cy;
+      sObj.rot = rot;
+      sObj.placed = true;
+      sObj.baseOp = baseOpFor(it.s);
+
+      if (el) {
+        el.textContent = it.t;
+        el.setAttribute('x', placement.cx);
+        el.setAttribute('y', placement.cy);
+        el.setAttribute('text-anchor', 'middle');
+        el.setAttribute('dominant-baseline', 'middle');
+        el.setAttribute('font-family', 'Heebo, sans-serif');
+        el.setAttribute('font-weight', it.w || 600);
+        el.setAttribute('font-size', it.s);
+        el.setAttribute('fill', it.c);
+        el.setAttribute('opacity', sObj.baseOp);
+        if (rot) {
+          el.setAttribute('transform', 'rotate(' + rot + ' ' + placement.cx + ' ' + placement.cy + ')');
+        } else {
+          el.removeAttribute('transform');
+        }
+
+        var finalRect = placement.rect;
+        try {
+          var bb = el.getBBox();
+          if (bb && bb.width && bb.height) {
+            var rr = { x: bb.x - 1, y: bb.y - 1, w: bb.width + 2, h: bb.height + 2 };
+            if (inside(rr, satBBox) && !collidesAny(rr)) finalRect = rr;
+          }
+        } catch (e) {}
+
+        placedRects.push(finalRect);
+      } else {
+        placedRects.push(placement.rect);
+      }
+    }
+  }
+
+  // ---------- makeTransitions: dispatcher with varied EXIT/ENTER styles ----------
+  function makeTransitions(ctx) {
+    var mainText = ctx.mainText, sats = ctx.sats,
+        layoutSats = ctx.layoutSats, applyMainText = ctx.applyMainText,
+        WORD_SETS = ctx.WORD_SETS, mainBox = ctx.mainBox,
+        satBBox = ctx.satBBox, rng = ctx.rng, idxRef = ctx.idxRef;
+
+    function easeInOut(t){ return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function easeOut(t){ return 1 - Math.pow(1 - t, 3); }
+    function easeIn(t){ return t * t; }
+    function clamp01(x){ return Math.max(0, Math.min(1, x)); }
+
+    function tween(duration, onFrame, ease) {
+      return new Promise(function(resolve){
+        var start = performance.now();
+        var e = ease || easeInOut;
+        function frame(now){
+          var t = Math.min(1, (now - start) / duration);
+          onFrame(e(t), t);
+          if (t < 1) requestAnimationFrame(frame);
+          else resolve();
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+    function delay(ms){ return new Promise(function(r){ setTimeout(r, ms); }); }
+
+    function setSatTransform(s, dx, dy, extraRot) {
+      var rot = (s.rot || 0) + (extraRot || 0);
+      s.el.setAttribute('transform', 'translate(' + dx + ' ' + dy + ') rotate(' + rot + ' ' + s.cx + ' ' + s.cy + ')');
+    }
+    function resetSat(s) {
+      s.el.setAttribute('transform', 'rotate(' + (s.rot || 0) + ' ' + s.cx + ' ' + s.cy + ')');
+      s.el.setAttribute('x', s.cx);
+      s.el.setAttribute('y', s.cy);
+      s.el.setAttribute('opacity', s.baseOp);
+    }
+    function setMain(scaleX, scaleY, rot, opacity, tx, ty) {
+      mainText.setAttribute('opacity', opacity);
+      mainText.setAttribute(
+        'transform',
+        'translate(' + (tx || 0) + ' ' + (ty || 0) + ') rotate(' + (rot || 0) + ' 300 300) scale(' + scaleX + ' ' + scaleY + ')'
+      );
+    }
+
+    function doSwap() {
+      var next = (idxRef.value + 1) % WORD_SETS.length;
+      idxRef.value = next;
+      var set = WORD_SETS[next];
+      applyMainText(set);
+      layoutSats(set, sats, mainBox, satBBox, rng);
+      for (var i = 0; i < sats.length; i++) {
+        sats[i].el.setAttribute('opacity', 0);
+        sats[i].el.setAttribute('x', sats[i].cx);
+        sats[i].el.setAttribute('y', sats[i].cy);
+        sats[i].el.setAttribute('transform', 'rotate(' + (sats[i].rot || 0) + ' ' + sats[i].cx + ' ' + sats[i].cy + ')');
+      }
+    }
+
+    function burst() {
+      var dirs = sats.map(function(s){
+        var dx = s.cx - 300, dy = s.cy - 300;
+        var len = Math.hypot(dx, dy) || 1;
+        return { x: dx / len, y: dy / len, op: +s.el.getAttribute('opacity') || s.baseOp };
+      });
+      return tween(700, function(p){
+        for (var i = 0; i < sats.length; i++) {
+          var s = sats[i], d = dirs[i];
+          if (!s.placed) continue;
+          setSatTransform(s, d.x * 30 * p, d.y * 30 * p, 0);
+          s.el.setAttribute('opacity', d.op * (1 - p));
+        }
+        var sc = 1 - 0.22 * p;
+        setMain(sc, sc, 0, 1 - p, 0, 0);
+      }, easeInOut).then(function(){
+        doSwap();
+        var inDirs = sats.map(function(s){
+          return { x: (s.cx - 300) * 0.55, y: (s.cy - 300) * 0.55 };
+        });
+        return tween(800, function(p){
+          for (var i = 0; i < sats.length; i++) {
+            var s = sats[i], d = inDirs[i];
+            if (!s.placed) { s.el.setAttribute('opacity', 0); continue; }
+            setSatTransform(s, -d.x * (1 - p), -d.y * (1 - p), 0);
+            s.el.setAttribute('opacity', s.baseOp * p);
+          }
+          var sc = 1.18 - 0.18 * p;
+          setMain(sc, sc, 0, p, 0, 0);
+        }, easeOut);
+      }).then(function(){
+        for (var i = 0; i < sats.length; i++) if (sats[i].placed) resetSat(sats[i]);
+        setMain(1, 1, 0, 1, 0, 0);
+      });
+    }
+
+    function spiral() {
+      var startOps = sats.map(function(s){ return +s.el.getAttribute('opacity') || s.baseOp; });
+      return tween(750, function(p){
+        var deg = 120 * p;
+        for (var i = 0; i < sats.length; i++) {
+          var s = sats[i];
+          if (!s.placed) continue;
+          setSatTransform(s, 0, 0, deg);
+          s.el.setAttribute('opacity', startOps[i] * (1 - p));
+        }
+        setMain(1, 1, 8 * p, 1 - p, 0, 0);
+      }, easeIn).then(function(){
+        doSwap();
+        return tween(850, function(p){
+          var deg = -90 * (1 - p);
+          var off = 18 * (1 - p);
+          for (var i = 0; i < sats.length; i++) {
+            var s = sats[i];
+            if (!s.placed) { s.el.setAttribute('opacity', 0); continue; }
+            var a = (i / sats.length) * Math.PI * 2;
+            setSatTransform(s, Math.cos(a) * off, Math.sin(a) * off, deg);
+            s.el.setAttribute('opacity', s.baseOp * p);
+          }
+          setMain(1, 1, -6 * (1 - p), p, 0, 0);
+        }, easeOut);
+      }).then(function(){
+        for (var i = 0; i < sats.length; i++) if (sats[i].placed) resetSat(sats[i]);
+        setMain(1, 1, 0, 1, 0, 0);
+      });
+    }
+
+    function waveDown() {
+      var xs = sats.map(function(s){ return s.cx; });
+      var minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs);
+      var span = maxX - minX || 1;
+      var stagger = sats.map(function(s){ return (s.cx - minX) / span * 0.4; });
+      var startOps = sats.map(function(s){ return +s.el.getAttribute('opacity') || s.baseOp; });
+
+      return tween(750, function(p){
+        for (var i = 0; i < sats.length; i++) {
+          var s = sats[i];
+          if (!s.placed) continue;
+          var local = clamp01((p - stagger[i]) / 0.6);
+          var e = easeInOut(local);
+          setSatTransform(s, 0, 40 * e, 0);
+          s.el.setAttribute('opacity', startOps[i] * (1 - e));
+        }
+        setMain(1, 1 - 0.5 * p, 0, 1 - p, 0, 0);
+      }, easeInOut).then(function(){
+        doSwap();
+        var xs2 = sats.map(function(s){ return s.cx; });
+        var minX2 = Math.min.apply(null, xs2), maxX2 = Math.max.apply(null, xs2);
+        var span2 = maxX2 - minX2 || 1;
+        var enterStagger = sats.map(function(s){ return (1 - (s.cx - minX2) / span2) * 0.4; });
+        return tween(850, function(p){
+          for (var i = 0; i < sats.length; i++) {
+            var s = sats[i];
+            if (!s.placed) { s.el.setAttribute('opacity', 0); continue; }
+            var local = clamp01((p - enterStagger[i]) / 0.6);
+            var e = easeOut(local);
+            setSatTransform(s, 0, 40 * (1 - e), 0);
+            s.el.setAttribute('opacity', s.baseOp * e);
+          }
+          setMain(1, 0.5 + 0.5 * p, 0, p, 0, 0);
+        }, easeOut);
+      }).then(function(){
+        for (var i = 0; i < sats.length; i++) if (sats[i].placed) resetSat(sats[i]);
+        setMain(1, 1, 0, 1, 0, 0);
+      });
+    }
+
+    function scramble() {
+      var targets = sats.map(function(){ return { x: 40 + Math.random() * 520, y: 60 + Math.random() * 480 }; });
+      var starts = sats.map(function(s){ return { x: s.cx, y: s.cy, op: +s.el.getAttribute('opacity') || s.baseOp }; });
+
+      var shakeStop = false;
+      (function shakeLoop(){
+        if (shakeStop) return;
+        var tx = (Math.random() - 0.5) * 8;
+        var ty = (Math.random() - 0.5) * 8;
+        setMain(1, 1, 0, +mainText.getAttribute('opacity') || 1, tx, ty);
+        setTimeout(shakeLoop, 50);
+      })();
+
+      return tween(700, function(p){
+        for (var i = 0; i < sats.length; i++) {
+          var s = sats[i], st = starts[i], tg = targets[i];
+          if (!s.placed) continue;
+          var nx = st.x + (tg.x - st.x) * p;
+          var ny = st.y + (tg.y - st.y) * p;
+          s.el.setAttribute('x', nx);
+          s.el.setAttribute('y', ny);
+          s.el.setAttribute('transform', 'rotate(' + (s.rot || 0) + ' ' + nx + ' ' + ny + ')');
+          s.el.setAttribute('opacity', st.op * (1 - p));
+        }
+        if (p > 0.6) {
+          var fp = (p - 0.6) / 0.4;
+          mainText.setAttribute('opacity', 1 - fp);
+        }
+      }, easeIn).then(function(){
+        shakeStop = true;
+        setMain(1, 1, 0, 0, 0, 0);
+        doSwap();
+        var baseSizes = sats.map(function(s){ return +s.el.getAttribute('font-size') || 16; });
+        for (var i = 0; i < sats.length; i++) sats[i].el.setAttribute('font-size', baseSizes[i] * 1.25);
+
+        return tween(300, function(p){ setMain(1, 1, 0, p, 0, 0); }, easeOut).then(function(){
+          return tween(550, function(p){
+            var size = 1.25 - 0.25 * p;
+            for (var i = 0; i < sats.length; i++) {
+              var s = sats[i];
+              if (!s.placed) { s.el.setAttribute('opacity', 0); continue; }
+              s.el.setAttribute('font-size', baseSizes[i] * size);
+              s.el.setAttribute('opacity', s.baseOp * p);
+            }
+          }, easeOut);
+        }).then(function(){
+          for (var i = 0; i < sats.length; i++) {
+            if (sats[i].placed) {
+              sats[i].el.setAttribute('font-size', baseSizes[i]);
+              resetSat(sats[i]);
+            }
+          }
+          setMain(1, 1, 0, 1, 0, 0);
+        });
+      });
+    }
+
+    var transitions = { burst: burst, spiral: spiral, waveDown: waveDown, scramble: scramble };
+    var names = ['burst', 'spiral', 'waveDown', 'scramble'];
+    var last = null;
+
+    function pick() {
+      var pool = names.filter(function(n){ return n !== last; });
+      if (!pool.length) pool = names;
+      var name = pool[Math.floor(Math.random() * pool.length)];
+      last = name;
+      return name;
+    }
+
+    function runCycle(then) {
+      var name = pick();
+      transitions[name]().then(function(){
+        if (typeof then === 'function') then();
+      }).catch(function(){
+        // Safety: reset state
+        for (var i = 0; i < sats.length; i++) if (sats[i].placed) resetSat(sats[i]);
+        setMain(1, 1, 0, 1, 0, 0);
+        if (typeof then === 'function') then();
+      });
+    }
+
+    return { runCycle: runCycle };
+  }
+
+  // Simple seeded RNG for layout determinism per cycle
+  function makeRng(seed){
+    var s = seed >>> 0;
+    return function(){
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 0xffffffff;
+    };
+  }
+
+  // ---------- Initial paint ----------
+  applyMainText(WORD_SETS[0]);
+  var initRng = makeRng(0xABC0DE);
+  layoutSats(WORD_SETS[0], sats, mainBox, SAT_BBOX, initRng);
+  for (var s0 = 0; s0 < sats.length; s0++) {
+    if (sats[s0].placed) sats[s0].el.setAttribute('opacity', sats[s0].baseOp);
+  }
+
+  // ---------- Reduced motion ----------
+  var reduced = false;
+  try { reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  if (reduced) {
+    var idxR = 0;
+    setInterval(function(){
+      idxR = (idxR + 1) % WORD_SETS.length;
+      applyMainText(WORD_SETS[idxR]);
+      layoutSats(WORD_SETS[idxR], sats, mainBox, SAT_BBOX, makeRng(0xABC0DE + idxR * 7919));
+      for (var i = 0; i < sats.length; i++) {
+        sats[i].el.setAttribute('opacity', sats[i].placed ? sats[i].baseOp : 0);
+      }
+    }, 3200);
+    return;
+  }
+
+  // ---------- Cycle dispatcher ----------
+  var idxRef = { value: 0 };
+  var seedCounter = 1;
+  // Each cycle gets a fresh seeded rng so layouts vary but stay deterministic per cycle.
+  function newRng(){ return makeRng(0xABC0DE + (seedCounter++) * 7919); }
+  // Wrap rng so makeTransitions sees a per-cycle stream
+  var transitionsCtl = makeTransitions({
+    mainText: mainText,
+    sats: sats,
+    layoutSats: layoutSats,
+    applyMainText: applyMainText,
+    WORD_SETS: WORD_SETS,
+    mainBox: mainBox,
+    satBBox: SAT_BBOX,
+    rng: (function(){
+      var cur = newRng();
+      // Re-seed on each cycle entry — exposed via a getter wrapping
+      return function(){ return cur(); };
+    })(),
+    idxRef: idxRef
+  });
+
+  var HOLD_MS = 2800; // longer display time per request
+
+  function loop(){
+    transitionsCtl.runCycle(function(){
+      setTimeout(loop, HOLD_MS);
+    });
+  }
+  setTimeout(loop, 1800);
+})();
+</script>
+
+
+
+<!-- ============================================================
+     HERO VARIANT 7: Dense tag-cloud cycle (BUSINESS-ETHICS style)
+============================================================ -->
+<section id="home-v7" data-variant="7" class="hero-variant-v7 relative bg-cx-black text-white overflow-hidden min-h-screen">
+
+  <!-- Ambient blobs -->
+  <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] rounded-full bg-cx-blue/6 blur-[160px] pointer-events-none"></div>
+  <div class="absolute bottom-[10%] left-[5%] w-[400px] h-[400px] rounded-full bg-cx-magenta/4 blur-[140px] pointer-events-none"></div>
+
+  <div class="relative z-10 max-w-[1440px] mx-auto px-6 md:px-10 pt-28 md:pt-36 pb-10 md:pb-14 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center min-h-[calc(100vh-60px)]">
+
+    <!-- LEFT COLUMN -->
+    <div class="max-w-[600px]">
+      <p class="text-white/50 text-sm tracking-[0.2em] uppercase font-semibold mb-6">The Digital CX Academy</p>
+      <h1 class="h-display text-white mb-3" style="font-size: clamp(52px, 6.5vw, 96px); line-height: 0.88; letter-spacing: -0.02em;">
+        nex·us
+      </h1>
+      <p class="text-white/50 text-[15px] italic mb-8">/ˈneksəs/ · noun — a central point of connection where everything comes together.</p>
+      <div class="border-l-2 border-cx-blue pl-5 space-y-0.5 text-white/60 text-[14px] leading-snug mb-8">
+        <p>Between strategy and execution.</p>
+        <p>Between measurement and management.</p>
+        <p>Between what Finance demands and what customers feel.</p>
+        <p>Between people, processes, and technology.</p>
+        <p class="text-white/80 font-medium" style="text-wrap:balance;">Between the short-term pressure to deliver and the long-term need to build something that&nbsp;lasts.</p>
+      </div>
+      <p class="text-white/85 text-[17px] leading-relaxed mb-2">
+        This is where CX leaders live. And nobody taught you how to operate there.
+      </p>
+      <p class="h-display uppercase text-white text-[clamp(22px,2.8vw,36px)] mb-8">
+        CX NEXUS is the program that does.
+      </p>
+      <div class="flex flex-wrap items-center gap-3">
+        <a href="#pricing" class="btn btn-pink !py-2.5 !px-6 !text-[13px]">
+          Apply for the Next Cohort
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#framework" class="btn btn-outline-white !py-2.5 !px-6 !text-[13px]">
+          Explore the Program
+        </a>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN: dense tag cloud -->
+    <div class="relative flex items-center justify-center">
+      <div class="v7-cloud relative w-full max-w-[560px] aspect-square mx-auto">
+        <svg viewBox="0 0 600 600" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+          <g class="v7-stage"></g>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <style>
+    #home-v7 .v7-cloud text {
+      font-family: 'Heebo','Inter',sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      dominant-baseline: middle;
+      text-anchor: middle;
+      user-select: none;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+    #home-v7 .v7-cloud .v7-main {
+      letter-spacing: 0.02em;
+      font-weight: 800;
+    }
+  </style>
+</section>
+
+<!-- Hero v7 dense word-cloud script -->
+<script>
+(function(){
+  var stage = document.querySelector('#home-v7 .v7-stage');
+  if (!stage) return;
+  var SVG_NS = 'http://www.w3.org/2000/svg';
+  // Canvas is the viewBox bounds; the EFFECTIVE area gets a small inset so words don't clip.
+  var CANVAS = { x: 12, y: 12, w: 576, h: 576, cx: 300, cy: 300 };
+  var reducedMotion = false;
+  try { reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+
+  // ---------- Word pools ----------
+  var POOLS = {
+    DESIGN: ['Strategy','Journey','Vision','Blueprint','Architecture','Persona','Empathy','Touchpoint','Experience','Insight','Story','Concept','Map','Sketch','Pattern','System','Wireframe','Layout','Prototype','Frame','Mood','Tone','Hierarchy','Flow','Form','Function','Aesthetic','Detail','Edge','Grid','Spacing','Rhythm','Style','Craft','Idea','Draft','Iteration','Logic','Sense','Order','Voice','Theme'],
+    DEFEND: ['Loyalty','Trust','Brand','Retention','Voice','Reputation','Quality','Value','Promise','Integrity','Standards','Consistency','Resilience','Care','Compliance','Stability','Shield','Guard','Risk','Audit','Safety','Privacy','Ethics','Honor','Word','Pledge','Bond','Lock','Wall','Bastion','Anchor','Pillar','Rock','Vow','Honesty','Boundary','Margin','Buffer','Watch','Steward','Code','Cover'],
+    DELIVER: ['Service','Execution','Operations','Outcomes','Speed','Result','Moments','Feedback','Channel','Action','Performance','Cadence','Tempo','Pace','Flow','Scale','Drive','Launch','Ship','Rollout','Sprint','Deadline','Cycle','Throughput','Volume','Reach','Output','Time','Window','Wave','Push','Move','Step','Reliability','Punctuality','Promise','Standard','Stream']
+  };
+  var MAINS = ['DESIGN','DEFEND','DELIVER'];
+  var mainIdx = 0;
+
+  // ---------- Seeded RNG ----------
+  function mkRng(seed){
+    var s = seed >>> 0;
+    return function(){
+      s = (s * 1664525 + 1013904223) >>> 0;
+      return s / 0xffffffff;
+    };
+  }
+
+  function sizeFor(i){
+    // i=0 → largest
+    if (i < 3) return 38 + Math.floor(Math.random()*7);     // 38-44
+    if (i < 10) return 24 + Math.floor(Math.random()*7);    // 24-30
+    if (i < 22) return 17 + Math.floor(Math.random()*5);    // 17-21
+    return 11 + Math.floor(Math.random()*3);                // 11-13
+  }
+  function colorWeightFor(sz, accent){
+    if (accent) return { fill: accent, weight: 700 };
+    if (sz >= 32) return { fill: '#FFFFFF', weight: 700 };
+    if (sz >= 24) return { fill: '#DDDDDD', weight: 600 };
+    if (sz >= 16) return { fill: '#BBBBBB', weight: 500 };
+    return { fill: Math.random() < 0.5 ? '#888888' : '#777777', weight: 500 };
+  }
+
+  // ---------- Spiral packer (Archimedean spiral with rect collisions) ----------
+  function packCloud(words, mainPlacement, canvas, rng) {
+    var GAP = 3.5;          // breathing room between every placed rect (was 1.5)
+    var SPIRAL_STEP = 7;
+    var THETA_STEP = 0.32;
+    var MAX_STEPS = 700;
+    var RETRY_STEPS = 250;
+    var VERT_PROB = 0.18;
+    var START_RING = 12;
+    var JITTER = 20;
+    var TWO_PI = Math.PI * 2;
+
+    function rectsHit(a, b){
+      return !(a.x + a.w <= b.x || b.x + b.w <= a.x ||
+               a.y + a.h <= b.y || b.y + b.h <= a.y);
+    }
+    function padRect(r){ return { x: r.x - GAP, y: r.y - GAP, w: r.w + GAP*2, h: r.h + GAP*2 }; }
+    function insideCanvas(r){
+      return r.x >= canvas.x && r.y >= canvas.y &&
+             r.x + r.w <= canvas.x + canvas.w &&
+             r.y + r.h <= canvas.y + canvas.h;
+    }
+    function measure(t, s, rot){
+      // Uppercase Heebo is wider than 0.55·size — use a more honest multiplier and
+      // add a small constant so collision boxes match the actual rendered glyphs.
+      var wt = t.length * s * 0.66 + 4;
+      var ht = s * 1.12;
+      if (rot === 90 || rot === -90) return { w: ht, h: wt };
+      return { w: wt, h: ht };
+    }
+    function makeRect(cx, cy, dims){
+      return { x: cx - dims.w/2, y: cy - dims.h/2, w: dims.w, h: dims.h };
+    }
+    function hitsAny(rect, obstacles){
+      var padded = padRect(rect);
+      for (var i = 0; i < obstacles.length; i++) {
+        if (rectsHit(padded, obstacles[i])) return true;
+      }
+      return false;
+    }
+
+    var obstacles = [];
+    if (mainPlacement && mainPlacement.rect) obstacles.push(padRect(mainPlacement.rect));
+
+    var cx0 = mainPlacement ? mainPlacement.cx : canvas.x + canvas.w/2;
+    var cy0 = mainPlacement ? mainPlacement.cy : canvas.y + canvas.h/2;
+
+    function chooseRotation(word){
+      if (typeof word.rot === 'number') return word.rot;
+      var vertProb = VERT_PROB;
+      if (word.t.length > 8) vertProb += 0.12;
+      return rng() < vertProb ? 90 : 0;
+    }
+
+    function spiralWalk(startX, startY, dims, dir, steps){
+      var theta = 0;
+      for (var step = 0; step < steps; step++) {
+        var r = SPIRAL_STEP * theta / TWO_PI;
+        var ang = dir * theta;
+        var cx = startX + r * Math.cos(ang);
+        var cy = startY + r * Math.sin(ang);
+        var rect = makeRect(cx, cy, dims);
+        if (insideCanvas(rect) && !hitsAny(rect, obstacles)) return { cx: cx, cy: cy, rect: rect };
+        theta += THETA_STEP;
+      }
+      return null;
+    }
+
+    // Sort indices by size desc
+    var order = words.map(function(_, i){ return i; });
+    order.sort(function(a, b){ return words[b].s - words[a].s; });
+
+    for (var k = 0; k < order.length; k++) {
+      var idx = order[k];
+      var word = words[idx];
+      var rot = chooseRotation(word);
+      var dims = measure(word.t, word.s, rot);
+
+      var ringAng = rng() * TWO_PI;
+      var ringR = rng() * START_RING;
+      var jx = (rng() * 2 - 1) * JITTER;
+      var jy = (rng() * 2 - 1) * JITTER;
+      var startX = cx0 + jx + Math.cos(ringAng) * ringR;
+      var startY = cy0 + jy + Math.sin(ringAng) * ringR;
+      var dir = rng() < 0.5 ? 1 : -1;
+
+      var hit = spiralWalk(startX, startY, dims, dir, MAX_STEPS);
+
+      if (!hit) {
+        var altRot = rot === 0 ? 90 : 0;
+        var altDims = measure(word.t, word.s, altRot);
+        var flankSign = rng() < 0.5 ? -1 : 1;
+        var flankX = cx0 + flankSign * (canvas.w * 0.18);
+        var flankY = cy0 + (rng() * 2 - 1) * JITTER;
+        hit = spiralWalk(flankX, flankY, altDims, dir, RETRY_STEPS);
+        if (hit) { rot = altRot; dims = altDims; }
+      }
+
+      if (!hit) {
+        var flipRot = rot === 0 ? 90 : 0;
+        var flipDims = measure(word.t, word.s, flipRot);
+        hit = spiralWalk(startX, startY, flipDims, -dir, RETRY_STEPS);
+        if (hit) { rot = flipRot; dims = flipDims; }
+      }
+
+      if (hit) {
+        word.cx = hit.cx;
+        word.cy = hit.cy;
+        word.rot = rot;
+        word.rect = hit.rect;
+        word.placed = true;
+        obstacles.push(padRect(hit.rect));
+      } else {
+        word.placed = false;
+        word.rot = rot;
+      }
+    }
+  }
+
+  // ---------- Build word descriptors for the active main ----------
+  function buildWords(mainKey, rng){
+    var pool = POOLS[mainKey].slice();
+    for (var i = pool.length - 1; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+    }
+    var N = pool.length;
+    var accentSet = {};
+    while (Object.keys(accentSet).length < 3) accentSet[Math.floor(rng() * N)] = true;
+    var accents = ['#FFE500','#FF5BAE'];
+    var out = [];
+    for (var i = 0; i < N; i++) {
+      var sz = sizeFor(i);
+      var accent = accentSet[i] ? accents[i % accents.length] : null;
+      var cw = colorWeightFor(sz, accent);
+      out.push({ t: pool[i].toUpperCase(), s: sz, w: cw.weight, c: cw.fill });
+    }
+    out.sort(function(a, b){ return b.s - a.s; });
+    return out;
+  }
+
+  // ---------- Helpers ----------
+  function clearStage(){
+    while (stage.firstChild) stage.removeChild(stage.firstChild);
+  }
+  function measureTextEstimate(text, size){
+    return { w: text.length * size * 0.58, h: size * 1.05 };
+  }
+
+  // ---------- Render one frame of the cloud ----------
+  function renderCloud(mainKey, entryStyle){
+    clearStage();
+    var rng = mkRng(0xCAFE42 + (mainIdx + 1) * 7919 + (Date.now() & 0xffff));
+
+    // Main word placed at centre — measure roughly via estimate
+    var MAIN_SIZE = 84;
+    var mEst = measureTextEstimate(mainKey, MAIN_SIZE);
+    var mainRect = {
+      x: CANVAS.cx - mEst.w/2 - 4,
+      y: CANVAS.cy - mEst.h/2 - 2,
+      w: mEst.w + 8,
+      h: mEst.h + 4
+    };
+    var mainPlacement = { cx: CANVAS.cx, cy: CANVAS.cy, w: mEst.w, h: mEst.h, rect: mainRect };
+
+    var mainEl = document.createElementNS(SVG_NS, 'text');
+    mainEl.setAttribute('class', 'v7-main');
+    mainEl.setAttribute('x', CANVAS.cx);
+    mainEl.setAttribute('y', CANVAS.cy);
+    mainEl.setAttribute('font-size', MAIN_SIZE);
+    mainEl.setAttribute('font-weight', 800);
+    mainEl.setAttribute('fill', '#FFFFFF');
+    mainEl.textContent = mainKey;
+    stage.appendChild(mainEl);
+
+    // Pack the rest
+    var words = buildWords(mainKey, rng);
+    packCloud(words, mainPlacement, CANVAS, rng);
+
+    // Pick entry style (avoid repeating)
+    var styles = ['fade','scale','drift'];
+    var style = entryStyle || styles[Math.floor(Math.random() * styles.length)];
+
+    // Main entrance
+    mainEl.style.transformOrigin = CANVAS.cx + 'px ' + CANVAS.cy + 'px';
+    mainEl.style.opacity = '0';
+    mainEl.style.transform = 'scale(1.1)';
+    mainEl.style.transition = 'opacity 700ms ease-out, transform 700ms ease-out';
+    requestAnimationFrame(function(){
+      mainEl.style.opacity = '1';
+      mainEl.style.transform = 'scale(1)';
+    });
+
+    // Append satellites (initially with opacity 0 so we can validate before they show)
+    var nodes = [];
+    for (var i = 0; i < words.length; i++) {
+      var w = words[i];
+      if (!w.placed) continue;
+      var t = document.createElementNS(SVG_NS, 'text');
+      t.setAttribute('x', w.cx);
+      t.setAttribute('y', w.cy);
+      t.setAttribute('font-size', w.s);
+      t.setAttribute('font-weight', w.w);
+      t.setAttribute('fill', w.c);
+      if (w.rot) t.setAttribute('transform', 'rotate(' + w.rot + ' ' + w.cx + ' ' + w.cy + ')');
+      t.textContent = w.t;
+      t.style.transformOrigin = w.cx + 'px ' + w.cy + 'px';
+      t.style.opacity = '0';
+      stage.appendChild(t);
+      nodes.push({ el: t, word: w, idx: i });
+    }
+
+    // ----- Post-render verification using REAL getBBox -----
+    // Filter out any word whose actual bbox falls outside the canvas or overlaps
+    // another word's real bbox or the main word's real bbox. This catches the
+    // cases where the estimated rect was too small (long uppercase glyphs).
+    var realRects = [];
+    try {
+      var mb = mainEl.getBBox();
+      realRects.push({ x: mb.x - 4, y: mb.y - 2, w: mb.width + 8, h: mb.height + 4, _main: true });
+    } catch (e) {}
+    function rOverlap(a, b){
+      return !(a.x + a.w <= b.x || b.x + b.w <= a.x ||
+               a.y + a.h <= b.y || b.y + b.h <= a.y);
+    }
+    var BBOX_PAD = 2;
+    var EDGE = 4;
+    // Sort by font-size DESC — bigger ones win conflicts
+    nodes.sort(function(a, b){ return b.word.s - a.word.s; });
+    var keptNodes = [];
+    for (var ni = 0; ni < nodes.length; ni++) {
+      var n = nodes[ni];
+      var bb;
+      try { bb = n.el.getBBox(); } catch (e) { bb = null; }
+      if (!bb || !bb.width) { n.el.parentNode.removeChild(n.el); continue; }
+      var rr = {
+        x: bb.x - BBOX_PAD, y: bb.y - BBOX_PAD,
+        w: bb.width + BBOX_PAD * 2, h: bb.height + BBOX_PAD * 2
+      };
+      // Out-of-canvas check (with edge margin)
+      if (rr.x < CANVAS.x - EDGE || rr.y < CANVAS.y - EDGE ||
+          rr.x + rr.w > CANVAS.x + CANVAS.w + EDGE ||
+          rr.y + rr.h > CANVAS.y + CANVAS.h + EDGE) {
+        n.el.parentNode.removeChild(n.el);
+        continue;
+      }
+      // Overlap with any already-kept rect
+      var clash = false;
+      for (var rk = 0; rk < realRects.length; rk++) {
+        if (rOverlap(rr, realRects[rk])) { clash = true; break; }
+      }
+      if (clash) {
+        n.el.parentNode.removeChild(n.el);
+        continue;
+      }
+      realRects.push(rr);
+      keptNodes.push(n);
+    }
+
+    // Re-sort kept nodes back into original index order so the entrance stagger reads naturally
+    keptNodes.sort(function(a, b){ return a.idx - b.idx; });
+
+    // Animate the entrance for the surviving nodes
+    for (var k = 0; k < keptNodes.length; k++) {
+      var el = keptNodes[k].el;
+      var w2 = keptNodes[k].word;
+      var initT = '';
+      if (!reducedMotion) {
+        if (style === 'scale') initT = 'scale(0.7)';
+        else if (style === 'drift') {
+          var dx = (Math.random() - 0.5) * 24;
+          var dy = (Math.random() - 0.5) * 24;
+          initT = 'translate(' + dx + 'px,' + dy + 'px)';
+        }
+        if (initT) el.style.transform = initT;
+        el.style.transition = 'opacity 600ms ease-out, transform 600ms ease-out';
+      }
+      if (reducedMotion) { el.style.opacity = '1'; continue; }
+      (function(node, idx){
+        var delay = Math.min(900, idx * 18);
+        setTimeout(function(){
+          node.style.opacity = '1';
+          node.style.transform = 'none';
+        }, delay);
+      })(el, k);
+    }
+  }
+
+  function exitCloud(then){
+    var nodes = Array.prototype.slice.call(stage.children);
+    if (reducedMotion) { then(); return; }
+    var styles = ['fade','scale','drift'];
+    var style = styles[Math.floor(Math.random() * styles.length)];
+    for (var i = 0; i < nodes.length; i++) {
+      var n = nodes[i];
+      var isMain = n.classList && n.classList.contains('v7-main');
+      n.style.transition = 'opacity 500ms ease-in, transform 500ms ease-in';
+      (function(el, isM, idx){
+        var delay = isM ? 0 : Math.min(550, idx * 9);
+        setTimeout(function(){
+          el.style.opacity = '0';
+          if (isM) {
+            el.style.transform = 'scale(0.85)';
+          } else if (style === 'scale') {
+            el.style.transform = 'scale(0.7)';
+          } else if (style === 'drift') {
+            var dx = (Math.random() - 0.5) * 30;
+            var dy = (Math.random() - 0.5) * 30;
+            el.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+          }
+        }, delay);
+      })(n, isMain, i);
+    }
+    setTimeout(then, 720);
+  }
+
+  function cycle(initial){
+    var key = MAINS[mainIdx];
+    if (initial) {
+      renderCloud(key);
+    } else {
+      exitCloud(function(){ renderCloud(key); });
+    }
+    mainIdx = (mainIdx + 1) % MAINS.length;
+  }
+
+  cycle(true);
+  if (!reducedMotion) {
+    setInterval(function(){ cycle(false); }, 3200);
+  }
+})();
+</script>
+
+</main>
+</body>
+</html>
