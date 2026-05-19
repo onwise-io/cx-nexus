@@ -1512,7 +1512,7 @@
               var b = document.createElement('button');
               b.type = 'button';
               b.setAttribute('aria-label', 'Go to slide ' + (i+1));
-              b.className = 'w-2 h-2 rounded-full transition ' + (i === page ? 'bg-cx-blue' : 'bg-cx-gray-300 hover:bg-cx-gray-400');
+              b.className = 'w-2 h-2 rounded-full transition ' + (i === page ? 'bg-cx-blue' : 'bg-cx-gray-600/50 hover:bg-cx-gray-900');
               (function(idx){ b.addEventListener('click', function(){ goTo(idx); }); })(i);
               dotsWrap.appendChild(b);
             }
