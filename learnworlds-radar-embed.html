@@ -1,32 +1,20 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CX NEXUS — Анімація «радар» для LearnWorlds</title>
+<title>CX NEXUS — Hero Radar Animation</title>
 <style>
   html,body{background:#08080b;margin:0;padding:0;font-family:'Heebo',-apple-system,Segoe UI,Roboto,sans-serif;}
-  .lw-intro{max-width:900px;margin:0 auto;padding:40px 20px 8px;color:#fff;}
-  .lw-intro .eyebrow{color:#FF5BAE;letter-spacing:.2em;text-transform:uppercase;font-size:12px;font-weight:600;margin:0 0 6px;}
-  .lw-intro h1{margin:0 0 6px;font-size:30px;line-height:1.15;}
-  .lw-intro p{color:#b9b9c0;margin:0;line-height:1.6;}
-  .lw-section-label{text-align:center;color:#6a6a72;font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin:28px 0 4px;}
+  .lw-copywrap{position:relative;max-width:900px;margin:32px auto 56px;padding:0 20px;box-sizing:border-box;}
+  .lw-copybtn{position:absolute;top:12px;right:32px;background:#0000FF;color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;z-index:2;}
+  .lw-copybtn:hover{background:#FF5BAE;}
+  .lw-copybtn.copied{background:#8DF4BA;color:#000;}
+  .lw-code{width:100%;height:380px;background:#0c0c10;color:#d6d6dc;border:1px solid #2a2a32;border-radius:8px;padding:16px;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:12.5px;line-height:1.5;white-space:pre;overflow:auto;box-sizing:border-box;resize:vertical;tab-size:2;}
 </style>
 </head>
 <body>
 
-<div class="lw-intro">
-  <p class="eyebrow">CX NEXUS · LearnWorlds</p>
-  <h1>Анімація «радар» для hero-секції</h1>
-  <p>Нижче — живе прев'ю анімації, коротка інструкція зі встановлення та готовий код. Просто натисніть «Скопіювати код» і вставте його в LearnWorlds.</p>
-</div>
-
-<p class="lw-section-label">↓ Живе прев'ю (саме так це виглядатиме) ↓</p>
-
-<!-- ============================================================
-     LIVE EMBED — це і є робочий код анімації (рендериться як прев'ю).
-     Той самий код продубльовано нижче у полі для копіювання.
-============================================================ -->
 <!-- ============================================================
      CX NEXUS — Hero "Radar" (nexus) animation
      Standalone embed for LearnWorlds custom-code / HTML element.
@@ -356,49 +344,9 @@
 })();
 </script>
 
-
-<!-- ============================================================
-     ↓↓↓  ПАНЕЛЬ ДЛЯ КЛІЄНТА — інструкція + поле для копіювання  ↓↓↓
-     УВАГА: цю панель у LearnWorlds вставляти НЕ треба.
-     Копіюйте лише вміст поля <textarea> (кнопкою «Скопіювати код»).
-============================================================ -->
-<style>
-  .lw-guide{font-family:'Heebo',-apple-system,Segoe UI,Roboto,sans-serif;max-width:900px;margin:40px auto 64px;padding:0 20px;color:#e7e7ea;}
-  .lw-guide h2{font-size:23px;margin:0 0 10px;color:#fff;}
-  .lw-guide p{line-height:1.65;color:#b9b9c0;margin:0 0 14px;}
-  .lw-guide ol{line-height:1.7;padding-left:20px;color:#d3d3d9;margin:0 0 18px;}
-  .lw-guide ol li{margin-bottom:10px;}
-  .lw-guide b{color:#fff;}
-  .lw-guide code{background:#1a1a1f;padding:2px 6px;border-radius:4px;font-size:13px;color:#8DF4BA;font-family:'SFMono-Regular',Consolas,Menlo,monospace;}
-  .lw-note{border-left:3px solid #FFE500;background:rgba(255,229,0,.06);padding:12px 16px;border-radius:4px;margin:0 0 14px;font-size:14px;line-height:1.6;color:#d7d7c9;}
-  .lw-divider{height:1px;background:#23232b;border:0;margin:36px 0;}
-  .lw-copywrap{position:relative;margin-top:14px;}
-  .lw-copybtn{position:absolute;top:12px;right:12px;background:#0000FF;color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;z-index:2;}
-  .lw-copybtn:hover{background:#FF5BAE;}
-  .lw-copybtn.copied{background:#8DF4BA;color:#000;}
-  .lw-code{width:100%;height:360px;background:#0c0c10;color:#d6d6dc;border:1px solid #2a2a32;border-radius:8px;padding:16px;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:12.5px;line-height:1.5;white-space:pre;overflow:auto;box-sizing:border-box;resize:vertical;tab-size:2;}
-</style>
-
-<div class="lw-guide">
-  <hr class="lw-divider">
-  <h2>Інструкція зі встановлення</h2>
-  <ol>
-    <li>Відкрий потрібну сторінку у <b>LearnWorlds → Site / Page Builder</b>.</li>
-    <li>У місці hero-секції додай елемент коду: <b>«Code» / «HTML / Custom Code»</b> (для блоків курсу він зветься «Embed code»).</li>
-    <li>Натисни <b>«Скопіювати код»</b> нижче і встав <b>увесь</b> скопійований код у це поле. Редагувати нічого не треба.</li>
-    <li><b>Збережи</b> і <b>опублікуй</b> сторінку.</li>
-  </ol>
-
-  <div class="lw-note"><b>Важливо:</b> анімація працює лише на <b>опублікованій</b> сторінці — у редакторі-прев'ю LearnWorlds скрипти зазвичай не виконуються. Це нормально.</div>
-  <div class="lw-note">Якщо твоя секція <b>вже на темному фоні</b> — у коді в блоці <code>&lt;style&gt;</code> заміни <code>background:#000;</code> на <code>background:transparent;</code>.</div>
-  <div class="lw-note">Якщо білдер <b>«ріже» теги <code>&lt;script&gt;</code></b> у звичайному полі — встав код через елемент саме <b>«Code»</b> (він дозволяє JS) або через <b>Settings → Custom Code</b>. Як запасний варіант — обгорни код в <code>&lt;iframe&gt;</code>.</div>
-
-  <hr class="lw-divider">
-  <h2>Код для копіювання</h2>
-  <p>Це повністю самодостатній блок (HTML + CSS + JS, власний шрифт і фон). Просто скопіюй і встав.</p>
-  <div class="lw-copywrap">
-    <button class="lw-copybtn" id="lwCopyBtn" type="button">Скопіювати код</button>
-    <textarea class="lw-code" id="lwCode" readonly spellcheck="false" wrap="off">&lt;!-- ============================================================
+<div class="lw-copywrap">
+  <button class="lw-copybtn" id="lwCopyBtn" type="button">Copy code</button>
+  <textarea class="lw-code" id="lwCode" readonly spellcheck="false" wrap="off">&lt;!-- ============================================================
      CX NEXUS — Hero "Radar" (nexus) animation
      Standalone embed for LearnWorlds custom-code / HTML element.
      Self-contained: no Tailwind, own font, own dark background.
@@ -725,9 +673,7 @@
     requestAnimationFrame(tick);
   }
 })();
-&lt;/script&gt;
-</textarea>
-  </div>
+&lt;/script&gt;</textarea>
 </div>
 
 <script>
@@ -736,9 +682,9 @@
   var box = document.getElementById('lwCode');
   if(!btn || !box) return;
   function ok(){
-    btn.textContent = 'Скопійовано \u2713';
+    btn.textContent = 'Copied \u2713';
     btn.classList.add('copied');
-    setTimeout(function(){ btn.textContent = 'Скопіювати код'; btn.classList.remove('copied'); }, 2000);
+    setTimeout(function(){ btn.textContent = 'Copy code'; btn.classList.remove('copied'); }, 2000);
   }
   btn.addEventListener('click', function(){
     box.focus(); box.select();
