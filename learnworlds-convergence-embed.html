@@ -19,8 +19,8 @@
      CX NEXUS — "Why is this so hard?" convergence animation
      Standalone embed for LearnWorlds custom-code / HTML element.
      Self-contained: no Tailwind, own font, own dark background + grid.
-     Self-playing on load (the site version is scroll-driven; this one
-     auto-animates so it works anywhere, with no scrolling required).
+     Plays once when the section scrolls into view (IntersectionObserver),
+     matching the site behaviour. Falls back to play-on-load if needed.
      Paste this WHOLE block into one LearnWorlds "Code / HTML" element.
 ============================================================ -->
 
@@ -114,8 +114,9 @@
   var glow   = g.querySelector('.cxc-glow');
   var center = g.querySelector('.cxc-center');
 
-  // Respect reduced-motion — show the finished state immediately
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reduced motion — show the finished state, no animation
   if(reduce){
     paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
     if(glow){ glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
@@ -126,27 +127,11 @@
   // Initial undrawn state
   paths.forEach(function(p){ p.style.strokeDasharray='1'; p.style.strokeDashoffset='1'; });
 
-  function animateIn(){
-    // Three lines draw in left->right, staggered
-    paths.forEach(function(p,i){
-      var delay = 0.2 + i*0.28;
-      p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) '+delay+'s';
-      p.style.strokeDashoffset = '0';
-    });
-    // Glow forms as lines reach the convergence point
-    setTimeout(function(){
-      if(glow){ glow.style.transition='r 1.4s ease, opacity 1.4s ease'; glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
-    }, 900);
-    // Center dot pops in last
-    setTimeout(function(){
-      if(center){ center.style.transition='r .6s ease, opacity .6s ease'; center.setAttribute('r','8'); center.style.opacity='1'; }
-    }, 1500);
-  }
-  setTimeout(animateIn, 250);
-
-  // Gentle idle "breathing" pulse on the glow after the entrance
-  var up = true;
-  setTimeout(function(){
+  // Gentle idle "breathing" pulse on the glow (starts after the entrance)
+  var idleStarted = false;
+  function startIdle(){
+    if(idleStarted) return; idleStarted = true;
+    var up = true;
     setInterval(function(){
       if(!glow) return;
       glow.style.transition='r 2.6s ease-in-out, opacity 2.6s ease-in-out';
@@ -154,7 +139,38 @@
       glow.style.opacity = up ? '0.95' : '0.78';
       up = !up;
     }, 2600);
-  }, 2400);
+  }
+
+  // Entrance — three lines draw in, glow forms, center pops. Runs once.
+  var played = false;
+  function animateIn(){
+    if(played) return; played = true;
+    paths.forEach(function(p,i){
+      var delay = 0.1 + i*0.28;
+      p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) '+delay+'s';
+      p.style.strokeDashoffset = '0';
+    });
+    setTimeout(function(){
+      if(glow){ glow.style.transition='r 1.4s ease, opacity 1.4s ease'; glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
+    }, 700);
+    setTimeout(function(){
+      if(center){ center.style.transition='r .6s ease, opacity .6s ease'; center.setAttribute('r','8'); center.style.opacity='1'; }
+    }, 1300);
+    setTimeout(startIdle, 2200);
+  }
+
+  // Trigger when the section scrolls into view (like the v3.3 site).
+  // If it's already on-screen on load, IntersectionObserver fires right away.
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      for(var i=0;i<entries.length;i++){
+        if(entries[i].isIntersecting){ animateIn(); io.disconnect(); break; }
+      }
+    }, { threshold: 0.25 });
+    io.observe(root);
+  } else {
+    setTimeout(animateIn, 250); // fallback for old browsers
+  }
 })();
 </script>
 
@@ -164,8 +180,8 @@
      CX NEXUS — "Why is this so hard?" convergence animation
      Standalone embed for LearnWorlds custom-code / HTML element.
      Self-contained: no Tailwind, own font, own dark background + grid.
-     Self-playing on load (the site version is scroll-driven; this one
-     auto-animates so it works anywhere, with no scrolling required).
+     Plays once when the section scrolls into view (IntersectionObserver),
+     matching the site behaviour. Falls back to play-on-load if needed.
      Paste this WHOLE block into one LearnWorlds "Code / HTML" element.
 ============================================================ --&gt;
 
@@ -259,8 +275,9 @@
   var glow   = g.querySelector('.cxc-glow');
   var center = g.querySelector('.cxc-center');
 
-  // Respect reduced-motion — show the finished state immediately
   var reduce = window.matchMedia &amp;&amp; window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reduced motion — show the finished state, no animation
   if(reduce){
     paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
     if(glow){ glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
@@ -271,27 +288,11 @@
   // Initial undrawn state
   paths.forEach(function(p){ p.style.strokeDasharray='1'; p.style.strokeDashoffset='1'; });
 
-  function animateIn(){
-    // Three lines draw in left-&gt;right, staggered
-    paths.forEach(function(p,i){
-      var delay = 0.2 + i*0.28;
-      p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) '+delay+'s';
-      p.style.strokeDashoffset = '0';
-    });
-    // Glow forms as lines reach the convergence point
-    setTimeout(function(){
-      if(glow){ glow.style.transition='r 1.4s ease, opacity 1.4s ease'; glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
-    }, 900);
-    // Center dot pops in last
-    setTimeout(function(){
-      if(center){ center.style.transition='r .6s ease, opacity .6s ease'; center.setAttribute('r','8'); center.style.opacity='1'; }
-    }, 1500);
-  }
-  setTimeout(animateIn, 250);
-
-  // Gentle idle "breathing" pulse on the glow after the entrance
-  var up = true;
-  setTimeout(function(){
+  // Gentle idle "breathing" pulse on the glow (starts after the entrance)
+  var idleStarted = false;
+  function startIdle(){
+    if(idleStarted) return; idleStarted = true;
+    var up = true;
     setInterval(function(){
       if(!glow) return;
       glow.style.transition='r 2.6s ease-in-out, opacity 2.6s ease-in-out';
@@ -299,7 +300,38 @@
       glow.style.opacity = up ? '0.95' : '0.78';
       up = !up;
     }, 2600);
-  }, 2400);
+  }
+
+  // Entrance — three lines draw in, glow forms, center pops. Runs once.
+  var played = false;
+  function animateIn(){
+    if(played) return; played = true;
+    paths.forEach(function(p,i){
+      var delay = 0.1 + i*0.28;
+      p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) '+delay+'s';
+      p.style.strokeDashoffset = '0';
+    });
+    setTimeout(function(){
+      if(glow){ glow.style.transition='r 1.4s ease, opacity 1.4s ease'; glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
+    }, 700);
+    setTimeout(function(){
+      if(center){ center.style.transition='r .6s ease, opacity .6s ease'; center.setAttribute('r','8'); center.style.opacity='1'; }
+    }, 1300);
+    setTimeout(startIdle, 2200);
+  }
+
+  // Trigger when the section scrolls into view (like the v3.3 site).
+  // If it's already on-screen on load, IntersectionObserver fires right away.
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      for(var i=0;i&lt;entries.length;i++){
+        if(entries[i].isIntersecting){ animateIn(); io.disconnect(); break; }
+      }
+    }, { threshold: 0.25 });
+    io.observe(root);
+  } else {
+    setTimeout(animateIn, 250); // fallback for old browsers
+  }
 })();
 &lt;/script&gt;</textarea>
 </div>
