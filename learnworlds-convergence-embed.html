@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CX NEXUS — "Why is this so hard?" Convergence Animation</title>
+<style>
+  html,body{background:#08080b;margin:0;padding:0;font-family:'Heebo',-apple-system,Segoe UI,Roboto,sans-serif;}
+  .lw-copywrap{position:relative;max-width:900px;margin:32px auto 56px;padding:0 20px;box-sizing:border-box;}
+  .lw-copybtn{position:absolute;top:12px;right:32px;background:#0000FF;color:#fff;border:0;border-radius:6px;padding:9px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s;z-index:2;}
+  .lw-copybtn:hover{background:#FF5BAE;}
+  .lw-copybtn.copied{background:#8DF4BA;color:#000;}
+  .lw-code{width:100%;height:380px;background:#0c0c10;color:#d6d6dc;border:1px solid #2a2a32;border-radius:8px;padding:16px;font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:12.5px;line-height:1.5;white-space:pre;overflow:auto;box-sizing:border-box;resize:vertical;tab-size:2;}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CX NEXUS — "Why is this so hard?" convergence animation
+     Standalone embed for LearnWorlds custom-code / HTML element.
+     Self-contained: no Tailwind, own font, own dark background + grid.
+     Self-playing on load (the site version is scroll-driven; this one
+     auto-animates so it works anywhere, with no scrolling required).
+     Paste this WHOLE block into one LearnWorlds "Code / HTML" element.
+============================================================ -->
+
+<!-- Font (safe to remove if Heebo is already loaded site-wide) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  /* Scoped wrapper — replaces the Tailwind classes from the original page */
+  #cxnexus-converge{
+    /* Dark backdrop the animation is designed for.
+       If your LearnWorlds section is ALREADY dark, set this to transparent. */
+    background:#000;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 24px;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+  /* Signature faint grid (matches the site background) */
+  #cxnexus-converge::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size:16.6666% 88px;
+    pointer-events:none;
+    z-index:1;
+  }
+  #cxnexus-converge .cxc-graphic{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:520px;
+    aspect-ratio:1 / 1;
+    margin:0 auto;
+    filter:drop-shadow(0 0 60px rgba(189,0,255,0.35));
+  }
+  #cxnexus-converge .cxc-graphic svg{ width:100%; height:100%; display:block; }
+  /* Paths start "undrawn" (pathLength=1 normalizes dash math to 0..1) */
+  #cxnexus-converge .cxc-path{ stroke-dasharray:1; stroke-dashoffset:1; }
+  #cxnexus-converge .cxc-glow,
+  #cxnexus-converge .cxc-center{ opacity:0; }
+</style>
+
+<div id="cxnexus-converge">
+  <div class="cxc-graphic">
+    <svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="cxc-blue" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#0000FF"/><stop offset="100%" stop-color="#BD00FF"/>
+        </linearGradient>
+        <linearGradient id="cxc-pink" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#FF5BAE"/><stop offset="100%" stop-color="#FF00FF"/>
+        </linearGradient>
+        <linearGradient id="cxc-yellow" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#FFE500"/><stop offset="100%" stop-color="#FF5BAE"/>
+        </linearGradient>
+        <radialGradient id="cxc-glow" cx="60%" cy="50%" r="30%">
+          <stop offset="0%" stop-color="#fff" stop-opacity="0.95"/>
+          <stop offset="60%" stop-color="#FF00FF" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#FF00FF" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Three converging strokes -->
+      <g stroke-width="4" stroke-linecap="round" fill="none">
+        <path class="cxc-path" pathLength="1" d="M40,90 C 200,140 240,260 370,300 C 470,330 520,310 560,280" stroke="url(#cxc-blue)"/>
+        <path class="cxc-path" pathLength="1" d="M40,300 C 200,320 260,310 380,300 C 470,295 520,300 560,300" stroke="url(#cxc-pink)"/>
+        <path class="cxc-path" pathLength="1" d="M40,510 C 200,460 240,340 370,300 C 470,270 520,290 560,320" stroke="url(#cxc-yellow)"/>
+      </g>
+
+      <!-- Convergence glow + center dot -->
+      <circle class="cxc-glow" cx="380" cy="300" r="110" fill="url(#cxc-glow)"/>
+      <circle class="cxc-center" cx="380" cy="300" r="8" fill="#fff"/>
+    </svg>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('cxnexus-converge');
+  if(!root) return;
+  var g = root.querySelector('.cxc-graphic');
+  if(!g) return;
+  var paths  = g.querySelectorAll('.cxc-path');
+  var glow   = g.querySelector('.cxc-glow');
+  var center = g.querySelector('.cxc-center');
+
+  // Respect reduced-motion — show the finished state immediately
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    if(glow){ glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
+    if(center){ center.setAttribute('r','8'); center.style.opacity='1'; }
+    return;
+  }
+
+  // Initial undrawn state
+  paths.forEach(function(p){ p.style.strokeDasharray='1'; p.style.strokeDashoffset='1'; });
+
+  function animateIn(){
+    // Three lines draw in left->right, staggered
+    paths.forEach(function(p,i){
+      var delay = 0.2 + i*0.28;
+      p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) '+delay+'s';
+      p.style.strokeDashoffset = '0';
+    });
+    // Glow forms as lines reach the convergence point
+    setTimeout(function(){
+      if(glow){ glow.style.transition='r 1.4s ease, opacity 1.4s ease'; glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
+    }, 900);
+    // Center dot pops in last
+    setTimeout(function(){
+      if(center){ center.style.transition='r .6s ease, opacity .6s ease'; center.setAttribute('r','8'); center.style.opacity='1'; }
+    }, 1500);
+  }
+  setTimeout(animateIn, 250);
+
+  // Gentle idle "breathing" pulse on the glow after the entrance
+  var up = true;
+  setTimeout(function(){
+    setInterval(function(){
+      if(!glow) return;
+      glow.style.transition='r 2.6s ease-in-out, opacity 2.6s ease-in-out';
+      glow.setAttribute('r', up ? '122' : '104');
+      glow.style.opacity = up ? '0.95' : '0.78';
+      up = !up;
+    }, 2600);
+  }, 2400);
+})();
+</script>
+
+<div class="lw-copywrap">
+  <button class="lw-copybtn" id="lwCopyBtn" type="button">Copy code</button>
+  <textarea class="lw-code" id="lwCode" readonly spellcheck="false" wrap="off">&lt;!-- ============================================================
+     CX NEXUS — "Why is this so hard?" convergence animation
+     Standalone embed for LearnWorlds custom-code / HTML element.
+     Self-contained: no Tailwind, own font, own dark background + grid.
+     Self-playing on load (the site version is scroll-driven; this one
+     auto-animates so it works anywhere, with no scrolling required).
+     Paste this WHOLE block into one LearnWorlds "Code / HTML" element.
+============================================================ --&gt;
+
+&lt;!-- Font (safe to remove if Heebo is already loaded site-wide) --&gt;
+&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&amp;display=swap" rel="stylesheet"&gt;
+
+&lt;style&gt;
+  /* Scoped wrapper — replaces the Tailwind classes from the original page */
+  #cxnexus-converge{
+    /* Dark backdrop the animation is designed for.
+       If your LearnWorlds section is ALREADY dark, set this to transparent. */
+    background:#000;
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:48px 24px;
+    box-sizing:border-box;
+    overflow:hidden;
+  }
+  /* Signature faint grid (matches the site background) */
+  #cxnexus-converge::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.08) 1px, transparent 1px);
+    background-size:16.6666% 88px;
+    pointer-events:none;
+    z-index:1;
+  }
+  #cxnexus-converge .cxc-graphic{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:520px;
+    aspect-ratio:1 / 1;
+    margin:0 auto;
+    filter:drop-shadow(0 0 60px rgba(189,0,255,0.35));
+  }
+  #cxnexus-converge .cxc-graphic svg{ width:100%; height:100%; display:block; }
+  /* Paths start "undrawn" (pathLength=1 normalizes dash math to 0..1) */
+  #cxnexus-converge .cxc-path{ stroke-dasharray:1; stroke-dashoffset:1; }
+  #cxnexus-converge .cxc-glow,
+  #cxnexus-converge .cxc-center{ opacity:0; }
+&lt;/style&gt;
+
+&lt;div id="cxnexus-converge"&gt;
+  &lt;div class="cxc-graphic"&gt;
+    &lt;svg viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg"&gt;
+      &lt;defs&gt;
+        &lt;linearGradient id="cxc-blue" x1="0" x2="1" y1="0" y2="1"&gt;
+          &lt;stop offset="0%" stop-color="#0000FF"/&gt;&lt;stop offset="100%" stop-color="#BD00FF"/&gt;
+        &lt;/linearGradient&gt;
+        &lt;linearGradient id="cxc-pink" x1="0" x2="1" y1="0" y2="1"&gt;
+          &lt;stop offset="0%" stop-color="#FF5BAE"/&gt;&lt;stop offset="100%" stop-color="#FF00FF"/&gt;
+        &lt;/linearGradient&gt;
+        &lt;linearGradient id="cxc-yellow" x1="0" x2="1" y1="0" y2="1"&gt;
+          &lt;stop offset="0%" stop-color="#FFE500"/&gt;&lt;stop offset="100%" stop-color="#FF5BAE"/&gt;
+        &lt;/linearGradient&gt;
+        &lt;radialGradient id="cxc-glow" cx="60%" cy="50%" r="30%"&gt;
+          &lt;stop offset="0%" stop-color="#fff" stop-opacity="0.95"/&gt;
+          &lt;stop offset="60%" stop-color="#FF00FF" stop-opacity="0.4"/&gt;
+          &lt;stop offset="100%" stop-color="#FF00FF" stop-opacity="0"/&gt;
+        &lt;/radialGradient&gt;
+      &lt;/defs&gt;
+
+      &lt;!-- Three converging strokes --&gt;
+      &lt;g stroke-width="4" stroke-linecap="round" fill="none"&gt;
+        &lt;path class="cxc-path" pathLength="1" d="M40,90 C 200,140 240,260 370,300 C 470,330 520,310 560,280" stroke="url(#cxc-blue)"/&gt;
+        &lt;path class="cxc-path" pathLength="1" d="M40,300 C 200,320 260,310 380,300 C 470,295 520,300 560,300" stroke="url(#cxc-pink)"/&gt;
+        &lt;path class="cxc-path" pathLength="1" d="M40,510 C 200,460 240,340 370,300 C 470,270 520,290 560,320" stroke="url(#cxc-yellow)"/&gt;
+      &lt;/g&gt;
+
+      &lt;!-- Convergence glow + center dot --&gt;
+      &lt;circle class="cxc-glow" cx="380" cy="300" r="110" fill="url(#cxc-glow)"/&gt;
+      &lt;circle class="cxc-center" cx="380" cy="300" r="8" fill="#fff"/&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+(function(){
+  var root = document.getElementById('cxnexus-converge');
+  if(!root) return;
+  var g = root.querySelector('.cxc-graphic');
+  if(!g) return;
+  var paths  = g.querySelectorAll('.cxc-path');
+  var glow   = g.querySelector('.cxc-glow');
+  var center = g.querySelector('.cxc-center');
+
+  // Respect reduced-motion — show the finished state immediately
+  var reduce = window.matchMedia &amp;&amp; window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){
+    paths.forEach(function(p){ p.style.strokeDashoffset='0'; });
+    if(glow){ glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
+    if(center){ center.setAttribute('r','8'); center.style.opacity='1'; }
+    return;
+  }
+
+  // Initial undrawn state
+  paths.forEach(function(p){ p.style.strokeDasharray='1'; p.style.strokeDashoffset='1'; });
+
+  function animateIn(){
+    // Three lines draw in left-&gt;right, staggered
+    paths.forEach(function(p,i){
+      var delay = 0.2 + i*0.28;
+      p.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) '+delay+'s';
+      p.style.strokeDashoffset = '0';
+    });
+    // Glow forms as lines reach the convergence point
+    setTimeout(function(){
+      if(glow){ glow.style.transition='r 1.4s ease, opacity 1.4s ease'; glow.setAttribute('r','110'); glow.style.opacity='0.9'; }
+    }, 900);
+    // Center dot pops in last
+    setTimeout(function(){
+      if(center){ center.style.transition='r .6s ease, opacity .6s ease'; center.setAttribute('r','8'); center.style.opacity='1'; }
+    }, 1500);
+  }
+  setTimeout(animateIn, 250);
+
+  // Gentle idle "breathing" pulse on the glow after the entrance
+  var up = true;
+  setTimeout(function(){
+    setInterval(function(){
+      if(!glow) return;
+      glow.style.transition='r 2.6s ease-in-out, opacity 2.6s ease-in-out';
+      glow.setAttribute('r', up ? '122' : '104');
+      glow.style.opacity = up ? '0.95' : '0.78';
+      up = !up;
+    }, 2600);
+  }, 2400);
+})();
+&lt;/script&gt;</textarea>
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('lwCopyBtn');
+  var box = document.getElementById('lwCode');
+  if(!btn || !box) return;
+  function ok(){
+    btn.textContent = 'Copied \u2713';
+    btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent = 'Copy code'; btn.classList.remove('copied'); }, 2000);
+  }
+  btn.addEventListener('click', function(){
+    box.focus(); box.select();
+    try{ box.setSelectionRange(0, box.value.length); }catch(e){}
+    var legacy = false;
+    try{ legacy = document.execCommand('copy'); }catch(e){}
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(box.value).then(ok, function(){ if(legacy) ok(); });
+    } else if(legacy){ ok(); }
+  });
+})();
+</script>
+
+</body>
+</html>
