@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CX NEXUS — "Why is this so hard?" Convergence Animation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   html,body{background:#08080b;margin:0;padding:0;font-family:'Heebo',-apple-system,Segoe UI,Roboto,sans-serif;}
   .lw-copywrap{position:relative;max-width:900px;margin:32px auto 56px;padding:0 20px;box-sizing:border-box;}
@@ -18,16 +21,25 @@
 <!-- ============================================================
      CX NEXUS — "Why is this so hard?" convergence animation
      Standalone embed for LearnWorlds custom-code / HTML element.
-     Self-contained: no Tailwind, own font, own dark background + grid.
+     Self-contained: no Tailwind, own dark background + grid.
      Plays once when the section scrolls into view (IntersectionObserver),
      matching the site behaviour. Falls back to play-on-load if needed.
      Paste this WHOLE block into one LearnWorlds "Code / HTML" element.
 ============================================================ -->
 
-<!-- Font (safe to remove if Heebo is already loaded site-wide) -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- ============================================================
+     FONT — intentionally NOT loaded here.
+     This block is meant to live on the SAME LearnWorlds page as the
+     CX NEXUS radar embed (learnworlds-radar-embed.html), which already
+     loads the Heebo font. This convergence animation has no text of its
+     own, so it needs no font at all — loading it again would just be a
+     duplicate request.
+     If you ever use THIS block on a page WITHOUT the radar embed and
+     want Heebo available to it, un-comment these three lines:
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&display=swap" rel="stylesheet">
+============================================================ -->
 
 <style>
   /* Scoped wrapper — replaces the Tailwind classes from the original page */
@@ -179,16 +191,25 @@
   <textarea class="lw-code" id="lwCode" readonly spellcheck="false" wrap="off">&lt;!-- ============================================================
      CX NEXUS — "Why is this so hard?" convergence animation
      Standalone embed for LearnWorlds custom-code / HTML element.
-     Self-contained: no Tailwind, own font, own dark background + grid.
+     Self-contained: no Tailwind, own dark background + grid.
      Plays once when the section scrolls into view (IntersectionObserver),
      matching the site behaviour. Falls back to play-on-load if needed.
      Paste this WHOLE block into one LearnWorlds "Code / HTML" element.
 ============================================================ --&gt;
 
-&lt;!-- Font (safe to remove if Heebo is already loaded site-wide) --&gt;
-&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
-&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
-&lt;link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&amp;display=swap" rel="stylesheet"&gt;
+&lt;!-- ============================================================
+     FONT — intentionally NOT loaded here.
+     This block is meant to live on the SAME LearnWorlds page as the
+     CX NEXUS radar embed (learnworlds-radar-embed.html), which already
+     loads the Heebo font. This convergence animation has no text of its
+     own, so it needs no font at all — loading it again would just be a
+     duplicate request.
+     If you ever use THIS block on a page WITHOUT the radar embed and
+     want Heebo available to it, un-comment these three lines:
+       &lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;
+       &lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;
+       &lt;link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&amp;display=swap" rel="stylesheet"&gt;
+============================================================ --&gt;
 
 &lt;style&gt;
   /* Scoped wrapper — replaces the Tailwind classes from the original page */
